@@ -37,12 +37,133 @@
 
     a { transition: color 0.2s; text-decoration: none; }
     img { vertical-align: middle; }
+
+    /* ── NAV ─────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.9rem 3rem;
+      background: rgba(13,27,61,0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(201,154,42,0.2);
+    }
+    .nav-logo img { height: 40px; object-fit: contain; }
+    .nav-right { display: flex; align-items: center; gap: 1.2rem; }
+    .nav-phone {
+      display: flex; align-items: center; gap: 0.45rem;
+      color: rgba(255,255,255,0.7); font-size: 0.82rem; font-weight: 700;
+    }
+    .nav-phone:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold); color: var(--ink);
+      font-family: 'Sen', sans-serif; font-weight: 800; font-size: 0.8rem;
+      letter-spacing: 0.05em; padding: 0.6rem 1.4rem; border-radius: 50px;
+      border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(201,154,42,0.35);
+    }
+    .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    /* ── HERO ────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 9rem 2rem 6rem;
+      background: var(--navy);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 50% 38%, rgba(201,154,42,0.12) 0%, transparent 68%),
+        radial-gradient(ellipse 40% 30% at 15% 80%, rgba(201,154,42,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025; pointer-events: none;
+    }
+    .hero-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.28em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1.1rem;
+      position: relative; opacity: 0; animation: up 0.6s ease forwards 0.2s;
+    }
+    .hero-label::before, .hero-label::after { content: '—'; margin: 0 0.5rem; opacity: 0.4; }
+    .hero h1 {
+      font-size: clamp(4rem, 12vw, 9rem); font-weight: 800;
+      letter-spacing: -0.01em; color: #fff; line-height: 0.95;
+      margin-bottom: 1.6rem; position: relative;
+      opacity: 0; animation: up 0.75s ease forwards 0.38s;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero-sub {
+      max-width: 580px; font-size: 1.02rem; font-weight: 400;
+      line-height: 1.78; color: rgba(255,255,255,0.55);
+      margin-bottom: 0.7rem; position: relative;
+      opacity: 0; animation: up 0.75s ease forwards 0.55s;
+    }
+    .hero-trust {
+      font-size: 0.9rem; font-weight: 700; color: rgba(255,255,255,0.85);
+      margin-bottom: 2.6rem; position: relative;
+      opacity: 0; animation: up 0.7s ease forwards 0.72s;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 1rem 2.4rem; background: var(--gold); color: var(--ink);
+      font-family: 'Sen', sans-serif; font-size: 0.88rem; font-weight: 800;
+      letter-spacing: 0.04em; border-radius: 50px; border: none; cursor: pointer;
+      transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+      box-shadow: 0 6px 28px rgba(201,154,42,0.4);
+      position: relative; opacity: 0; animation: up 0.7s ease forwards 0.9s;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 12px 36px rgba(201,154,42,0.5); }
+    .hero-stats {
+      display: flex; gap: 3.5rem; justify-content: center; flex-wrap: wrap;
+      margin-top: 3.5rem; padding-top: 2.5rem;
+      border-top: 1px solid rgba(201,154,42,0.18);
+      position: relative; opacity: 0; animation: up 0.7s ease forwards 1.1s;
+    }
+    .stat-n { font-size: 2rem; font-weight: 800; color: var(--gold); line-height: 1; }
+    .stat-l { font-size: 0.7rem; color: rgba(255,255,255,0.45); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem; }
+    @keyframes up { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body>
 
-  <!-- NAV placeholder -->
-  <!-- HERO placeholder -->
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="assets/images/logo/logo-3d.webp" alt="Rabtora Madhyam Management"
+        onerror="this.outerHTML='<span style=\'font-family:Sen,sans-serif;color:#c99a2a;font-weight:800;font-size:1.3rem;letter-spacing:0.08em;\'>RABTORA</span>'" />
+    </a>
+    <div class="nav-right">
+      <a href="tel:+97155471132" class="nav-phone">📞 +971 55 471 1132</a>
+      <a href="#consultation" class="nav-cta">Book Free Consultation</a>
+    </div>
+  </nav>
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-label">UAE's Premier Brand Visibility Partner</p>
+    <h1>Own the<br><span>Attention</span></h1>
+    <p class="hero-sub">
+      From luxury events to city-wide outdoor campaigns, Rabtora creates
+      visibility across screens, streets, venues, and experiences.
+    </p>
+    <p class="hero-trust">Trusted by brands that want visibility beyond digital.</p>
+    <a href="#consultation" class="btn-primary">Book Free Consultation &nbsp;→</a>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-n">200+</div><div class="stat-l">Brands Served</div></div>
+      <div class="stat"><div class="stat-n">10+</div><div class="stat-l">Years in UAE</div></div>
+      <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Projects Done</div></div>
+      <div class="stat"><div class="stat-n">UAE</div><div class="stat-l">Wide Coverage</div></div>
+    </div>
+  </section>
   <!-- SPLIT 1 placeholder -->
   <!-- BRIDGE placeholder -->
   <!-- SPLIT 2 placeholder -->
