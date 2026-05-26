@@ -132,6 +132,86 @@
     .stat-n { font-size: 2rem; font-weight: 800; color: var(--gold); line-height: 1; }
     .stat-l { font-size: 0.7rem; color: rgba(255,255,255,0.45); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem; }
     @keyframes up { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── SPLIT PANELS ────────────────────────────── */
+    .split { display: grid; grid-template-columns: 1fr 1fr; }
+    .panel {
+      background: var(--gold);
+      padding: 4rem 3.5rem;
+      display: flex; flex-direction: column; justify-content: space-between;
+      gap: 2rem; position: relative; overflow: hidden;
+    }
+    .panel + .panel { border-left: 1px solid rgba(0,0,0,0.1); }
+    .panel::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -45deg, transparent, transparent 24px,
+        rgba(0,0,0,0.022) 24px, rgba(0,0,0,0.022) 25px
+      );
+      pointer-events: none;
+    }
+    .panel-inner { position: relative; z-index: 1; }
+    .panel h2 {
+      font-size: clamp(1.8rem, 3.2vw, 2.8rem); font-weight: 800;
+      letter-spacing: -0.01em; color: var(--ink); line-height: 1.08;
+      margin-bottom: 1.1rem;
+    }
+    .panel p { font-size: 0.94rem; font-weight: 400; line-height: 1.75; color: rgba(10,16,32,0.72); }
+    .svc-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem 1rem;
+      position: relative; z-index: 1;
+    }
+    .svc-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.83rem; font-weight: 700; color: var(--ink); }
+    .svc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--navy); flex-shrink: 0; opacity: 0.6; }
+    .panel-action { position: relative; z-index: 1; }
+    .btn-panel {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.8rem 1.8rem; background: var(--navy); color: #fff;
+      font-family: 'Sen', sans-serif; font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 0.04em; border-radius: 50px; border: none; cursor: pointer;
+      transition: background 0.22s, transform 0.22s; white-space: nowrap;
+    }
+    .btn-panel:hover { background: var(--navy-2); transform: translateY(-2px); }
+
+    /* ── BRIDGE ──────────────────────────────────── */
+    .bridge {
+      background: var(--navy-2); padding: 6rem 2rem;
+      text-align: center; position: relative; overflow: hidden;
+      border-top: 1px solid rgba(201,154,42,0.12);
+      border-bottom: 1px solid rgba(201,154,42,0.12);
+    }
+    .bridge::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 55% 70% at 50% 50%, rgba(201,154,42,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .bridge h2 {
+      font-size: clamp(2.2rem, 5.5vw, 4.8rem); font-weight: 800;
+      letter-spacing: -0.01em; color: #fff; line-height: 1.04;
+      max-width: 820px; margin: 0 auto 1.2rem; position: relative;
+    }
+    .bridge h2 span { color: var(--gold); }
+    .bridge p {
+      max-width: 500px; margin: 0 auto 2.6rem;
+      font-size: 0.97rem; font-weight: 400; line-height: 1.75;
+      color: rgba(255,255,255,0.55); position: relative;
+    }
+    .bridge-btns { display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; position: relative; }
+    .btn-gold-outline {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.82rem 1.9rem; background: transparent; color: var(--gold);
+      font-family: 'Sen', sans-serif; font-size: 0.85rem; font-weight: 700;
+      letter-spacing: 0.04em; border-radius: 50px;
+      border: 1.5px solid rgba(201,154,42,0.45); cursor: pointer;
+      transition: border-color 0.22s, background 0.22s, transform 0.22s; white-space: nowrap;
+    }
+    .btn-gold-outline:hover { border-color: var(--gold); background: rgba(201,154,42,0.08); transform: translateY(-2px); }
+
+    /* ── SCROLL REVEAL ───────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
@@ -164,9 +244,75 @@
       <div class="stat"><div class="stat-n">UAE</div><div class="stat-l">Wide Coverage</div></div>
     </div>
   </section>
-  <!-- SPLIT 1 placeholder -->
-  <!-- BRIDGE placeholder -->
-  <!-- SPLIT 2 placeholder -->
+  <!-- SPLIT 1: Outdoor + Branding -->
+  <div class="split">
+
+    <div class="panel reveal">
+      <div class="panel-inner">
+        <h2>Turn Every Road Into Brand Space</h2>
+        <p>Premium outdoor visibility through billboards, hoardings, transit branding,
+           LED screens, and high-traffic media placements across the UAE.</p>
+      </div>
+      <div class="panel-action">
+        <a href="#consultation" class="btn-panel">Get Outdoor Quote &nbsp;→</a>
+      </div>
+    </div>
+
+    <div class="panel reveal" style="transition-delay:0.12s">
+      <div class="panel-inner">
+        <h2>Branding That Leaves a Mark</h2>
+        <div class="svc-grid">
+          <div class="svc-item"><div class="svc-dot"></div>Brand Identity</div>
+          <div class="svc-item"><div class="svc-dot"></div>Print Collateral</div>
+          <div class="svc-item"><div class="svc-dot"></div>Packaging Design</div>
+          <div class="svc-item"><div class="svc-dot"></div>Visual Materials</div>
+          <div class="svc-item"><div class="svc-dot"></div>Business Cards</div>
+          <div class="panel-action" style="display:flex;align-items:center;">
+            <a href="#consultation" class="btn-panel" style="font-size:0.78rem;padding:0.65rem 1.2rem;">Start Branding →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- BRIDGE -->
+  <section class="bridge">
+    <h2 class="reveal">Built for Brands That Want<br><span>More Than Reach</span></h2>
+    <p class="reveal" style="transition-delay:0.14s">
+      Rabtora combines outdoor media, electronic advertising, strategic signage,
+      and brand design to help you dominate attention across the UAE.
+    </p>
+    <div class="bridge-btns reveal" style="transition-delay:0.28s">
+      <a href="#consultation" class="btn-primary" style="opacity:1;animation:none;box-shadow:0 6px 28px rgba(201,154,42,0.4);">Book Free Consultation &nbsp;→</a>
+      <a href="tel:+97155471132" class="btn-gold-outline">📞 Call Us Now</a>
+    </div>
+  </section>
+  <!-- SPLIT 2: Electronic Media + Sign Boards -->
+  <div class="split">
+
+    <div class="panel reveal">
+      <div class="panel-inner">
+        <h2>Reach Millions on Screen</h2>
+        <p>TV commercials, radio spots, digital display advertising, and broadcast
+           media placements that put your brand in front of the right audience, at scale.</p>
+      </div>
+      <div class="panel-action">
+        <a href="#consultation" class="btn-panel">Explore Media Ads &nbsp;→</a>
+      </div>
+    </div>
+
+    <div class="panel reveal" style="transition-delay:0.12s">
+      <div class="panel-inner">
+        <h2>Signage That Commands Attention</h2>
+        <p>Custom sign boards, acrylic letters, illuminated fascia, and premium
+           storefront branding that makes your business unmissable on any street.</p>
+      </div>
+      <div class="panel-action">
+        <a href="#consultation" class="btn-panel">Get a Sign Quote &nbsp;→</a>
+      </div>
+    </div>
+
+  </div>
   <!-- FORM placeholder -->
   <!-- FOOTER placeholder -->
 
