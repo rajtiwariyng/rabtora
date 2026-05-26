@@ -6,13 +6,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $to      = "connecttocontink@gmail.com";
     $subject = "New Consultation Request — Rabtora Landing Page";
 
-    $fullName = $_POST['fullName'] ?? '';
-    $phone    = $_POST['phone']    ?? '';
-    $email    = $_POST['email']    ?? '';
-    $goal     = $_POST['goal']     ?? '';
-    $otherGoal= $_POST['otherGoal']?? '';
-    $company  = $_POST['company']  ?? '';
-    $message  = $_POST['message']  ?? '';
+    $fullName = trim($_POST['fullName'] ?? '');
+    $phone    = trim($_POST['phone']    ?? '');
+    $email    = trim($_POST['email']    ?? '');
+    $goal     = trim($_POST['goal']     ?? '');
+    $otherGoal = trim($_POST['otherGoal'] ?? '');
+    $company  = trim($_POST['company']  ?? '');
+    $message  = trim($_POST['message']  ?? '');
+
+    // Validate and sanitise email to prevent header injection
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Invalid email address.";
+        exit;
+    }
+    $email = preg_replace('/[\r\n]/', '', $email);
 
     if ($goal === "Other" && !empty($otherGoal)) {
         $goal .= " — " . $otherGoal;
