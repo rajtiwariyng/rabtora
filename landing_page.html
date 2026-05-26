@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rabtora — Own the Attention</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --coral:      #E85C5C;
+      --coral-dark: #D44E4E;
+      --charcoal:   #3A3A3A;
+      --charcoal-2: #2C2C2C;
+      --violet:     #5E38B5;
+      --violet-h:   #4D2D9E;
+      --cream:      #F4EDE4;
+      --ink:        #1A1A1A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--charcoal);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ──────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 3rem;
+      background: rgba(42, 42, 42, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.9rem;
+      letter-spacing: 0.14em;
+      color: var(--cream);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--coral); }
+
+    .nav-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.62rem 1.5rem;
+      background: var(--violet);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 18px rgba(94,56,181,0.45);
+    }
+
+    .nav-btn:hover {
+      background: var(--violet-h);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(94,56,181,0.55);
+    }
+
+    /* ── HERO ─────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 9rem 2rem 6rem;
+      background: var(--charcoal);
+      position: relative; overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 50% 38%, rgba(94,56,181,0.28) 0%, transparent 68%),
+        radial-gradient(ellipse 40% 30% at 15% 80%, rgba(232,92,92,0.14) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* SVG noise grain overlay */
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+    }
+
+    .hero-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 1.1rem;
+      opacity: 0;
+      animation: up 0.6s ease forwards 0.2s;
+      position: relative;
+    }
+
+    .hero-label::before,
+    .hero-label::after {
+      content: '—';
+      margin: 0 0.5rem;
+      opacity: 0.5;
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4.5rem, 13vw, 10rem);
+      letter-spacing: 0.04em;
+      color: var(--cream);
+      line-height: 0.92;
+      margin-bottom: 1.6rem;
+      position: relative;
+      opacity: 0;
+      animation: up 0.75s ease forwards 0.38s;
+    }
+
+    .hero-sub {
+      max-width: 580px;
+      font-size: 1.02rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(244,237,228,0.68);
+      margin-bottom: 0.7rem;
+      position: relative;
+      opacity: 0;
+      animation: up 0.75s ease forwards 0.55s;
+    }
+
+    .hero-trust {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 2.6rem;
+      position: relative;
+      opacity: 0;
+      animation: up 0.7s ease forwards 0.72s;
+    }
+
+    .btn-pill {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 1rem 2.4rem;
+      background: var(--violet);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+      box-shadow: 0 6px 28px rgba(94,56,181,0.5);
+      position: relative;
+      opacity: 0;
+      animation: up 0.7s ease forwards 0.9s;
+    }
+
+    .btn-pill:hover {
+      background: var(--violet-h);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(94,56,181,0.6);
+    }
+
+    .btn-pill-sm {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.82rem 1.9rem;
+      background: var(--violet);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.22s, transform 0.22s, box-shadow 0.22s;
+      box-shadow: 0 4px 20px rgba(94,56,181,0.42);
+      white-space: nowrap;
+    }
+
+    .btn-pill-sm:hover {
+      background: var(--violet-h);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(94,56,181,0.52);
+    }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.82rem 1.9rem;
+      background: transparent;
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      border-radius: 50px;
+      border: 1.5px solid rgba(244,237,228,0.32);
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.22s, background 0.22s, transform 0.22s;
+      white-space: nowrap;
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(244,237,228,0.7);
+      background: rgba(244,237,228,0.07);
+      transform: translateY(-2px);
+    }
+
+    /* ── SPLIT GRID ───────────────────────────── */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .panel {
+      background: var(--coral);
+      padding: 4rem 3.5rem;
+      display: flex; flex-direction: column; justify-content: space-between;
+      gap: 2rem;
+      position: relative; overflow: hidden;
+    }
+
+    .panel + .panel {
+      border-left: 1px solid rgba(0,0,0,0.12);
+    }
+
+    /* subtle diagonal texture on coral panels */
+    .panel::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 24px,
+        rgba(0,0,0,0.025) 24px,
+        rgba(0,0,0,0.025) 25px
+      );
+      pointer-events: none;
+    }
+
+    .panel-inner { position: relative; z-index: 1; }
+
+    .panel h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      line-height: 1.08;
+      margin-bottom: 1.1rem;
+    }
+
+    .panel p {
+      font-size: 0.94rem;
+      font-weight: 300;
+      line-height: 1.72;
+      color: rgba(26,26,26,0.78);
+    }
+
+    /* Events items grid */
+    .ev-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.9rem 1rem;
+      margin-bottom: 0;
+      position: relative; z-index: 1;
+    }
+
+    .ev-item {
+      display: flex; align-items: center; gap: 0.55rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .ev-icon {
+      width: 34px; height: 34px;
+      border: 2px solid rgba(26,26,26,0.7);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      background: rgba(255,255,255,0.2);
+      transition: background 0.2s;
+    }
+
+    .ev-item:hover .ev-icon {
+      background: rgba(255,255,255,0.45);
+    }
+
+    .panel-action { position: relative; z-index: 1; }
+
+    /* ── BRIDGE ───────────────────────────────── */
+    .bridge {
+      background: var(--charcoal-2);
+      padding: 7rem 2rem;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+
+    .bridge::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 55% 70% at 50% 50%, rgba(232,92,92,0.11) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .bridge h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.6rem, 6vw, 5.2rem);
+      letter-spacing: 0.04em;
+      color: var(--cream);
+      line-height: 1.04;
+      max-width: 880px;
+      margin: 0 auto 1.3rem;
+      position: relative;
+    }
+
+    .bridge p {
+      max-width: 520px;
+      margin: 0 auto 2.8rem;
+      font-size: 0.97rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(244,237,228,0.6);
+      position: relative;
+    }
+
+    .bridge-btns {
+      display: flex; gap: 0.9rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    /* ── SCROLL REVEAL ────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* ── FOOTER ───────────────────────────────── */
+    footer {
+      background: #1e1e1e;
+      padding: 1.8rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.14em;
+      color: var(--cream);
+    }
+
+    .footer-logo span { color: var(--coral); }
+
+    .footer-copy {
+      font-size: 0.76rem;
+      font-weight: 300;
+      color: rgba(244,237,228,0.35);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── KEYFRAMES ────────────────────────────── */
+    @keyframes up {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ───────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.6rem; }
+
+      .split { grid-template-columns: 1fr; }
+
+      .panel + .panel { border-left: none; border-top: 1px solid rgba(0,0,0,0.12); }
+
+      .ev-grid { grid-template-columns: 1fr 1fr; }
+
+      footer { flex-direction: column; gap: 0.6rem; text-align: center; }
+    }
+
+    @media (max-width: 520px) {
+      .panel { padding: 3rem 1.8rem; }
+      .ev-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">RAB<span>T</span>ORA</a>
+    <button class="nav-btn">Book Free Consultation</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-label">UAE's Premier Brand Visibility Partner</p>
+    <h1>Own the<br>Attention</h1>
+    <p class="hero-sub">
+      From luxury events to city-wide outdoor campaigns, Rabtora creates
+      visibility across screens, streets, venues, and experiences.
+    </p>
+    <p class="hero-trust">Trusted by brands that want visibility beyond digital.</p>
+    <a href="#" class="btn-pill">Book Free Consultation &nbsp;→</a>
+  </section>
+
+  <!-- SPLIT 1: Outdoor Media + Events -->
+  <div class="split">
+
+    <!-- Outdoor Media -->
+    <div class="panel reveal">
+      <div class="panel-inner">
+        <h2>Turn Every Road Into Brand Space</h2>
+        <p>
+          Premium outdoor visibility through billboards, hoardings, transit branding,
+          LED screens, and high-traffic media placements across the UAE.
+        </p>
+      </div>
+      <div class="panel-action">
+        <a href="#" class="btn-pill-sm">Explore Outdoor Media &nbsp;→</a>
+      </div>
+    </div>
+
+    <!-- Events -->
+    <div class="panel reveal" style="transition-delay:0.14s">
+      <div class="panel-inner">
+        <h2>Events That Command Attention</h2>
+        <div class="ev-grid">
+          <div class="ev-item">
+            <div class="ev-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+                <polygon points="12,12 13.5,15.5 17,15.5 14.5,17.5 15.5,21 12,19 8.5,21 9.5,17.5 7,15.5 10.5,15.5" stroke="none" fill="currentColor" transform="scale(0.6) translate(8,8)"/>
+              </svg>
+            </div>
+            Corporate Events
+          </div>
+          <div class="ev-item">
+            <div class="ev-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+                <polygon points="12,12 13.5,15.5 17,15.5 14.5,17.5 15.5,21 12,19 8.5,21 9.5,17.5 7,15.5 10.5,15.5" stroke="none" fill="currentColor" transform="scale(0.6) translate(8,8)"/>
+              </svg>
+            </div>
+            Venue Branding
+          </div>
+          <div class="ev-item">
+            <div class="ev-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+                <polygon points="12,12 13.5,15.5 17,15.5 14.5,17.5 15.5,21 12,19 8.5,21 9.5,17.5 7,15.5 10.5,15.5" stroke="none" fill="currentColor" transform="scale(0.6) translate(8,8)"/>
+              </svg>
+            </div>
+            End-to-End Execution
+          </div>
+          <div class="ev-item">
+            <div class="ev-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+                <polygon points="12,12 13.5,15.5 17,15.5 14.5,17.5 15.5,21 12,19 8.5,21 9.5,17.5 7,15.5 10.5,15.5" stroke="none" fill="currentColor" transform="scale(0.6) translate(8,8)"/>
+              </svg>
+            </div>
+            Exhibition Management
+          </div>
+          <div class="ev-item">
+            <div class="ev-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+                <polygon points="12,12 13.5,15.5 17,15.5 14.5,17.5 15.5,21 12,19 8.5,21 9.5,17.5 7,15.5 10.5,15.5" stroke="none" fill="currentColor" transform="scale(0.6) translate(8,8)"/>
+              </svg>
+            </div>
+            Product Launches
+          </div>
+          <div class="panel-action" style="display:flex;align-items:center;">
+            <a href="#" class="btn-pill-sm" style="font-size:0.78rem;padding:0.7rem 1.3rem;">Plan Your Event →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BRIDGE -->
+  <section class="bridge">
+    <h2 class="reveal">Built for Brands That Want More Than Reach</h2>
+    <p class="reveal" style="transition-delay:0.14s">
+      Rabtora combines outdoor media, event execution, and strategic visibility
+      to help brands dominate attention in the real world.
+    </p>
+    <div class="bridge-btns reveal" style="transition-delay:0.28s">
+      <a href="#" class="btn-pill-sm">Plan Your Event &nbsp;→</a>
+      <a href="#" class="btn-ghost">Let Your Brand Take Over the City</a>
+    </div>
+  </section>
+
+  <!-- SPLIT 2: Exhibition + Transit -->
+  <div class="split">
+
+    <!-- Exhibition -->
+    <div class="panel reveal">
+      <div class="panel-inner">
+        <h2>Exhibition Stands That Pull Crowds</h2>
+        <p>
+          Modern stand designs built for visibility, engagement, and premium brand
+          presentation at exhibitions and trade shows.
+        </p>
+      </div>
+      <div class="panel-action">
+        <a href="#" class="btn-pill-sm">Get A Quote &nbsp;→</a>
+      </div>
+    </div>
+
+    <!-- Transit -->
+    <div class="panel reveal" style="transition-delay:0.14s">
+      <div class="panel-inner">
+        <h2>Move Your Brand Across the City</h2>
+        <p>
+          From taxis and buses to digital LED placements, we create moving visibility
+          that keeps your brand in front of thousands daily.
+        </p>
+      </div>
+      <div class="panel-action">
+        <a href="#" class="btn-pill-sm">Book Media Space &nbsp;→</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">RAB<span>T</span>ORA</span>
+    <span class="footer-copy">© 2024 Rabtora. All rights reserved. &nbsp;|&nbsp; United Arab Emirates</span>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

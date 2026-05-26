@@ -1,0 +1,48 @@
+# =========================
+# Enable Rewrite Engine
+# =========================
+RewriteEngine On
+
+# =========================
+# Allow AutoSSL validation (VERY IMPORTANT)
+# =========================
+RewriteCond %{REQUEST_URI} ^/\.well-known/
+RewriteRule ^ - [L]
+
+# =========================
+# Force HTTPS + WWW (only if not already)
+# =========================
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# =========================
+# Default Directory Index
+# =========================
+DirectoryIndex index.html
+
+# =========================
+# Disable Directory Browsing
+# =========================
+Options -Indexes
+
+# =========================
+# Protect Important Files
+# =========================
+<FilesMatch "(^\.|composer\.json|composer\.lock|package\.json|package-lock\.json|\.env)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Block access to htaccess itself
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
+
+
+# =========================
+# Block hidden files EXCEPT .well-known
+# =========================
+RewriteCond %{REQUEST_URI} !^/\.well-known/
+RewriteRule (^|/)\. - [F]

@@ -1,0 +1,915 @@
+# Landing Page Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Rewrite `landing_page.html` as a gold/navy-themed, ad-optimised lead-generation page with a working consultation form that emails leads and redirects to WhatsApp.
+
+**Architecture:** Single self-contained HTML file with inline CSS and JS (matching existing landing_page.html pattern). Form POSTs to the existing PHP handler at `assets/images/consultation_form.php`, which is updated to include company and message in the email body. No external build tools — edit and open in browser to verify.
+
+**Tech Stack:** HTML5, CSS3 (custom properties, Grid, Flexbox), vanilla JS (IntersectionObserver, fetch), PHP (mail()), Google Fonts (Sen), XAMPP local server.
+
+---
+
+## File Map
+
+| File | Action | Responsibility |
+|---|---|---|
+| `landing_page.html` | Full rewrite | Complete landing page — nav, hero, panels, bridge, form, footer, all CSS + JS inline |
+| `assets/images/consultation_form.php` | Modify | Add `company` and `message` fields to the outgoing email body |
+
+---
+
+### Task 1: Update PHP Form Handler
+
+**Files:**
+- Modify: `assets/images/consultation_form.php`
+
+- [ ] **Step 1: Open the file and read current content**
+
+Current file at `assets/images/consultation_form.php` handles: `fullName`, `phone`, `email`, `goal`, `otherGoal`. The new form also sends `company` and `message` — these must appear in the email so the lead is complete.
+
+- [ ] **Step 2: Replace the file content**
+
+Replace the entire file with:
+
+```php
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $to      = "connecttocontink@gmail.com";
+    $subject = "New Consultation Request — Rabtora Landing Page";
+
+    $fullName = $_POST['fullName'] ?? '';
+    $phone    = $_POST['phone']    ?? '';
+    $email    = $_POST['email']    ?? '';
+    $goal     = $_POST['goal']     ?? '';
+    $otherGoal= $_POST['otherGoal']?? '';
+    $company  = $_POST['company']  ?? '';
+    $message  = $_POST['message']  ?? '';
+
+    if ($goal === "Other" && !empty($otherGoal)) {
+        $goal .= " — " . $otherGoal;
+    }
+
+    $headers  = "From: $email\r\n";
+    $headers .= "Reply-To: $email\r\n";
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
+    $body  = "New Consultation Request\n";
+    $body .= str_repeat("=", 40) . "\n\n";
+    $body .= "Name:    $fullName\n";
+    $body .= "Phone:   $phone\n";
+    $body .= "Email:   $email\n";
+    $body .= "Company: $company\n";
+    $body .= "Service: $goal\n";
+    if (!empty($message)) {
+        $body .= "\nMessage:\n$message\n";
+    }
+
+    if (mail($to, $subject, $body, $headers)) {
+        echo "Mail sent successfully.";
+    } else {
+        echo "Mail sending failed.";
+    }
+} else {
+    echo "Invalid request method.";
+}
+?>
+```
+
+- [ ] **Step 3: Verify the file saved correctly**
+
+Open `http://localhost/rabtora.ae/assets/images/consultation_form.php` in a browser — it should show `Invalid request method.` (correct, because it's a GET request).
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add assets/images/consultation_form.php
+git commit -m "feat: add company and message fields to consultation form handler"
+```
+
+---
+
+### Task 2: Build HTML Skeleton + CSS Design Tokens
+
+**Files:**
+- Modify: `landing_page.html` (full rewrite — start here)
+
+- [ ] **Step 1: Replace landing_page.html with the skeleton**
+
+Write the following as the complete file content of `landing_page.html`:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rabtora — Own the Attention | Free Brand Consultation UAE</title>
+  <meta name="description" content="Get a free brand consultation from Rabtora — UAE's premier outdoor advertising, branding, electronic media, and signage agency based in Dubai." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="shortcut icon" type="image/webp" href="assets/images/logo/logo-3d.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── RESET & TOKENS ───────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:       #c99a2a;
+      --gold-light: #e2b94a;
+      --gold-dark:  #a67e1e;
+      --navy:       #0d1b3d;
+      --navy-2:     #1a2d5a;
+      --navy-3:     #243d6e;
+      --ink:        #0a1020;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Sen', sans-serif;
+      background: var(--navy);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    a { transition: color 0.2s; text-decoration: none; }
+    img { vertical-align: middle; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV placeholder -->
+  <!-- HERO placeholder -->
+  <!-- SPLIT 1 placeholder -->
+  <!-- BRIDGE placeholder -->
+  <!-- SPLIT 2 placeholder -->
+  <!-- FORM placeholder -->
+  <!-- FOOTER placeholder -->
+
+  <script>
+    /* JS will go here in Task 5 */
+  </script>
+</body>
+</html>
+```
+
+- [ ] **Step 2: Open in browser and verify**
+
+Open `http://localhost/rabtora.ae/landing_page.html` — should show a blank navy page (no errors in console).
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add landing_page.html
+git commit -m "feat: landing page skeleton with design tokens"
+```
+
+---
+
+### Task 3: Navigation + Hero Section
+
+**Files:**
+- Modify: `landing_page.html`
+
+- [ ] **Step 1: Add nav CSS inside the `<style>` block (after the reset section)**
+
+```css
+/* ── NAV ─────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.9rem 3rem;
+  background: rgba(13,27,61,0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(201,154,42,0.2);
+}
+.nav-logo img { height: 40px; object-fit: contain; }
+.nav-right { display: flex; align-items: center; gap: 1.2rem; }
+.nav-phone {
+  display: flex; align-items: center; gap: 0.45rem;
+  color: rgba(255,255,255,0.7); font-size: 0.82rem; font-weight: 700;
+}
+.nav-phone:hover { color: var(--gold); }
+.nav-cta {
+  background: var(--gold); color: var(--ink);
+  font-family: 'Sen', sans-serif; font-weight: 800; font-size: 0.8rem;
+  letter-spacing: 0.05em; padding: 0.6rem 1.4rem; border-radius: 50px;
+  border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(201,154,42,0.35);
+}
+.nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+```
+
+- [ ] **Step 2: Add hero CSS inside the `<style>` block**
+
+```css
+/* ── HERO ────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 9rem 2rem 6rem;
+  background: var(--navy);
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 38%, rgba(201,154,42,0.12) 0%, transparent 68%),
+    radial-gradient(ellipse 40% 30% at 15% 80%, rgba(201,154,42,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025; pointer-events: none;
+}
+.hero-label {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 1.1rem;
+  position: relative; opacity: 0; animation: up 0.6s ease forwards 0.2s;
+}
+.hero-label::before, .hero-label::after { content: '—'; margin: 0 0.5rem; opacity: 0.4; }
+.hero h1 {
+  font-size: clamp(4rem, 12vw, 9rem); font-weight: 800;
+  letter-spacing: -0.01em; color: #fff; line-height: 0.95;
+  margin-bottom: 1.6rem; position: relative;
+  opacity: 0; animation: up 0.75s ease forwards 0.38s;
+}
+.hero h1 span { color: var(--gold); }
+.hero-sub {
+  max-width: 580px; font-size: 1.02rem; font-weight: 400;
+  line-height: 1.78; color: rgba(255,255,255,0.55);
+  margin-bottom: 0.7rem; position: relative;
+  opacity: 0; animation: up 0.75s ease forwards 0.55s;
+}
+.hero-trust {
+  font-size: 0.9rem; font-weight: 700; color: rgba(255,255,255,0.85);
+  margin-bottom: 2.6rem; position: relative;
+  opacity: 0; animation: up 0.7s ease forwards 0.72s;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  padding: 1rem 2.4rem; background: var(--gold); color: var(--ink);
+  font-family: 'Sen', sans-serif; font-size: 0.88rem; font-weight: 800;
+  letter-spacing: 0.04em; border-radius: 50px; border: none; cursor: pointer;
+  transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+  box-shadow: 0 6px 28px rgba(201,154,42,0.4);
+  position: relative; opacity: 0; animation: up 0.7s ease forwards 0.9s;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 12px 36px rgba(201,154,42,0.5); }
+.hero-stats {
+  display: flex; gap: 3.5rem; justify-content: center; flex-wrap: wrap;
+  margin-top: 3.5rem; padding-top: 2.5rem;
+  border-top: 1px solid rgba(201,154,42,0.18);
+  position: relative; opacity: 0; animation: up 0.7s ease forwards 1.1s;
+}
+.stat-n { font-size: 2rem; font-weight: 800; color: var(--gold); line-height: 1; }
+.stat-l { font-size: 0.7rem; color: rgba(255,255,255,0.45); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem; }
+@keyframes up { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+```
+
+- [ ] **Step 3: Replace `<!-- NAV placeholder -->` with the nav HTML**
+
+```html
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="assets/images/logo/logo-3d.webp" alt="Rabtora Madhyam Management"
+      onerror="this.outerHTML='<span style=\'font-family:Sen,sans-serif;color:#c99a2a;font-weight:800;font-size:1.3rem;letter-spacing:0.08em;\'>RABTORA</span>'" />
+  </a>
+  <div class="nav-right">
+    <a href="tel:+97155471132" class="nav-phone">📞 +971 55 471 1132</a>
+    <a href="#consultation" class="nav-cta">Book Free Consultation</a>
+  </div>
+</nav>
+```
+
+- [ ] **Step 4: Replace `<!-- HERO placeholder -->` with the hero HTML**
+
+```html
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-label">UAE's Premier Brand Visibility Partner</p>
+  <h1>Own the<br><span>Attention</span></h1>
+  <p class="hero-sub">
+    From luxury events to city-wide outdoor campaigns, Rabtora creates
+    visibility across screens, streets, venues, and experiences.
+  </p>
+  <p class="hero-trust">Trusted by brands that want visibility beyond digital.</p>
+  <a href="#consultation" class="btn-primary">Book Free Consultation &nbsp;→</a>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-n">200+</div><div class="stat-l">Brands Served</div></div>
+    <div class="stat"><div class="stat-n">10+</div><div class="stat-l">Years in UAE</div></div>
+    <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Projects Done</div></div>
+    <div class="stat"><div class="stat-n">UAE</div><div class="stat-l">Wide Coverage</div></div>
+  </div>
+</section>
+```
+
+- [ ] **Step 5: Verify in browser**
+
+Open `http://localhost/rabtora.ae/landing_page.html`:
+- Fixed gold nav with logo + phone + CTA button visible
+- Navy hero with animated headline, gold "Attention" highlight
+- Stats bar fades in after ~1s
+- Clicking "Book Free Consultation" should scroll to `#consultation` (section not yet built, so it just goes to bottom — that's fine)
+
+- [ ] **Step 6: Commit**
+
+```bash
+git add landing_page.html
+git commit -m "feat: landing page nav and hero section"
+```
+
+---
+
+### Task 4: Split Panels + Bridge Section
+
+**Files:**
+- Modify: `landing_page.html`
+
+- [ ] **Step 1: Add panel and bridge CSS inside `<style>`**
+
+```css
+/* ── SPLIT PANELS ────────────────────────────── */
+.split { display: grid; grid-template-columns: 1fr 1fr; }
+.panel {
+  background: var(--gold);
+  padding: 4rem 3.5rem;
+  display: flex; flex-direction: column; justify-content: space-between;
+  gap: 2rem; position: relative; overflow: hidden;
+}
+.panel + .panel { border-left: 1px solid rgba(0,0,0,0.1); }
+.panel::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    -45deg, transparent, transparent 24px,
+    rgba(0,0,0,0.022) 24px, rgba(0,0,0,0.022) 25px
+  );
+  pointer-events: none;
+}
+.panel-inner { position: relative; z-index: 1; }
+.panel h2 {
+  font-size: clamp(1.8rem, 3.2vw, 2.8rem); font-weight: 800;
+  letter-spacing: -0.01em; color: var(--ink); line-height: 1.08;
+  margin-bottom: 1.1rem;
+}
+.panel p { font-size: 0.94rem; font-weight: 400; line-height: 1.75; color: rgba(10,16,32,0.72); }
+.svc-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem 1rem;
+  position: relative; z-index: 1;
+}
+.svc-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.83rem; font-weight: 700; color: var(--ink); }
+.svc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--navy); flex-shrink: 0; opacity: 0.6; }
+.panel-action { position: relative; z-index: 1; }
+.btn-panel {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.8rem 1.8rem; background: var(--navy); color: #fff;
+  font-family: 'Sen', sans-serif; font-size: 0.82rem; font-weight: 700;
+  letter-spacing: 0.04em; border-radius: 50px; border: none; cursor: pointer;
+  transition: background 0.22s, transform 0.22s; white-space: nowrap;
+}
+.btn-panel:hover { background: var(--navy-2); transform: translateY(-2px); }
+
+/* ── BRIDGE ──────────────────────────────────── */
+.bridge {
+  background: var(--navy-2); padding: 6rem 2rem;
+  text-align: center; position: relative; overflow: hidden;
+  border-top: 1px solid rgba(201,154,42,0.12);
+  border-bottom: 1px solid rgba(201,154,42,0.12);
+}
+.bridge::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 55% 70% at 50% 50%, rgba(201,154,42,0.08) 0%, transparent 65%);
+  pointer-events: none;
+}
+.bridge h2 {
+  font-size: clamp(2.2rem, 5.5vw, 4.8rem); font-weight: 800;
+  letter-spacing: -0.01em; color: #fff; line-height: 1.04;
+  max-width: 820px; margin: 0 auto 1.2rem; position: relative;
+}
+.bridge h2 span { color: var(--gold); }
+.bridge p {
+  max-width: 500px; margin: 0 auto 2.6rem;
+  font-size: 0.97rem; font-weight: 400; line-height: 1.75;
+  color: rgba(255,255,255,0.55); position: relative;
+}
+.bridge-btns { display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; position: relative; }
+.btn-gold-outline {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.82rem 1.9rem; background: transparent; color: var(--gold);
+  font-family: 'Sen', sans-serif; font-size: 0.85rem; font-weight: 700;
+  letter-spacing: 0.04em; border-radius: 50px;
+  border: 1.5px solid rgba(201,154,42,0.45); cursor: pointer;
+  transition: border-color 0.22s, background 0.22s, transform 0.22s; white-space: nowrap;
+}
+.btn-gold-outline:hover { border-color: var(--gold); background: rgba(201,154,42,0.08); transform: translateY(-2px); }
+
+/* ── SCROLL REVEAL ───────────────────────────── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+```
+
+- [ ] **Step 2: Replace `<!-- SPLIT 1 placeholder -->` with the first split row**
+
+```html
+<!-- SPLIT 1: Outdoor + Branding -->
+<div class="split">
+
+  <div class="panel reveal">
+    <div class="panel-inner">
+      <h2>Turn Every Road Into Brand Space</h2>
+      <p>Premium outdoor visibility through billboards, hoardings, transit branding,
+         LED screens, and high-traffic media placements across the UAE.</p>
+    </div>
+    <div class="panel-action">
+      <a href="#consultation" class="btn-panel">Get Outdoor Quote &nbsp;→</a>
+    </div>
+  </div>
+
+  <div class="panel reveal" style="transition-delay:0.12s">
+    <div class="panel-inner">
+      <h2>Branding That Leaves a Mark</h2>
+      <div class="svc-grid">
+        <div class="svc-item"><div class="svc-dot"></div>Brand Identity</div>
+        <div class="svc-item"><div class="svc-dot"></div>Print Collateral</div>
+        <div class="svc-item"><div class="svc-dot"></div>Packaging Design</div>
+        <div class="svc-item"><div class="svc-dot"></div>Visual Materials</div>
+        <div class="svc-item"><div class="svc-dot"></div>Business Cards</div>
+        <div class="panel-action" style="display:flex;align-items:center;">
+          <a href="#consultation" class="btn-panel" style="font-size:0.78rem;padding:0.65rem 1.2rem;">Start Branding →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+```
+
+- [ ] **Step 3: Replace `<!-- BRIDGE placeholder -->` with the bridge section**
+
+```html
+<!-- BRIDGE -->
+<section class="bridge">
+  <h2 class="reveal">Built for Brands That Want<br><span>More Than Reach</span></h2>
+  <p class="reveal" style="transition-delay:0.14s">
+    Rabtora combines outdoor media, electronic advertising, strategic signage,
+    and brand design to help you dominate attention across the UAE.
+  </p>
+  <div class="bridge-btns reveal" style="transition-delay:0.28s">
+    <a href="#consultation" class="btn-primary" style="opacity:1;animation:none;box-shadow:0 6px 28px rgba(201,154,42,0.4);">Book Free Consultation &nbsp;→</a>
+    <a href="tel:+97155471132" class="btn-gold-outline">📞 Call Us Now</a>
+  </div>
+</section>
+```
+
+- [ ] **Step 4: Replace `<!-- SPLIT 2 placeholder -->` with the second split row**
+
+```html
+<!-- SPLIT 2: Electronic Media + Sign Boards -->
+<div class="split">
+
+  <div class="panel reveal">
+    <div class="panel-inner">
+      <h2>Reach Millions on Screen</h2>
+      <p>TV commercials, radio spots, digital display advertising, and broadcast
+         media placements that put your brand in front of the right audience, at scale.</p>
+    </div>
+    <div class="panel-action">
+      <a href="#consultation" class="btn-panel">Explore Media Ads &nbsp;→</a>
+    </div>
+  </div>
+
+  <div class="panel reveal" style="transition-delay:0.12s">
+    <div class="panel-inner">
+      <h2>Signage That Commands Attention</h2>
+      <p>Custom sign boards, acrylic letters, illuminated fascia, and premium
+         storefront branding that makes your business unmissable on any street.</p>
+    </div>
+    <div class="panel-action">
+      <a href="#consultation" class="btn-panel">Get a Sign Quote &nbsp;→</a>
+    </div>
+  </div>
+
+</div>
+```
+
+- [ ] **Step 5: Verify in browser**
+
+Scroll down from the hero:
+- Two gold panels side by side (Outdoor + Branding) — panels reveal on scroll
+- Navy bridge section with gold headline highlight
+- Two more gold panels (Electronic + Sign Boards)
+- All panel CTA buttons scroll to `#consultation` (still jumps to bottom — correct for now)
+
+- [ ] **Step 6: Commit**
+
+```bash
+git add landing_page.html
+git commit -m "feat: split panels and bridge section"
+```
+
+---
+
+### Task 5: Consultation Form + Footer
+
+**Files:**
+- Modify: `landing_page.html`
+
+- [ ] **Step 1: Add form and footer CSS inside `<style>`**
+
+```css
+/* ── FORM SECTION ────────────────────────────── */
+.form-section {
+  background: var(--navy); padding: 6rem 2rem;
+  border-top: 1px solid rgba(201,154,42,0.1);
+}
+.form-header { text-align: center; margin-bottom: 3rem; }
+.form-tag {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.8rem;
+}
+.form-header h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 0.6rem; }
+.form-header h2 span { color: var(--gold); }
+.form-header p { color: rgba(255,255,255,0.5); font-size: 0.95rem; line-height: 1.7; max-width: 460px; margin: 0 auto; }
+
+.form-card {
+  max-width: 760px; margin: 0 auto;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(201,154,42,0.2);
+  border-top: 3px solid var(--gold);
+  border-radius: 16px; padding: 2.8rem;
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+.form-grp { display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 1.2rem; }
+.form-row .form-grp { margin-bottom: 0; }
+.form-grp label {
+  font-size: 0.74rem; font-weight: 700; color: rgba(255,255,255,0.55);
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.form-grp input,
+.form-grp select,
+.form-grp textarea {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; padding: 0.88rem 1rem;
+  color: #fff; font-family: 'Sen', sans-serif; font-size: 0.9rem;
+  transition: border-color 0.2s, background 0.2s; outline: none; width: 100%;
+}
+.form-grp input:focus,
+.form-grp select:focus,
+.form-grp textarea:focus { border-color: var(--gold); background: rgba(201,154,42,0.05); }
+.form-grp select option { background: #0d1b3d; }
+.form-grp textarea { resize: vertical; min-height: 100px; }
+.form-grp input::placeholder,
+.form-grp textarea::placeholder { color: rgba(255,255,255,0.25); }
+
+.btn-submit {
+  width: 100%; padding: 1.05rem; margin-top: 0.4rem;
+  background: var(--gold); color: var(--ink);
+  font-family: 'Sen', sans-serif; font-size: 1rem; font-weight: 800;
+  letter-spacing: 0.04em; border: none; border-radius: 8px; cursor: pointer;
+  transition: background 0.22s, transform 0.22s, box-shadow 0.22s;
+  box-shadow: 0 6px 28px rgba(201,154,42,0.38);
+}
+.btn-submit:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 36px rgba(201,154,42,0.48); }
+.btn-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+.form-note { font-size: 0.76rem; color: rgba(255,255,255,0.3); text-align: center; margin-top: 0.9rem; line-height: 1.6; }
+
+.or-divider {
+  display: flex; align-items: center; gap: 0.9rem;
+  margin: 1.4rem 0; color: rgba(255,255,255,0.2); font-size: 0.78rem; letter-spacing: 0.06em;
+}
+.or-divider::before, .or-divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.08); }
+
+.whatsapp-btn {
+  width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.7rem;
+  padding: 0.95rem; background: rgba(37,211,102,0.07);
+  border: 1.5px solid rgba(37,211,102,0.3); border-radius: 8px;
+  color: #25d366; font-family: 'Sen', sans-serif; font-size: 0.9rem; font-weight: 700;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+.whatsapp-btn:hover { background: rgba(37,211,102,0.14); border-color: rgba(37,211,102,0.55); color: #25d366; }
+.whatsapp-btn svg { width: 22px; height: 22px; fill: #25d366; flex-shrink: 0; }
+
+.trust-row {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem 2.5rem;
+  margin-top: 2.5rem; padding-top: 2rem;
+  border-top: 1px solid rgba(201,154,42,0.12);
+}
+.trust-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: rgba(255,255,255,0.55); font-weight: 700; }
+.trust-item::before { content: '✓'; color: var(--gold); font-size: 0.85rem; }
+
+/* ── FOOTER ──────────────────────────────────── */
+footer {
+  background: #060e1e; padding: 2rem 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid rgba(201,154,42,0.1); flex-wrap: wrap; gap: 0.8rem;
+}
+.footer-logo img { height: 32px; object-fit: contain; }
+.footer-links { display: flex; gap: 1.4rem; }
+.footer-links a { font-size: 0.77rem; color: rgba(255,255,255,0.35); transition: color 0.2s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-copy { font-size: 0.74rem; color: rgba(255,255,255,0.22); }
+```
+
+- [ ] **Step 2: Replace `<!-- FORM placeholder -->` with the form section**
+
+```html
+<!-- CONSULTATION FORM -->
+<section class="form-section" id="consultation">
+  <div class="form-header reveal">
+    <span class="form-tag">Free — No Obligation</span>
+    <h2>Get Your <span>Free Consultation</span></h2>
+    <p>Tell us about your brand goals. We'll respond within 2 hours with a tailored plan.</p>
+  </div>
+
+  <div class="form-card reveal" style="transition-delay:0.14s">
+    <form id="leadForm" action="assets/images/consultation_form.php" method="POST">
+
+      <div class="form-row">
+        <div class="form-grp">
+          <label for="fullName">Full Name *</label>
+          <input type="text" id="fullName" name="fullName" placeholder="Your full name" required />
+        </div>
+        <div class="form-grp">
+          <label for="phone">WhatsApp / Phone *</label>
+          <input type="tel" id="phone" name="phone" placeholder="+971 XX XXX XXXX" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-grp">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+        <div class="form-grp">
+          <label for="company">Company Name</label>
+          <input type="text" id="company" name="company" placeholder="Your company (optional)" />
+        </div>
+      </div>
+
+      <div class="form-grp">
+        <label for="goal">Service Interested In *</label>
+        <select id="goal" name="goal" required>
+          <option value="">Select a service...</option>
+          <option value="Outdoor Advertising">Outdoor Advertising</option>
+          <option value="Branding & Printing">Branding &amp; Printing</option>
+          <option value="Electronic Media">Electronic Media</option>
+          <option value="Sign Boards & Letters">Sign Boards &amp; Letters</option>
+          <option value="Digital Marketing">Digital Marketing</option>
+          <option value="Corporate Events">Corporate Events</option>
+          <option value="Other">Other / Multiple Services</option>
+        </select>
+      </div>
+
+      <div class="form-grp">
+        <label for="message">Tell Us About Your Project</label>
+        <textarea id="message" name="message" placeholder="Briefly describe what you're looking for..."></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtn">Get My Free Consultation →</button>
+      <p class="form-note">🔒 Your details are private. No spam, ever. We'll call or WhatsApp you within 2 hours.</p>
+    </form>
+
+    <div class="or-divider">or reach us directly on WhatsApp</div>
+
+    <a href="https://wa.me/97155471132?text=Hi%20Rabtora%2C%20I%27d%20like%20a%20free%20consultation" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Chat on WhatsApp — We Reply Fast
+    </a>
+
+    <div class="trust-row">
+      <div class="trust-item">Dubai HQ — DWTC, Sheikh Rashid Tower</div>
+      <div class="trust-item">Free Consultation, No Obligation</div>
+      <div class="trust-item">Reply Within 2 Hours</div>
+      <div class="trust-item">200+ Brands Trust Rabtora</div>
+    </div>
+  </div>
+</section>
+```
+
+- [ ] **Step 3: Replace `<!-- FOOTER placeholder -->` with the footer**
+
+```html
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo">
+    <img src="assets/images/logo/logo-3d.webp" alt="Rabtora"
+      onerror="this.outerHTML='<span style=\'font-family:Sen,sans-serif;color:#c99a2a;font-weight:800;\'>RABTORA</span>'" />
+  </a>
+  <div class="footer-links">
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms-conditions.html">Terms</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <span class="footer-copy">© 2025 Rabtora Madhyam Management. Dubai, UAE.</span>
+</footer>
+```
+
+- [ ] **Step 4: Verify form renders correctly in browser**
+
+Open `http://localhost/rabtora.ae/landing_page.html`:
+- Scroll to bottom — form card with gold top border visible
+- All 6 fields present and styled (dark inputs, gold focus ring)
+- WhatsApp green button below form
+- 4 trust items in row below that
+- Footer with logo, links, copyright
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add landing_page.html
+git commit -m "feat: consultation form and footer"
+```
+
+---
+
+### Task 6: JavaScript — Scroll Reveal + Form Submit Handler
+
+**Files:**
+- Modify: `landing_page.html` (the `<script>` block)
+
+- [ ] **Step 1: Replace `/* JS will go here in Task 5 */` with the complete script**
+
+```javascript
+/* ── SCROLL REVEAL ────────────────────────────── */
+const revealObserver = new IntersectionObserver(
+  entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+  { threshold: 0.1 }
+);
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ── FORM SUBMIT ──────────────────────────────── */
+document.getElementById('leadForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const btn  = document.getElementById('submitBtn');
+  const form = this;
+
+  btn.textContent = 'Sending...';
+  btn.disabled    = true;
+
+  try {
+    const res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+    const txt = await res.text();
+
+    if (txt.includes('successfully')) {
+      btn.textContent       = '✓ Sent! Opening WhatsApp...';
+      btn.style.background  = '#25d366';
+      btn.style.color       = '#fff';
+
+      const name = form.querySelector('[name="fullName"]').value.trim();
+      const svc  = form.querySelector('[name="goal"]').value;
+      const msg  = encodeURIComponent(
+        `Hi Rabtora! My name is ${name}. I'm interested in ${svc}. Please get in touch.`
+      );
+
+      setTimeout(() => {
+        window.open(`https://wa.me/97155471132?text=${msg}`, '_blank');
+      }, 1200);
+
+    } else {
+      btn.textContent = 'Something went wrong — call +971 55 471 1132';
+      btn.disabled    = false;
+    }
+  } catch {
+    btn.textContent = 'Network error — please call +971 55 471 1132';
+    btn.disabled    = false;
+  }
+});
+```
+
+- [ ] **Step 2: Test scroll reveal**
+
+Open `http://localhost/rabtora.ae/landing_page.html` and scroll slowly:
+- Gold panels should fade up as they enter the viewport
+- Bridge h2 and paragraph should reveal on scroll
+- Form card should reveal on scroll
+
+- [ ] **Step 3: Test form validation**
+
+Click "Get My Free Consultation" without filling in required fields — browser native validation should block submission and highlight the empty field.
+
+- [ ] **Step 4: Test form submission via XAMPP**
+
+Fill in the form with test data:
+- Name: `Test Lead`
+- Phone: `+971 50 000 0000`
+- Email: `test@test.com`
+- Service: `Outdoor Advertising`
+
+Click submit. Expected:
+1. Button shows `Sending...`
+2. Button turns green: `✓ Sent! Opening WhatsApp...`
+3. After ~1.2s, WhatsApp opens in a new tab with the pre-filled message
+
+Check `connecttocontink@gmail.com` for the email (XAMPP `mail()` may need Sendmail configured — if email doesn't arrive in dev, that's expected; the form logic is correct for production).
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add landing_page.html
+git commit -m "feat: scroll reveal and async form submit with WhatsApp redirect"
+```
+
+---
+
+### Task 7: Responsive CSS
+
+**Files:**
+- Modify: `landing_page.html` (add media queries to `<style>`)
+
+- [ ] **Step 1: Add responsive rules at the end of the `<style>` block**
+
+```css
+/* ── RESPONSIVE ──────────────────────────────── */
+@media (max-width: 900px) {
+  nav { padding: 0.9rem 1.4rem; }
+  .nav-phone { display: none; }
+  .split { grid-template-columns: 1fr; }
+  .panel + .panel { border-left: none; border-top: 1px solid rgba(0,0,0,0.1); }
+  .form-row { grid-template-columns: 1fr; }
+  footer { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+  .hero-stats { gap: 2rem; }
+}
+
+@media (max-width: 560px) {
+  .panel { padding: 3rem 1.8rem; }
+  .form-card { padding: 1.8rem 1.2rem; }
+  .hero-stats { gap: 1.5rem; }
+  .trust-row { gap: 1rem 1.5rem; }
+  .bridge { padding: 4rem 1.5rem; }
+}
+```
+
+- [ ] **Step 2: Test on mobile viewport**
+
+In browser DevTools, toggle device toolbar and set to 375px width (iPhone SE):
+- Nav shows logo + CTA only (phone number hidden) ✓
+- Split panels stack vertically ✓
+- Form fields are single column ✓
+- Footer stacks vertically ✓
+
+- [ ] **Step 3: Test on tablet viewport (768px)**
+
+Set to 768px:
+- Panels stack ✓
+- Nav phone number hidden ✓
+- Stats bar wraps gracefully ✓
+
+- [ ] **Step 4: Final full-page review at desktop (1280px)**
+
+Scroll through entire page at 1280px:
+- All sections render correctly
+- Gold colour consistent throughout
+- No layout overflow or broken elements
+- Form submits correctly (re-test)
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add landing_page.html
+git commit -m "feat: responsive breakpoints for landing page"
+```
+
+---
+
+## Self-Review Checklist
+
+**Spec coverage:**
+- [x] Nav — fixed, logo, phone, gold CTA → Task 3
+- [x] Hero — full vh, animated headline, stats bar → Task 3
+- [x] Split panels (Outdoor, Branding) → Task 4
+- [x] Bridge section → Task 4
+- [x] Split panels (Electronic, Sign Boards) → Task 4
+- [x] Consultation form (all 6 fields) → Task 5
+- [x] WhatsApp direct button → Task 5
+- [x] Trust row → Task 5
+- [x] Footer → Task 5
+- [x] Form: email + WhatsApp redirect → Task 6
+- [x] Scroll reveal → Task 6
+- [x] PHP handler updated for company + message → Task 1
+- [x] Responsive → Task 7
+
+**No placeholders:** All code blocks are complete. No TBDs.
+
+**Type consistency:** `fullName`, `phone`, `email`, `company`, `goal`, `message` used consistently in HTML form, JS, and PHP handler across all tasks.
