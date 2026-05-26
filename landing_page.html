@@ -327,6 +327,9 @@
       .trust-row { gap: 1rem 1.5rem; }
       .bridge { padding: 4rem 1.5rem; }
     }
+
+    /* ── ACCESSIBILITY ───────────────────────────── */
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
   </style>
 </head>
 <body>
@@ -382,10 +385,11 @@
           <div class="svc-item"><div class="svc-dot"></div>Packaging Design</div>
           <div class="svc-item"><div class="svc-dot"></div>Visual Materials</div>
           <div class="svc-item"><div class="svc-dot"></div>Business Cards</div>
-          <div class="panel-action" style="display:flex;align-items:center;">
-            <a href="#consultation" class="btn-panel" style="font-size:0.78rem;padding:0.65rem 1.2rem;">Start Branding →</a>
-          </div>
+          <div class="svc-item"><div class="svc-dot"></div>Corporate Gifts</div>
         </div>
+      </div>
+      <div class="panel-action">
+        <a href="#consultation" class="btn-panel">Start Branding &nbsp;→</a>
       </div>
     </div>
 
@@ -446,14 +450,14 @@
           </div>
           <div class="form-grp">
             <label for="phone">WhatsApp / Phone *</label>
-            <input type="tel" id="phone" name="phone" placeholder="+971 XX XXX XXXX" required />
+            <input type="tel" id="phone" name="phone" placeholder="+971 XX XXX XXXX" autocomplete="tel" required />
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-grp">
             <label for="email">Email Address *</label>
-            <input type="email" id="email" name="email" placeholder="your@email.com" required />
+            <input type="email" id="email" name="email" placeholder="your@email.com" autocomplete="email" required />
           </div>
           <div class="form-grp">
             <label for="company">Company Name</label>
@@ -511,7 +515,7 @@
       <a href="terms-conditions.html">Terms</a>
       <a href="contact.html">Contact</a>
     </div>
-    <span class="footer-copy">© 2025 Rabtora Madhyam Management. Dubai, UAE.</span>
+    <span class="footer-copy">© 2026 Rabtora Madhyam Management. Dubai, UAE.</span>
   </footer>
 
   <script>

@@ -1,7 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $to      = "connecttocontink@gmail.com";
     $subject = "New Consultation Request — Rabtora Landing Page";
@@ -10,22 +7,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone    = trim($_POST['phone']    ?? '');
     $email    = trim($_POST['email']    ?? '');
     $goal     = trim($_POST['goal']     ?? '');
-    $otherGoal = trim($_POST['otherGoal'] ?? '');
     $company  = trim($_POST['company']  ?? '');
     $message  = trim($_POST['message']  ?? '');
 
-    // Validate and sanitise email to prevent header injection
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo "Invalid email address.";
         exit;
     }
     $email = preg_replace('/[\r\n]/', '', $email);
 
-    if ($goal === "Other" && !empty($otherGoal)) {
-        $goal .= " — " . $otherGoal;
-    }
-
-    $headers  = "From: $email\r\n";
+    $headers  = "From: noreply@rabtora.ae\r\n";
     $headers .= "Reply-To: $email\r\n";
     $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
