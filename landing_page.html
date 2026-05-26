@@ -495,7 +495,51 @@
   </footer>
 
   <script>
-    /* JS will go here in Task 6 */
+    /* ── SCROLL REVEAL ────────────────────────────── */
+    const revealObserver = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* ── FORM SUBMIT ──────────────────────────────── */
+    document.getElementById('leadForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const btn  = document.getElementById('submitBtn');
+      const form = this;
+
+      btn.textContent = 'Sending...';
+      btn.disabled    = true;
+
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+        const txt = await res.text();
+
+        if (txt.includes('successfully')) {
+          btn.textContent       = '✓ Sent! Opening WhatsApp...';
+          btn.style.background  = '#25d366';
+          btn.style.color       = '#fff';
+
+          const name = form.querySelector('[name="fullName"]').value.trim();
+          const svc  = form.querySelector('[name="goal"]').value;
+          const msg  = encodeURIComponent(
+            `Hi Rabtora! My name is ${name}. I'm interested in ${svc}. Please get in touch.`
+          );
+
+          setTimeout(() => {
+            window.open(`https://wa.me/97155471132?text=${msg}`, '_blank');
+          }, 1200);
+
+        } else {
+          btn.textContent = 'Something went wrong — call +971 55 471 1132';
+          btn.disabled    = false;
+        }
+      } catch {
+        btn.textContent = 'Network error — please call +971 55 471 1132';
+        btn.disabled    = false;
+      }
+    });
   </script>
 </body>
 </html>
