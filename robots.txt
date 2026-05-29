@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Disallow: /index_backup.html
+Disallow: /landing_page.html
+Disallow: /assets/images/default.php
+Disallow: /assets/images/sendmail.php
+Disallow: /assets/images/consultation_form.php
+
+Sitemap: https://www.rabtora.ae/sitemap.xml

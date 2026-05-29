@@ -1,36 +1,36 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $to      = "connecttocontink@gmail.com";
-    $subject = "New Consultation Request — Rabtora Landing Page";
+    $to = "connecttocontink@gmail.com"; // Replace with your email
+    $subject = "New Branding Consultation Form Submission";
 
-    $fullName = trim($_POST['fullName'] ?? '');
-    $phone    = trim($_POST['phone']    ?? '');
-    $email    = trim($_POST['email']    ?? '');
-    $goal     = trim($_POST['goal']     ?? '');
-    $company  = trim($_POST['company']  ?? '');
-    $message  = trim($_POST['message']  ?? '');
+    // Collect form inputs
+    $fullName = $_POST['fullName'] ?? '';
+    $phone = $_POST['phone'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $goal = $_POST['goal'] ?? '';
+    $otherGoal = $_POST['otherGoal'] ?? '';
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "Invalid email address.";
-        exit;
+    // If "Other" selected, append the custom goal
+    if ($goal === "Other" && !empty($otherGoal)) {
+        $goal .= " - " . $otherGoal;
     }
-    $email = preg_replace('/[\r\n]/', '', $email);
 
-    $headers  = "From: noreply@rabtora.ae\r\n";
+    // Email headers
+    $headers = "From: $email\r\n";
     $headers .= "Reply-To: $email\r\n";
     $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
-    $body  = "New Consultation Request\n";
-    $body .= str_repeat("=", 40) . "\n\n";
-    $body .= "Name:    $fullName\n";
-    $body .= "Phone:   $phone\n";
-    $body .= "Email:   $email\n";
-    $body .= "Company: $company\n";
-    $body .= "Service: $goal\n";
-    if (!empty($message)) {
-        $body .= "\nMessage:\n$message\n";
-    }
+    // Email body
+    $body = "New Branding Consultation Request\n\n";
+    $body .= "Name: $fullName\n";
+    $body .= "Phone: $phone\n";
+    $body .= "Email: $email\n";
+    $body .= "Primary Goal: $goal\n";
 
+    // Send email
     if (mail($to, $subject, $body, $headers)) {
         echo "Mail sent successfully.";
     } else {
