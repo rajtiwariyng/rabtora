@@ -1,0 +1,68 @@
+# Rabtora Madhyam Management — Full Content Reference
+
+> This file provides extended content for LLM ingestion. For the concise index see /llms.txt.
+
+## About the Company
+
+Rabtora Madhyam Management is a premium Dubai-based media management and digital branding agency founded in the UAE. We are headquartered at Sheikh Rashid Tower, Dubai World Trade Centre, and serve clients across Dubai, Ajman, Abu Dhabi, and the wider UAE.
+
+Our expertise spans advertising, outdoor media, digital marketing, web technology, event management, and brand identity. We combine creativity, technology, and strategic planning to deliver results that matter — whether launching a brand, building a high-performance website, running data-driven marketing campaigns, or managing large-scale events.
+
+We are trusted by 100+ brands, startups, enterprises, and global companies operating in the UAE and Middle East markets.
+
+## Services in Detail
+
+### Branding & Advertising
+Full-service branding including brand strategy, visual identity, sign boards, ACP sign boards, LED boards, hoardings, posters, flyers, and promotional materials for businesses across the UAE.
+
+### Digital Marketing
+Comprehensive digital marketing: Meta Ads (Facebook & Instagram), Google Ads, TikTok Ads, LinkedIn campaigns, SEO, content marketing, lead generation, and performance marketing with measurable ROI.
+
+### Digital Outdoor & Transit Media
+Digital outdoor advertising including digital hoardings, LED screen advertising, transit media placements on buses and metro, and digital van advertising across Dubai and UAE.
+
+### Billboard & Outdoor Advertising
+Traditional and modern outdoor advertising: billboards, large-format hoardings, acrylic 3D letters, LED sign boards, and display advertising at high-footfall locations across the UAE.
+
+### Corporate & Sports Event Management
+End-to-end event solutions: corporate events, sports events, brand activations, product launches, experiential marketing, and promotional events. We handle everything from concept to execution.
+
+### Web Design & Development
+Custom digital solutions: responsive website design, mobile app development, e-commerce platforms, CMS websites, and digital transformation consulting for businesses of all sizes.
+
+### TV & Electronic Media Advertising
+Broadcast advertising: TV commercials production and placement, radio advertising, OTT platform advertising, and digital broadcast media campaigns across UAE channels.
+
+### Sign Board & Letter Signage
+Professional signage: custom shop sign boards, 3D acrylic letters, LED channel letters, backlit signage, vinyl wraps, and wayfinding solutions for retail and commercial spaces.
+
+### Brand Identity & Printing
+Complete brand identity: logo design, brand guidelines, business card printing, brochure design, corporate stationery, packaging design, and large-format printing.
+
+### Social Media Marketing
+Platform-specific campaigns: Meta Ads management, Instagram growth strategies, Facebook page management, TikTok content and ads, LinkedIn B2B marketing, and influencer collaborations.
+
+### Outdoor Services
+Outdoor media production and distribution: non-lit display boards, ACP LED boards, poster distribution, flyer advertising, canopy signage, clip-on hoardings, and ground-level media.
+
+## Key Differentiators
+
+- Full-service agency: strategy, creative, production, and placement under one roof
+- Dubai World Trade Centre headquarters — central location in UAE's business hub
+- Serving clients across Dubai, Ajman, Abu Dhabi, and all seven Emirates
+- Both digital and physical/outdoor media capabilities
+- Multilingual team serving English and Arabic-speaking markets
+
+## Contact Information
+
+- Company: Rabtora Madhyam Management
+- Address: Premises No. 4.07-COW5-12, Floor 04, Sheikh Rashid Tower, Dubai World Trade Centre, Dubai, UAE
+- Phone: +971 55 471 1132
+- Email: info@rabtora.ae
+- WhatsApp: +971 55 471 1132 (https://wa.me/97155471132)
+- Website: https://www.rabtora.ae
+- Business Hours: Monday–Friday, 9 AM – 6 PM (Gulf Standard Time, UTC+4)
+
+## Sitemap
+
+https://www.rabtora.ae/sitemap.xml

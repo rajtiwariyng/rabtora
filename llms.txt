@@ -1,0 +1,40 @@
+# Rabtora Madhyam Management
+
+> Premium media management and digital branding agency based in Dubai, UAE. We deliver advertising, branding, outdoor media, digital marketing, web development, and event management solutions across the UAE and the wider Middle East.
+
+Rabtora Madhyam Management is a full-service advertising and media company headquartered at Sheikh Rashid Tower, Dubai World Trade Centre. We serve startups, enterprises, and global brands across Dubai, Ajman, and the UAE with end-to-end creative, digital, and event solutions.
+
+## Core Pages
+
+- [Home](https://www.rabtora.ae/): Overview of services, featured work, testimonials, and key features
+- [About](https://www.rabtora.ae/about.html): Company background, mission, happy clients, and testimonials
+- [Services](https://www.rabtora.ae/services.html): Full list of advertising and media services
+- [Portfolio](https://www.rabtora.ae/portfolio.html): Project showcase across branding, outdoor, and digital
+- [Contact](https://www.rabtora.ae/contact.html): Office address, phone, email, WhatsApp, and enquiry form
+
+## Services
+
+- [Branding](https://www.rabtora.ae/branding.html): Brand identity, sign boards, ACP boards, LED boards, hoardings, and promotional branding
+- [Digital Marketing](https://www.rabtora.ae/digital-marketing.html): Social media ads, Google Ads, SEO, lead generation, and performance marketing
+- [AI Marketing](https://www.rabtora.ae/ai-marketing.html): AI-powered advertising, content generation, chatbots, predictive analytics, and marketing automation
+- [Digital Outdoor & Transit Media](https://www.rabtora.ae/digital-outdoor-and-transit-media.html): Digital hoardings, digital screens, transit media, and digital van advertising
+- [Billboard & Outdoor Advertising](https://www.rabtora.ae/billboard-and-acrylic-letter.html): Billboards, hoardings, acrylic letters, and LED sign boards
+- [Corporate & Sports Events](https://www.rabtora.ae/corporate-and-sport-event.html): Event management, brand activations, and promotional events
+- [Web Design & Development](https://www.rabtora.ae/web-technology-and-development.html): Custom websites, mobile apps, and digital platforms
+- [TV & Electronic Media Advertising](https://www.rabtora.ae/electronic-media-ad.html): TV commercials, radio ads, and broadcast media
+- [Sign Board & Letter Signage](https://www.rabtora.ae/sign-board-and-letters.html): Custom sign boards, 3D letters, LED channel letters
+- [Brand Identity & Printing](https://www.rabtora.ae/branding-and-printing.html): Logo design, business cards, brochures, and corporate printing
+- [Social Media Marketing](https://www.rabtora.ae/social-marketing.html): Meta ads, Instagram, Facebook, TikTok, and LinkedIn campaigns
+- [Outdoor Services](https://www.rabtora.ae/outdoor-services.html): Non-lit boards, ACP LED boards, poster distribution, canopy signs
+
+## Legal
+
+- [Privacy Policy](https://www.rabtora.ae/privacy-policy.html)
+- [Terms & Conditions](https://www.rabtora.ae/terms-conditions.html)
+
+## Contact
+
+- Address: Premises No. 4.07-COW5-12, Floor 04, Sheikh Rashid Tower, Dubai World Trade Centre, Dubai, UAE
+- Phone: +971 55 471 1132
+- Email: info@rabtora.ae
+- WhatsApp: https://wa.me/97155471132

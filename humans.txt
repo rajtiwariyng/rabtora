@@ -1,0 +1,10 @@
+/* TEAM */
+Agency: Rabtora Madhyam Management
+Location: Dubai World Trade Centre, Dubai, UAE
+Contact: info [at] rabtora [dot] ae
+
+/* SITE */
+Last update: 2026-06-01
+Language: English
+Standards: HTML5, CSS3, Schema.org
+Components: Bootstrap 5, Bootstrap Icons, LineIcons, Owl Carousel
