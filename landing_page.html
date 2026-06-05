@@ -155,16 +155,16 @@
     .panel-inner { position: relative; z-index: 1; }
     .panel h2 {
       font-size: clamp(1.8rem, 3.2vw, 2.8rem); font-weight: 800;
-      letter-spacing: -0.01em; color: var(--ink); line-height: 1.08;
-      margin-bottom: 1.1rem;
+      letter-spacing: -0.01em; color: #fff; line-height: 1.08;
+      margin-bottom: 1.1rem; text-shadow: 0 2px 12px rgba(0,0,0,0.3);
     }
-    .panel p { font-size: 0.94rem; font-weight: 400; line-height: 1.75; color: rgba(10,16,32,0.72); }
+    .panel p { font-size: 0.94rem; font-weight: 400; line-height: 1.75; color: rgba(255,255,255,0.88); }
     .svc-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem 1rem;
       position: relative; z-index: 1;
     }
-    .svc-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.83rem; font-weight: 700; color: var(--ink); }
-    .svc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--navy); flex-shrink: 0; opacity: 0.6; }
+    .svc-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.83rem; font-weight: 700; color: #fff; }
+    .svc-dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; flex-shrink: 0; opacity: 0.7; }
     .panel-action { position: relative; z-index: 1; }
     /* ── PANEL BACKGROUND IMAGES ────────────────── */
     .panel-outdoor    { background-image: url('assets/images/services/out1.jpg');    background-size: cover; background-position: center; }
@@ -182,12 +182,13 @@
     }
     .btn-panel {
       display: inline-flex; align-items: center; gap: 0.4rem;
-      padding: 0.8rem 1.8rem; background: var(--navy); color: #fff;
+      padding: 0.8rem 1.8rem; background: rgba(255,255,255,0.15); color: #fff;
       font-family: 'Sen', sans-serif; font-size: 0.82rem; font-weight: 700;
-      letter-spacing: 0.04em; border-radius: 50px; border: none; cursor: pointer;
+      letter-spacing: 0.04em; border-radius: 50px; border: 1.5px solid rgba(255,255,255,0.6); cursor: pointer;
       transition: background 0.22s, transform 0.22s; white-space: nowrap;
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
     }
-    .btn-panel:hover { background: var(--navy-2); transform: translateY(-2px); }
+    .btn-panel:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
 
     /* ── BRIDGE ──────────────────────────────────── */
     .bridge {
