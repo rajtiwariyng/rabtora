@@ -171,6 +171,15 @@
     .panel-branding   { background-image: url('assets/images/branding-2.jpg');       background-size: cover; background-position: center; }
     .panel-electronic { background-image: url('assets/images/electronic-media.png'); background-size: cover; background-position: center; }
     .panel-signage    { background-image: url('assets/images/new-signboard.jpeg');   background-size: cover; background-position: center; }
+    .panel-overlay {
+      position: absolute; inset: 0; z-index: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(201,154,42,0.82) 0%,
+        rgba(166,126,30,0.88) 60%,
+        rgba(13,27,61,0.6) 100%
+      );
+    }
     .btn-panel {
       display: inline-flex; align-items: center; gap: 0.4rem;
       padding: 0.8rem 1.8rem; background: var(--navy); color: #fff;
@@ -373,6 +382,7 @@
   <div class="split">
 
     <div class="panel panel-outdoor reveal">
+      <div class="panel-overlay"></div>
       <div class="panel-inner">
         <h2>Turn Every Road Into Brand Space</h2>
         <p>Premium outdoor visibility through billboards, hoardings, transit branding,
@@ -384,6 +394,7 @@
     </div>
 
     <div class="panel panel-branding reveal" style="transition-delay:0.12s">
+      <div class="panel-overlay"></div>
       <div class="panel-inner">
         <h2>Branding That Leaves a Mark</h2>
         <div class="svc-grid">
@@ -417,6 +428,7 @@
   <div class="split">
 
     <div class="panel panel-electronic reveal">
+      <div class="panel-overlay"></div>
       <div class="panel-inner">
         <h2>Reach Millions on Screen</h2>
         <p>TV commercials, radio spots, digital display advertising, and broadcast
@@ -428,6 +440,7 @@
     </div>
 
     <div class="panel panel-signage reveal" style="transition-delay:0.12s">
+      <div class="panel-overlay"></div>
       <div class="panel-inner">
         <h2>Signage That Commands Attention</h2>
         <p>Custom sign boards, acrylic letters, illuminated fascia, and premium
