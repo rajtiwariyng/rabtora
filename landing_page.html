@@ -166,6 +166,11 @@
     .svc-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.83rem; font-weight: 700; color: var(--ink); }
     .svc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--navy); flex-shrink: 0; opacity: 0.6; }
     .panel-action { position: relative; z-index: 1; }
+    /* ── PANEL BACKGROUND IMAGES ────────────────── */
+    .panel-outdoor    { background-image: url('assets/images/services/out1.jpg');    background-size: cover; background-position: center; }
+    .panel-branding   { background-image: url('assets/images/branding-2.jpg');       background-size: cover; background-position: center; }
+    .panel-electronic { background-image: url('assets/images/electronic-media.png'); background-size: cover; background-position: center; }
+    .panel-signage    { background-image: url('assets/images/new-signboard.jpeg');   background-size: cover; background-position: center; }
     .btn-panel {
       display: inline-flex; align-items: center; gap: 0.4rem;
       padding: 0.8rem 1.8rem; background: var(--navy); color: #fff;
@@ -367,7 +372,7 @@
   <!-- SPLIT 1: Outdoor + Branding -->
   <div class="split">
 
-    <div class="panel reveal">
+    <div class="panel panel-outdoor reveal">
       <div class="panel-inner">
         <h2>Turn Every Road Into Brand Space</h2>
         <p>Premium outdoor visibility through billboards, hoardings, transit branding,
@@ -378,7 +383,7 @@
       </div>
     </div>
 
-    <div class="panel reveal" style="transition-delay:0.12s">
+    <div class="panel panel-branding reveal" style="transition-delay:0.12s">
       <div class="panel-inner">
         <h2>Branding That Leaves a Mark</h2>
         <div class="svc-grid">
@@ -411,7 +416,7 @@
   <!-- SPLIT 2: Electronic Media + Sign Boards -->
   <div class="split">
 
-    <div class="panel reveal">
+    <div class="panel panel-electronic reveal">
       <div class="panel-inner">
         <h2>Reach Millions on Screen</h2>
         <p>TV commercials, radio spots, digital display advertising, and broadcast
@@ -422,7 +427,7 @@
       </div>
     </div>
 
-    <div class="panel reveal" style="transition-delay:0.12s">
+    <div class="panel panel-signage reveal" style="transition-delay:0.12s">
       <div class="panel-inner">
         <h2>Signage That Commands Attention</h2>
         <p>Custom sign boards, acrylic letters, illuminated fascia, and premium
