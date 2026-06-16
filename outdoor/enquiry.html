@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request A Quote | Rabtora Outdoor Advertising</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        body { background: #091225; }
+
+        .subpage-body {
+            padding-top: 90px;
+            min-height: 100vh;
+        }
+
+        .page-hero {
+            background: linear-gradient(135deg, #060c18 0%, #0f223b 100%);
+            padding: 60px 24px 50px;
+            text-align: center;
+            border-bottom: 1px solid rgba(208,158,54,0.12);
+        }
+        .page-hero h1 {
+            font-size: clamp(28px, 5vw, 46px);
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+        .page-hero .gold { color: #D09E36; }
+        .page-hero p {
+            font-size: 15px;
+            color: #a0a5b0;
+            max-width: 480px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .eq-section {
+            padding: 56px 24px 80px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .eq-card {
+            background: #0f223b;
+            border: 1px solid rgba(208,158,54,0.18);
+            border-radius: 16px;
+            padding: 48px 44px;
+            box-shadow: 0 24px 60px rgba(6,12,24,0.5);
+        }
+
+        .eq-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+        .eq-field { margin-bottom: 20px; }
+        .eq-field label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #a0a5b0;
+            margin-bottom: 8px;
+        }
+        .eq-req { color: #D09E36; }
+
+        .eq-field input[type="text"],
+        .eq-field input[type="tel"],
+        .eq-field input[type="email"],
+        .eq-field select {
+            width: 100%;
+            background: #081220;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #fff;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            padding: 13px 16px;
+            outline: none;
+            transition: border-color 0.2s;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+        .eq-field select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a0a5b0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+        .eq-field input::placeholder { color: #4a5568; }
+        .eq-field input:focus,
+        .eq-field select:focus { border-color: #D09E36; }
+
+        .eq-checkboxes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
+        .eq-check-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: #d1d5db;
+            cursor: pointer;
+            padding: 11px 14px;
+            background: #081220;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 8px;
+            transition: border-color 0.2s;
+        }
+        .eq-check-label:hover { border-color: rgba(208,158,54,0.35); }
+        .eq-check-label input[type="checkbox"] {
+            width: 16px; height: 16px; min-width: 16px;
+            accent-color: #D09E36; cursor: pointer;
+        }
+
+        .eq-error {
+            color: #f87171;
+            font-size: 13px;
+            min-height: 18px;
+            margin-bottom: 12px;
+        }
+
+        .eq-submit {
+            width: 100%;
+            background: linear-gradient(to right, #b98b32, #dfb45b);
+            color: #091225;
+            border: none;
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 15px;
+            cursor: pointer;
+            transition: opacity 0.15s;
+            margin-top: 4px;
+        }
+        .eq-submit:hover:not(:disabled) { opacity: 0.88; }
+        .eq-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .eq-success {
+            text-align: center;
+            padding: 40px 0 20px;
+            display: none;
+        }
+        .eq-success-icon {
+            width: 64px; height: 64px;
+            border-radius: 50%;
+            background: rgba(208,158,54,0.15);
+            color: #D09E36;
+            font-size: 28px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px;
+        }
+        .eq-success h3 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+        .eq-success p { color: #a0a5b0; font-size: 15px; }
+
+        @media (max-width: 580px) {
+            .eq-card { padding: 32px 20px; }
+            .eq-row { grid-template-columns: 1fr; }
+            .eq-checkboxes { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="menuOverlay"></div>
+
+    <nav class="sidebar" id="sidebarMenu">
+        <a href="index.html">Home</a>
+        <a href="index.html#services">Our Services</a>
+        <a href="index.html#about">About Us</a>
+        <a href="index.html#portfolio">Portfolio</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="enquiry.html">Enquiry Now</a>
+    </nav>
+
+    <header>
+        <button class="menu-btn" id="menuToggle" aria-label="Toggle Menu">
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <span id="menuText">Menu</span>
+        </button>
+
+        <div class="logo-container">
+            <div><img src="imgs/logo.png" alt="Rabtora"></div>
+        </div>
+
+        <div class="header-actions">
+            <a href="https://wa.me/971585792934" class="btn-whatsapp" target="_blank">
+                <img src="imgs/whatsapp.svg" alt=""> WhatsApp Now
+            </a>
+            <a href="contact.html" class="btn-book">
+                <img src="imgs/appointment-01.svg" alt=""> Contact Us
+            </a>
+        </div>
+    </header>
+
+    <div class="subpage-body">
+        <section class="page-hero">
+            <h1>Request A <span class="gold">Quote</span></h1>
+            <p>Tell us about your campaign and we'll get back to you within 24 hours.</p>
+        </section>
+
+        <section class="eq-section">
+            <div class="eq-card">
+                <form id="enquiryForm" novalidate>
+                    <input type="hidden" name="form_source" value="enquiry_page">
+
+                    <div class="eq-row">
+                        <div class="eq-field">
+                            <label>Full Name <span class="eq-req">*</span></label>
+                            <input type="text" name="full_name" placeholder="Your full name">
+                        </div>
+                        <div class="eq-field">
+                            <label>Mobile <span class="eq-req">*</span></label>
+                            <input type="tel" name="phone" placeholder="+971 50 000 0000">
+                        </div>
+                    </div>
+
+                    <div class="eq-row">
+                        <div class="eq-field">
+                            <label>Email</label>
+                            <input type="email" name="email" placeholder="you@company.com">
+                        </div>
+                        <div class="eq-field">
+                            <label>Company Name</label>
+                            <input type="text" name="company_name" placeholder="Your company">
+                        </div>
+                    </div>
+
+                    <div class="eq-field">
+                        <label>Budget <span class="eq-req">*</span></label>
+                        <select name="budget">
+                            <option value="" disabled selected>Select Budget Range</option>
+                            <option value="Under AED 10,000">Under AED 10,000</option>
+                            <option value="AED 10,000 – 50,000">AED 10,000 – 50,000</option>
+                            <option value="AED 50,000 – 100,000">AED 50,000 – 100,000</option>
+                            <option value="AED 100,000 – 500,000">AED 100,000 – 500,000</option>
+                            <option value="Above AED 500,000">Above AED 500,000</option>
+                        </select>
+                    </div>
+
+                    <div class="eq-field">
+                        <label>Services <span class="eq-req">*</span></label>
+                        <div class="eq-checkboxes">
+                            <label class="eq-check-label">
+                                <input type="checkbox" name="services[]" value="Hoardings"> Hoardings
+                            </label>
+                            <label class="eq-check-label">
+                                <input type="checkbox" name="services[]" value="UniPols"> UniPols
+                            </label>
+                            <label class="eq-check-label">
+                                <input type="checkbox" name="services[]" value="Digital Hoardings"> Digital Hoardings
+                            </label>
+                            <label class="eq-check-label">
+                                <input type="checkbox" name="services[]" value="Transit Marketing"> Transit Marketing
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="eq-error" id="eqError"></div>
+                    <button type="submit" class="eq-submit" id="eqSubmit">Send Request →</button>
+                </form>
+
+                <div class="eq-success" id="eqSuccess">
+                    <div class="eq-success-icon">✓</div>
+                    <h3>Thank You!</h3>
+                    <p>We've received your enquiry and will be in touch within 24 hours.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <p class="copyright-text">&copy; 2026 <strong>RABTORA</strong> MADHYAM MANAGEMENT. ALL RIGHTS RESERVED</p>
+            <div class="footer-socials">
+                <a href="#instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#youtube" aria-label="Youtube"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+    (function () {
+        var form    = document.getElementById('enquiryForm');
+        var errEl   = document.getElementById('eqError');
+        var btn     = document.getElementById('eqSubmit');
+        var success = document.getElementById('eqSuccess');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            errEl.textContent = '';
+
+            var name     = form.querySelector('[name="full_name"]').value.trim();
+            var phone    = form.querySelector('[name="phone"]').value.trim();
+            var budget   = form.querySelector('[name="budget"]').value;
+            var checked  = form.querySelectorAll('[name="services[]"]:checked');
+
+            if (!name)          { errEl.textContent = 'Please enter your name.'; return; }
+            if (!phone)         { errEl.textContent = 'Please enter your mobile number.'; return; }
+            if (!budget)        { errEl.textContent = 'Please select a budget range.'; return; }
+            if (!checked.length){ errEl.textContent = 'Please select at least one service.'; return; }
+
+            btn.disabled = true;
+            btn.textContent = 'Sending…';
+
+            fetch('../submit_lead.php', { method: 'POST', body: new FormData(form) })
+                .then(function (r) { return r.json(); })
+                .then(function (j) {
+                    if (j.ok) {
+                        form.style.display = 'none';
+                        success.style.display = 'block';
+                    } else {
+                        errEl.textContent = j.msg || 'Something went wrong. Please try again.';
+                        btn.disabled = false;
+                        btn.textContent = 'Send Request →';
+                    }
+                })
+                .catch(function () {
+                    errEl.textContent = 'Network error. Please try again.';
+                    btn.disabled = false;
+                    btn.textContent = 'Send Request →';
+                });
+        });
+    })();
+    </script>
+</body>
+</html>

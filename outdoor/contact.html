@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Rabtora Outdoor Advertising</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        body { background: #091225; }
+
+        .subpage-body {
+            padding-top: 90px;
+            min-height: 100vh;
+        }
+
+        .page-hero {
+            background: linear-gradient(135deg, #060c18 0%, #0f223b 100%);
+            padding: 60px 24px 50px;
+            text-align: center;
+            border-bottom: 1px solid rgba(208,158,54,0.12);
+        }
+        .page-hero h1 {
+            font-size: clamp(28px, 5vw, 46px);
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+        .page-hero .gold { color: #D09E36; }
+        .page-hero p {
+            font-size: 15px;
+            color: #a0a5b0;
+            max-width: 480px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .contact-section {
+            padding: 56px 24px 80px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        /* Info cards */
+        .info-cards { display: flex; flex-direction: column; gap: 16px; }
+        .info-card {
+            background: #0f223b;
+            border: 1px solid rgba(208,158,54,0.15);
+            border-radius: 14px;
+            padding: 24px 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        .info-icon {
+            width: 44px; height: 44px; min-width: 44px;
+            border-radius: 10px;
+            background: rgba(208,158,54,0.12);
+            color: #D09E36;
+            font-size: 18px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .info-text h4 {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #a0a5b0;
+            margin-bottom: 6px;
+        }
+        .info-text p, .info-text a {
+            font-size: 15px;
+            color: #fff;
+            text-decoration: none;
+            line-height: 1.5;
+        }
+        .info-text a:hover { color: #D09E36; }
+        .info-text span { font-size: 12px; color: #a0a5b0; display: block; margin-top: 2px; }
+
+        .wa-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #25D366;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: opacity 0.15s;
+        }
+        .wa-btn:hover { opacity: 0.88; color: #fff; }
+
+        /* Contact form card */
+        .cf-card {
+            background: #0f223b;
+            border: 1px solid rgba(208,158,54,0.18);
+            border-radius: 16px;
+            padding: 40px 36px;
+            box-shadow: 0 24px 60px rgba(6,12,24,0.4);
+        }
+        .cf-card h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 28px;
+        }
+
+        .cf-field { margin-bottom: 18px; }
+        .cf-field label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #a0a5b0;
+            margin-bottom: 8px;
+        }
+        .cf-req { color: #D09E36; }
+
+        .cf-field input,
+        .cf-field textarea {
+            width: 100%;
+            background: #081220;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #fff;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            padding: 13px 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .cf-field textarea { resize: vertical; min-height: 120px; }
+        .cf-field input::placeholder,
+        .cf-field textarea::placeholder { color: #4a5568; }
+        .cf-field input:focus,
+        .cf-field textarea:focus { border-color: #D09E36; }
+
+        .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+        .cf-error { color: #f87171; font-size: 13px; min-height: 18px; margin-bottom: 10px; }
+
+        .cf-success {
+            background: rgba(208,158,54,0.08);
+            border: 1px solid rgba(208,158,54,0.25);
+            border-radius: 8px;
+            padding: 16px 20px;
+            color: #dfb45b;
+            font-size: 14px;
+            margin-bottom: 16px;
+            display: none;
+        }
+
+        .cf-submit {
+            width: 100%;
+            background: linear-gradient(to right, #b98b32, #dfb45b);
+            color: #091225;
+            border: none;
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 14px;
+            cursor: pointer;
+            transition: opacity 0.15s;
+        }
+        .cf-submit:hover:not(:disabled) { opacity: 0.88; }
+        .cf-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        @media (max-width: 768px) {
+            .contact-grid { grid-template-columns: 1fr; }
+            .cf-row { grid-template-columns: 1fr; }
+            .cf-card { padding: 28px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="menuOverlay"></div>
+
+    <nav class="sidebar" id="sidebarMenu">
+        <a href="index.html">Home</a>
+        <a href="index.html#services">Our Services</a>
+        <a href="index.html#about">About Us</a>
+        <a href="index.html#portfolio">Portfolio</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="enquiry.html">Enquiry Now</a>
+    </nav>
+
+    <header>
+        <button class="menu-btn" id="menuToggle" aria-label="Toggle Menu">
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <span id="menuText">Menu</span>
+        </button>
+
+        <div class="logo-container">
+            <div><img src="imgs/logo.png" alt="Rabtora"></div>
+        </div>
+
+        <div class="header-actions">
+            <a href="https://wa.me/971585792934" class="btn-whatsapp" target="_blank">
+                <img src="imgs/whatsapp.svg" alt=""> WhatsApp Now
+            </a>
+            <a href="enquiry.html" class="btn-book">
+                <img src="imgs/appointment-01.svg" alt=""> Get a Quote
+            </a>
+        </div>
+    </header>
+
+    <div class="subpage-body">
+        <section class="page-hero">
+            <h1>Get In <span class="gold">Touch</span></h1>
+            <p>Have a question or ready to start your campaign? We'd love to hear from you.</p>
+        </section>
+
+        <section class="contact-section">
+            <div class="contact-grid">
+
+                <!-- Info cards -->
+                <div class="info-cards">
+                    <div class="info-card">
+                        <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+                        <div class="info-text">
+                            <h4>Phone</h4>
+                            <a href="tel:+97155471132">+971 55 471 1132</a>
+                            <span>Mon – Fri, 9 AM – 6 PM</span>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                        <div class="info-text">
+                            <h4>WhatsApp</h4>
+                            <a href="https://wa.me/971585792934" target="_blank">+971 58 579 2934</a>
+                            <span>Instant replies during business hours</span>
+                            <a href="https://wa.me/971585792934" target="_blank" class="wa-btn">
+                                <i class="fa-brands fa-whatsapp"></i> Chat Now
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+                        <div class="info-text">
+                            <h4>Email</h4>
+                            <a href="mailto:info@rabtora.ae">info@rabtora.ae</a>
+                            <span>We reply within 24 hours</span>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="info-text">
+                            <h4>Office</h4>
+                            <p>Premises No. 4.07-COW5-12, Floor 04<br>Sheikh Rashid Tower<br>Dubai World Trade Centre, UAE</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact form -->
+                <div class="cf-card">
+                    <h2>Send Us a Message</h2>
+
+                    <div class="cf-success" id="cfSuccess">
+                        ✓ &nbsp; Thank you! Your message has been received. We'll get back to you shortly.
+                    </div>
+
+                    <form id="contactForm" novalidate>
+                        <input type="hidden" name="form_source" value="contact_page">
+
+                        <div class="cf-row">
+                            <div class="cf-field">
+                                <label>Full Name <span class="cf-req">*</span></label>
+                                <input type="text" name="name" placeholder="Your full name">
+                            </div>
+                            <div class="cf-field">
+                                <label>Email <span class="cf-req">*</span></label>
+                                <input type="email" name="email" placeholder="you@company.com">
+                            </div>
+                        </div>
+
+                        <div class="cf-field">
+                            <label>Phone</label>
+                            <input type="tel" name="phone" placeholder="+971 50 000 0000">
+                        </div>
+
+                        <div class="cf-field">
+                            <label>Message <span class="cf-req">*</span></label>
+                            <textarea name="message" placeholder="Tell us about your project…"></textarea>
+                        </div>
+
+                        <div class="cf-error" id="cfError"></div>
+                        <button type="submit" class="cf-submit" id="cfSubmit">Send Message →</button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <p class="copyright-text">&copy; 2026 <strong>RABTORA</strong> MADHYAM MANAGEMENT. ALL RIGHTS RESERVED</p>
+            <div class="footer-socials">
+                <a href="#instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#youtube" aria-label="Youtube"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+    (function () {
+        var form    = document.getElementById('contactForm');
+        var errEl   = document.getElementById('cfError');
+        var btn     = document.getElementById('cfSubmit');
+        var success = document.getElementById('cfSuccess');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            errEl.textContent = '';
+            success.style.display = 'none';
+
+            var name    = form.querySelector('[name="name"]').value.trim();
+            var email   = form.querySelector('[name="email"]').value.trim();
+            var message = form.querySelector('[name="message"]').value.trim();
+
+            if (!name)    { errEl.textContent = 'Please enter your name.'; return; }
+            if (!email)   { errEl.textContent = 'Please enter your email address.'; return; }
+            if (!message) { errEl.textContent = 'Please enter your message.'; return; }
+
+            btn.disabled = true;
+            btn.textContent = 'Sending…';
+
+            fetch('../submit_lead.php', { method: 'POST', body: new FormData(form) })
+                .then(function (r) { return r.json(); })
+                .then(function (j) {
+                    if (j.ok) {
+                        form.reset();
+                        success.style.display = 'block';
+                    } else {
+                        errEl.textContent = j.msg || 'Something went wrong. Please try again.';
+                    }
+                    btn.disabled = false;
+                    btn.textContent = 'Send Message →';
+                })
+                .catch(function () {
+                    errEl.textContent = 'Network error. Please try again.';
+                    btn.disabled = false;
+                    btn.textContent = 'Send Message →';
+                });
+        });
+    })();
+    </script>
+</body>
+</html>

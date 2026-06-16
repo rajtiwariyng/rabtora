@@ -28,7 +28,7 @@ if ($search !== '') {
     $where[] = '(full_name LIKE ? OR phone LIKE ? OR email LIKE ?)';
     array_push($params, $like, $like, $like);
 }
-if ($src !== '' && in_array($src, ['landing_popup', 'contact_form'], true)) {
+if ($src !== '' && in_array($src, ['landing_popup', 'contact_form', 'enquiry_page', 'contact_page'], true)) {
     $where[]  = 'form_source = ?';
     $params[] = $src;
 }
@@ -132,6 +132,8 @@ function qstr(array $merge = [], array $remove = []): string {
     .badge { display: inline-block; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; font-weight: 600; }
     .badge-landing-popup { background: rgba(208,158,54,0.15); color: #D09E36; }
     .badge-contact-form  { background: rgba(96,165,250,0.15); color: #60a5fa; }
+    .badge-enquiry-page  { background: rgba(167,139,250,0.15); color: #a78bfa; }
+    .badge-contact-page  { background: rgba(52,211,153,0.15); color: #34d399; }
 
     .services-list { display: flex; flex-wrap: wrap; gap: 4px; }
     .svc-tag { font-size: 10px; padding: 2px 7px; border-radius: 4px; background: rgba(255,255,255,0.06); color: #a0a5b0; white-space: nowrap; }
@@ -194,6 +196,8 @@ function qstr(array $merge = [], array $remove = []): string {
       <option value="" <?= $src === '' ? 'selected' : '' ?>>All Sources</option>
       <option value="landing_popup" <?= $src === 'landing_popup' ? 'selected' : '' ?>>Landing Popup</option>
       <option value="contact_form"  <?= $src === 'contact_form'  ? 'selected' : '' ?>>Contact Form</option>
+      <option value="enquiry_page"  <?= $src === 'enquiry_page'  ? 'selected' : '' ?>>Enquiry Page</option>
+      <option value="contact_page"  <?= $src === 'contact_page'  ? 'selected' : '' ?>>Contact Page</option>
     </select>
     <button type="submit" class="btn btn-outline">Search</button>
     <?php if ($search || $src): ?>
