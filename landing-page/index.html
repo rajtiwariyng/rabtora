@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rabtora Landing Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+<style>
+  .lp-modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.78);
+    z-index: 9000;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+  }
+  .lp-modal-backdrop.active { display: flex; }
+
+  .lp-modal-card {
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 36px 32px 32px;
+    position: relative;
+  }
+
+  .lp-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 26px;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.15s;
+  }
+  .lp-modal-close:hover { color: #fff; }
+
+  .lp-modal-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .lp-modal-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 24px;
+  }
+
+  .lp-field { margin-bottom: 16px; }
+  .lp-field > label {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 6px;
+  }
+  .lp-req { color: #c9a84c; }
+
+  .lp-field input[type="text"],
+  .lp-field input[type="tel"],
+  .lp-field input[type="email"],
+  .lp-field select {
+    width: 100%;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    color: #e2e2e2;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 11px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .lp-field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+  .lp-field input::placeholder { color: #555; }
+  .lp-field input:focus,
+  .lp-field select:focus { border-color: #c9a84c; }
+
+  .lp-checkboxes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .lp-check-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #ccc;
+    cursor: pointer;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .lp-check-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    accent-color: #c9a84c;
+    cursor: pointer;
+    padding: 0;
+    border: none;
+  }
+
+  .lp-form-error {
+    color: #e07070;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    min-height: 18px;
+    margin-bottom: 10px;
+  }
+
+  .lp-submit-btn {
+    width: 100%;
+    background: #c9a84c;
+    color: #080808;
+    border: none;
+    border-radius: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 13px;
+    cursor: pointer;
+    transition: background 0.15s;
+    margin-top: 4px;
+  }
+  .lp-submit-btn:hover:not(:disabled) { background: #e0bc60; }
+  .lp-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .lp-success { text-align: center; padding: 32px 0 16px; }
+  .lp-success-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.15);
+    color: #c9a84c;
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+  }
+  .lp-success h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .lp-success p { font-family: 'DM Sans', sans-serif; font-size: 14px; color: #888; }
+
+  @media (max-width: 480px) {
+    .lp-modal-card { padding: 28px 20px 24px; }
+    .lp-checkboxes { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+    <div class="overlay" id="menuOverlay"></div>
+
+    <nav class="sidebar" id="sidebarMenu">
+        <a href="#home">Home</a>
+        <a href="#services">Our Services</a>
+        <a href="#about">About Us</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact Us</a>
+    </nav>
+
+    <div class="hero-wrapper">
+        
+        <header>
+            <button class="menu-btn" id="menuToggle" aria-label="Toggle Menu">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <span id="menuText">Menu</span>
+            </button>
+
+            <div class="logo-container">
+                <div>
+                    <img src="imgs/logo.png" alt="">
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <a href="https://wa.me/yournumber" class="btn-whatsapp" target="_blank">
+                    <img src="imgs/whatsapp.svg" alt=""> WhatsApp Now
+                </a>
+                <a href="#book" class="btn-book">
+                    <img src="imgs/appointment-01.svg" alt=""> Book Now
+                </a>
+            </div>
+        </header>
+
+        <main class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Visibility With Purpose,<br>Everywhere.</h1>
+                <div class="hero-buttons">
+                    <a href="#quote" class="btn-quote">Request A Quote</a>
+                    <a href="#services" class="btn-services">Our Services</a>
+                </div>
+            </div>
+        </main>
+
+    </div>
+    <section class="confidence-banner">
+        <div class="banner-content">
+            <h2 class="banner-title">Build With Confidence</h2>
+            <p class="banner-subtitle">Your Hoarding Experts</p>
+        </div>
+    </section>
+    <section class="services-section" id="services">
+        <div class="services-header">
+            <h2 class="services-main-title">Our Services</h2>
+            <p class="services-subtitle">Professional, certified hoarding solutions.</p>
+        </div>
+    
+        <div class="services-grid">
+            
+            <div class="service-card">
+                <div class="card-content">
+                    <div class="card-icon"><i class="fa-solid fa-road-barrier"></i></div>
+                    <h3 class="card-title">Highway & Unipole Hoardings</h3>
+                    <p class="card-description">Secure boundary hoardings that protect your site from unauthorised access and shield the public from hazards.</p>
+                </div>
+                <div class="card-image">
+                    <img src="imgs/service1.png" alt="Highway & Unipole Hoardings">
+                </div>
+            </div>
+    
+            <div class="service-card">
+                <div class="card-content">
+                    <div class="card-icon"><i class="fa-solid fa-road-barrier"></i></div>
+                    <h3 class="card-title">Construction Site Hoardings</h3>
+                    <p class="card-description">Prefabricated overhead protection systems ideal for footpaths and high-traffic pedestrian areas.</p>
+                </div>
+                <div class="card-image">
+                    <img src="imgs/service2.png" alt="Construction Site Hoardings">
+                </div>
+            </div>
+    
+            <div class="service-card">
+                <div class="card-content">
+                    <div class="card-icon"><i class="fa-solid fa-road-barrier"></i></div>
+                    <h3 class="card-title">Bridge & Gantry Hoardings</h3>
+                    <p class="card-description">Custom-engineered overhead protection designed for laneways, busy commercial precincts and complex access points.</p>
+                </div>
+                <div class="card-image">
+                    <img src="imgs/service3.png" alt="Bridge & Gantry Hoardings">
+                </div>
+            </div>
+    
+            <div class="service-card">
+                <div class="card-content">
+                    <div class="card-icon"><i class="fa-solid fa-road-barrier"></i></div>
+                    <h3 class="card-title">Digital Hoardings (LED)</h3>
+                    <p class="card-description">Temporary access stairs for B-Class hoardings.</p>
+                </div>
+                <div class="card-image">
+                    <img src="imgs/service4.png" alt="Digital Hoardings">
+                </div>
+            </div>
+    
+            <div class="service-card">
+                <div class="card-content">
+                    <div class="card-icon"><i class="fa-solid fa-road-barrier"></i></div>
+                    <h3 class="card-title">Mall & Retail Hoardings</h3>
+                    <p class="card-description">We specialise in custom structural steel solutions, handling design, fabrication, and installation to meet any construction challenge.</p>
+                </div>
+                <div class="card-image">
+                    <img src="imgs/service5.png" alt="Mall & Retail Hoardings">
+                </div>
+            </div>
+    
+            <div class="service-card">
+                <div class="card-content">
+                    <div class="card-icon"><i class="fa-solid fa-road-barrier"></i></div>
+                    <h3 class="card-title">Building Wraps & Wall Banners</h3>
+                    <p class="card-description">We specialise in custom structural steel solutions, handling design, fabrication, and installation to meet any construction challenge.</p>
+                </div>
+                <div class="card-image">
+                    <img src="imgs/service6.png" alt="Building Wraps">
+                </div>
+            </div>
+    
+        </div>
+    </section>
+    <section class="why-choose-us" id="about">
+        <div class="wcu-header">
+            <h2 class="wcu-main-title">Why Choose Us?</h2>
+        </div>
+    
+        <div class="wcu-grid">
+    
+            <div class="wcu-card-wrapper">
+                <div class="wcu-card-top">
+                    <span class="wcu-card-num">01</span>
+                </div>
+                <div class="wcu-card-body">
+                    <h3 class="wcu-card-title">Strategic Visibility</h3>
+                    <p class="wcu-card-desc">We don't just place your brand where space is available—we place it where attention naturally flows. Every recommendation is backed by location insights, audience movement, and visibility potential to maximize impact.</p>
+                </div>
+            </div>
+        
+            <div class="wcu-card-wrapper">
+                <div class="wcu-card-top">
+                    <span class="wcu-card-num">02</span>
+                </div>
+                <div class="wcu-card-body">
+                    <h3 class="wcu-card-title">End-to-End Execution</h3>
+                    <p class="wcu-card-desc">From planning and approvals to production and deployment, we manage the entire process under one roof. Our team ensures every campaign moves from concept to launch without unnecessary delays or complexity.</p>
+                </div>
+            </div>
+        
+            <div class="wcu-card-wrapper">
+                <div class="wcu-card-top">
+                    <span class="wcu-card-num">03</span>
+                </div>
+                <div class="wcu-card-body">
+                    <h3 class="wcu-card-title">Results That Matter</h3>
+                    <p class="wcu-card-desc">Attention is valuable only when it drives outcomes. We focus on delivering campaigns that increase brand awareness, strengthen market presence, and create lasting impressions where your audience spends their time.</p>
+                </div>
+            </div>
+        
+            <div class="wcu-card-wrapper">
+                <div class="wcu-card-top">
+                    <span class="wcu-card-num">04</span>
+                </div>
+                <div class="wcu-card-body">
+                    <h3 class="wcu-card-title">Customised Solutions</h3>
+                    <p class="wcu-card-desc">Arrange viewings of the properties you're interested in. We'll coordinate with the property owners and accompany you to ensure you get a firsthand look at your potential new home.</p>
+                </div>
+            </div>
+        
+            <div class="wcu-card-wrapper">
+                <div class="wcu-card-top">
+                    <span class="wcu-card-num">05</span>
+                </div>
+                <div class="wcu-card-body">
+                    <h3 class="wcu-card-title">Making Informed Decisions</h3>
+                    <p class="wcu-card-desc">Before making an offer, our team will assist you with due diligence, including property inspections, legal checks, and market analysis. We want you to be fully informed and confident in your choice.</p>
+                </div>
+            </div>
+        
+            <div class="wcu-card-wrapper">
+                <div class="wcu-card-top">
+                    <span class="wcu-card-num">06</span>
+                </div>
+                <div class="wcu-card-body">
+                    <h3 class="wcu-card-title">Getting The Best Deal</h3>
+                    <p class="wcu-card-desc">We'll help you negotiate the best terms and prepare your offer. Our goal is to secure the property at the right price and on favorable terms.</p>
+                </div>
+            </div>
+        
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-image-side">
+            <img src="imgs/cta-section.png" alt="Secure Construction Site Real Estate Location">
+        </div>
+    
+        <div class="cta-content-side">
+            <div class="cta-text-wrapper">
+                <h2 class="cta-main-title">Ready to<br>secure your<br>site?</h2>
+                <p class="cta-description">Get dependable, industry-compliant hoarding installed quickly and
+                    safely.</p>
+                <a href="#quote" class="btn-cta-quote">Request A Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="testimonials-container">
+            
+            <div class="testimonials-header">
+                <div class="rating-stars">
+                    <span class="rating-number">4.9</span>
+                    <span class="stars-group">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </span>
+                    <span class="rating-count">(2,279)</span>
+                </div>
+                <h2 class="testimonials-title">What Our Customers Say</h2>
+            </div>
+    
+            <div class="testimonials-grid">
+                
+                <div class="testimonial-card">
+                    <div class="card-img-wrapper">
+                        <img src="imgs/customer1.png" alt="Customer Showcase Hoarding Location">
+                        <div class="quote-badge"><i class="fa-solid fa-quote-right"></i></div>
+                    </div>
+                    <div class="card-body-content">
+                        <div class="user-profile">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Kuldeep Avi profile photo" class="avatar">
+                            <div class="user-meta">
+                                <h4 class="user-name">Kuldeep Avi</h4>
+                                <span class="post-time">1 week ago</span>
+                            </div>
+                        </div>
+                        <p class="review-text">Fast and reliable service. Quality workmanship.</p>
+                    </div>
+                </div>
+    
+                <div class="testimonial-card">
+                    <div class="card-img-wrapper">
+                        <img src="imgs/customer2.png" alt="Retail site banner hoarding">
+                        <div class="quote-badge"><i class="fa-solid fa-quote-right"></i></div>
+                    </div>
+                    <div class="card-body-content">
+                        <div class="user-profile">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Marvin McKinney profile photo" class="avatar">
+                            <div class="user-meta">
+                                <h4 class="user-name">Marvin McKinney</h4>
+                                <span class="post-time">3 weeks ago</span>
+                            </div>
+                        </div>
+                        <p class="review-text">George was very polite and efficient. Got the job done professionally.</p>
+                    </div>
+                </div>
+    
+                <div class="testimonial-card">
+                    <div class="card-img-wrapper">
+                        <img src="imgs/customer3.png" alt="Bridge custom premium billboard wrap">
+                        <div class="quote-badge"><i class="fa-solid fa-quote-right"></i></div>
+                    </div>
+                    <div class="card-body-content">
+                        <div class="user-profile">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" alt="Dianne Russell profile photo" class="avatar">
+                            <div class="user-meta">
+                                <h4 class="user-name">Dianne Russell</h4>
+                                <span class="post-time">1 month ago</span>
+                            </div>
+                        </div>
+                        <p class="review-text">Their professionalism and creativity truly stand out, and I highly recommended.</p>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </section>
+    
+    <footer class="main-footer">
+        <div class="footer-container">
+            <p class="copyright-text">&copy; 2026 <strong>RABTORA</strong> MADHYAM MANAGEMENT. ALL RIGHTS RESERVED</p>
+            <div class="footer-socials">
+                <a href="#instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#youtube" aria-label="Youtube"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LEAD CAPTURE MODAL -->
+    <div class="lp-modal-backdrop" id="lpModalBackdrop" aria-hidden="true">
+      <div class="lp-modal-card" role="dialog" aria-modal="true" aria-labelledby="lpModalTitle">
+        <button class="lp-modal-close" id="lpModalClose" aria-label="Close">&times;</button>
+        <h2 class="lp-modal-title" id="lpModalTitle">Request A Quote</h2>
+        <p class="lp-modal-sub">Tell us about your campaign and we'll get back to you within 24 hours.</p>
+
+        <form id="lpLeadForm" novalidate>
+          <input type="hidden" name="form_source" value="landing_popup">
+
+          <div class="lp-field">
+            <label for="lp_name">Full Name <span class="lp-req">*</span></label>
+            <input type="text" id="lp_name" name="full_name" placeholder="Your full name" required>
+          </div>
+
+          <div class="lp-field">
+            <label for="lp_phone">Mobile <span class="lp-req">*</span></label>
+            <input type="tel" id="lp_phone" name="phone" placeholder="+971 50 000 0000" required>
+          </div>
+
+          <div class="lp-field">
+            <label for="lp_email">Email</label>
+            <input type="email" id="lp_email" name="email" placeholder="you@company.com">
+          </div>
+
+          <div class="lp-field">
+            <label for="lp_company">Company Name</label>
+            <input type="text" id="lp_company" name="company_name" placeholder="Your company">
+          </div>
+
+          <div class="lp-field">
+            <label for="lp_budget">Budget <span class="lp-req">*</span></label>
+            <select id="lp_budget" name="budget" required>
+              <option value="" disabled selected>Select Budget</option>
+              <option value="Under AED 10,000">Under AED 10,000</option>
+              <option value="AED 10,000 – 50,000">AED 10,000 – 50,000</option>
+              <option value="AED 50,000 – 100,000">AED 50,000 – 100,000</option>
+              <option value="AED 100,000 – 500,000">AED 100,000 – 500,000</option>
+              <option value="Above AED 500,000">Above AED 500,000</option>
+            </select>
+          </div>
+
+          <div class="lp-field">
+            <label>Services <span class="lp-req">*</span></label>
+            <div class="lp-checkboxes">
+              <label class="lp-check-label">
+                <input type="checkbox" name="services[]" value="Hoardings"> Hoardings
+              </label>
+              <label class="lp-check-label">
+                <input type="checkbox" name="services[]" value="UniPols"> UniPols
+              </label>
+              <label class="lp-check-label">
+                <input type="checkbox" name="services[]" value="Digital Hoardings"> Digital Hoardings
+              </label>
+              <label class="lp-check-label">
+                <input type="checkbox" name="services[]" value="Transit Marketing"> Transit Marketing
+              </label>
+            </div>
+          </div>
+
+          <div class="lp-form-error" id="lpFormError"></div>
+
+          <button type="submit" class="lp-submit-btn" id="lpSubmitBtn">Send Request</button>
+        </form>
+
+        <div class="lp-success" id="lpSuccess" style="display:none">
+          <div class="lp-success-icon">&#10003;</div>
+          <h3>Thank you!</h3>
+          <p>We'll be in touch within 24 hours.</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+(function () {
+  var backdrop  = document.getElementById('lpModalBackdrop');
+  var closeBtn  = document.getElementById('lpModalClose');
+  var form      = document.getElementById('lpLeadForm');
+  var errorEl   = document.getElementById('lpFormError');
+  var submitBtn = document.getElementById('lpSubmitBtn');
+  var successEl = document.getElementById('lpSuccess');
+
+  function openModal() {
+    backdrop.classList.add('active');
+    backdrop.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    backdrop.classList.remove('active');
+    backdrop.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.btn-quote, .btn-book, .btn-cta-quote').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      openModal();
+    });
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+
+  backdrop.addEventListener('click', function (e) {
+    if (e.target === backdrop) closeModal();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    errorEl.textContent = '';
+
+    var checked = form.querySelectorAll('input[name="services[]"]:checked');
+    if (checked.length === 0) {
+      errorEl.textContent = 'Please select at least one service.';
+      return;
+    }
+
+    if (!form.budget.value) {
+      errorEl.textContent = 'Please select a budget range.';
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
+    fetch('../submit_lead.php', { method: 'POST', body: new FormData(form) })
+      .then(function (r) { return r.json(); })
+      .then(function (json) {
+        if (json.ok) {
+          form.style.display = 'none';
+          successEl.style.display = 'block';
+        } else {
+          errorEl.textContent = json.msg || 'Something went wrong. Please try again.';
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Request';
+        }
+      })
+      .catch(function () {
+        errorEl.textContent = 'Network error. Please try again.';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Request';
+      });
+  });
+})();
+</script>
+</body>
+</html>
