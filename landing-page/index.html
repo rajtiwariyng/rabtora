@@ -13,7 +13,7 @@
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.78);
+    background: rgba(6,12,24,0.88);
     z-index: 9000;
     justify-content: center;
     align-items: center;
@@ -22,15 +22,16 @@
   .lp-modal-backdrop.active { display: flex; }
 
   .lp-modal-card {
-    background: #111;
-    border: 1px solid #2a2a2a;
-    border-radius: 8px;
+    background: #0f223b;
+    border: 1px solid rgba(208,158,54,0.18);
+    border-radius: 10px;
     width: 100%;
     max-width: 520px;
     max-height: 90vh;
     overflow-y: auto;
     padding: 36px 32px 32px;
     position: relative;
+    box-shadow: 0 20px 60px rgba(6,12,24,0.7);
   }
 
   .lp-modal-close {
@@ -39,7 +40,7 @@
     right: 18px;
     background: none;
     border: none;
-    color: #888;
+    color: #a0a5b0;
     font-size: 26px;
     cursor: pointer;
     line-height: 1;
@@ -57,7 +58,7 @@
   .lp-modal-sub {
     font-family: 'DM Sans', sans-serif;
     font-size: 13px;
-    color: #888;
+    color: #a0a5b0;
     margin-bottom: 24px;
   }
 
@@ -69,20 +70,20 @@
     font-weight: 500;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: #aaa;
+    color: #a0a5b0;
     margin-bottom: 6px;
   }
-  .lp-req { color: #c9a84c; }
+  .lp-req { color: #D09E36; }
 
   .lp-field input[type="text"],
   .lp-field input[type="tel"],
   .lp-field input[type="email"],
   .lp-field select {
     width: 100%;
-    background: #1a1a1a;
-    border: 1px solid #2a2a2a;
-    border-radius: 4px;
-    color: #e2e2e2;
+    background: #081220;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    color: #fff;
     font-family: 'DM Sans', sans-serif;
     font-size: 14px;
     padding: 11px 14px;
@@ -92,15 +93,15 @@
     -webkit-appearance: none;
   }
   .lp-field select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a0a5b0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 14px center;
     padding-right: 36px;
     cursor: pointer;
   }
-  .lp-field input::placeholder { color: #555; }
+  .lp-field input::placeholder { color: #4a5568; }
   .lp-field input:focus,
-  .lp-field select:focus { border-color: #c9a84c; }
+  .lp-field select:focus { border-color: #D09E36; }
 
   .lp-checkboxes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .lp-check-label {
@@ -110,7 +111,7 @@
     font-family: 'DM Sans', sans-serif;
     font-size: 13px;
     font-weight: 400;
-    color: #ccc;
+    color: #d1d5db;
     cursor: pointer;
     text-transform: none;
     letter-spacing: 0;
@@ -119,14 +120,14 @@
     width: 16px;
     height: 16px;
     min-width: 16px;
-    accent-color: #c9a84c;
+    accent-color: #D09E36;
     cursor: pointer;
     padding: 0;
     border: none;
   }
 
   .lp-form-error {
-    color: #e07070;
+    color: #f87171;
     font-family: 'DM Sans', sans-serif;
     font-size: 13px;
     min-height: 18px;
@@ -135,30 +136,30 @@
 
   .lp-submit-btn {
     width: 100%;
-    background: #c9a84c;
-    color: #080808;
+    background: linear-gradient(to right, #b98b32, #dfb45b);
+    color: #091225;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     font-family: 'DM Sans', sans-serif;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     padding: 13px;
     cursor: pointer;
-    transition: background 0.15s;
+    transition: opacity 0.15s;
     margin-top: 4px;
   }
-  .lp-submit-btn:hover:not(:disabled) { background: #e0bc60; }
-  .lp-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .lp-submit-btn:hover:not(:disabled) { opacity: 0.88; }
+  .lp-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
   .lp-success { text-align: center; padding: 32px 0 16px; }
   .lp-success-icon {
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background: rgba(201,168,76,0.15);
-    color: #c9a84c;
+    background: rgba(208,158,54,0.15);
+    color: #D09E36;
     font-size: 26px;
     display: flex;
     align-items: center;
@@ -172,7 +173,7 @@
     color: #fff;
     margin-bottom: 8px;
   }
-  .lp-success p { font-family: 'DM Sans', sans-serif; font-size: 14px; color: #888; }
+  .lp-success p { font-family: 'DM Sans', sans-serif; font-size: 14px; color: #a0a5b0; }
 
   @media (max-width: 480px) {
     .lp-modal-card { padding: 28px 20px 24px; }
@@ -211,7 +212,7 @@
             </div>
 
             <div class="header-actions">
-                <a href="https://wa.me/yournumber" class="btn-whatsapp" target="_blank">
+                <a href="https://wa.me/971585792934" class="btn-whatsapp" target="_blank">
                     <img src="imgs/whatsapp.svg" alt=""> WhatsApp Now
                 </a>
                 <a href="#book" class="btn-book">

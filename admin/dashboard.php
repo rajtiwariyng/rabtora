@@ -85,18 +85,19 @@ function qstr(array $merge = [], array $remove = []): string {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leads — Rabtora Admin</title>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #080808; --card: #111; --border: #222;
-      --gold: #c9a84c; --gold2: #e0bc60; --text: #e2e2e2; --muted: #666; --danger: #c94c4c;
+      --bg: #091225; --card: #0f223b; --card2: #081220; --border: rgba(255,255,255,0.08);
+      --gold: #D09E36; --gold2: #dfb45b; --gold-dark: #b98b32;
+      --text: #ffffff; --muted: #a0a5b0; --danger: #f87171;
     }
-    body { background: var(--bg); color: var(--text); font-family: 'Jost', system-ui, sans-serif; font-size: 13px; min-height: 100vh; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; min-height: 100vh; }
 
-    .nav { background: #0d0d0d; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 28px; height: 56px; }
-    .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500; letter-spacing: 0.14em; color: var(--gold); text-transform: uppercase; }
-    .nav-brand span { font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-left: 10px; vertical-align: middle; }
+    .nav { background: #060c18; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 28px; height: 56px; }
+    .nav-brand { font-family: 'DM Sans', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: 0.14em; color: var(--gold); text-transform: uppercase; }
+    .nav-brand span { font-size: 10px; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-left: 10px; vertical-align: middle; font-weight: 400; }
     .nav-right { display: flex; align-items: center; gap: 20px; color: var(--muted); font-size: 12px; }
     .nav-right a { color: var(--muted); text-decoration: none; letter-spacing: 0.06em; transition: color 0.15s; }
     .nav-right a:hover { color: var(--text); }
@@ -104,46 +105,46 @@ function qstr(array $merge = [], array $remove = []): string {
     .main { max-width: 1400px; margin: 0 auto; padding: 28px 24px 60px; }
 
     .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
-    .stat { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 18px 20px; }
+    .stat { background: var(--card); border: 1px solid rgba(208,158,54,0.15); border-radius: 10px; padding: 18px 20px; }
     .stat-val { font-size: 28px; font-weight: 300; color: var(--gold); line-height: 1; }
     .stat-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 8px; }
 
     .toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
-    .toolbar input[type="search"] { background: var(--card); border: 1px solid var(--border); color: var(--text); font-family: 'Jost', sans-serif; font-size: 13px; padding: 9px 14px; border-radius: 3px; outline: none; width: 240px; transition: border-color 0.2s; }
-    .toolbar input[type="search"]:focus { border-color: rgba(201,168,76,0.4); }
-    .toolbar select { background: var(--card); border: 1px solid var(--border); color: var(--text); font-family: 'Jost', sans-serif; font-size: 13px; padding: 9px 12px; border-radius: 3px; outline: none; cursor: pointer; }
-    .btn { display: inline-flex; align-items: center; gap: 6px; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 9px 18px; border-radius: 3px; border: none; cursor: pointer; text-decoration: none; transition: background 0.15s; }
-    .btn-gold { background: var(--gold); color: #080808; }
-    .btn-gold:hover { background: var(--gold2); }
+    .toolbar input[type="search"] { background: var(--card); border: 1px solid var(--border); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 9px 14px; border-radius: 6px; outline: none; width: 240px; transition: border-color 0.2s; }
+    .toolbar input[type="search"]:focus { border-color: var(--gold); }
+    .toolbar select { background: var(--card); border: 1px solid var(--border); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 9px 12px; border-radius: 6px; outline: none; cursor: pointer; }
+    .btn { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 9px 18px; border-radius: 6px; border: none; cursor: pointer; text-decoration: none; transition: opacity 0.15s; }
+    .btn-gold { background: linear-gradient(to right, var(--gold-dark), var(--gold2)); color: #091225; }
+    .btn-gold:hover { opacity: 0.88; }
     .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--muted); }
     .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
     .ml-auto { margin-left: auto; }
 
-    .table-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+    .table-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
     table { width: 100%; border-collapse: collapse; }
-    thead th { background: #0d0d0d; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding: 12px 16px; text-align: left; white-space: nowrap; border-bottom: 1px solid var(--border); }
-    tbody tr { border-bottom: 1px solid #1a1a1a; transition: background 0.1s; }
+    thead th { background: #060c18; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding: 12px 16px; text-align: left; white-space: nowrap; border-bottom: 1px solid var(--border); }
+    tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.1s; }
     tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: #161616; }
+    tbody tr:hover { background: rgba(208,158,54,0.04); }
     tbody td { padding: 12px 16px; color: var(--text); vertical-align: middle; }
     tbody td.muted { color: var(--muted); }
 
-    .badge { display: inline-block; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; font-weight: 500; }
-    .badge-landing-popup { background: rgba(201,168,76,0.15); color: #c9a84c; }
-    .badge-contact-form  { background: rgba(76,168,201,0.15); color: #4ca8c9; }
+    .badge { display: inline-block; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; font-weight: 600; }
+    .badge-landing-popup { background: rgba(208,158,54,0.15); color: #D09E36; }
+    .badge-contact-form  { background: rgba(96,165,250,0.15); color: #60a5fa; }
 
     .services-list { display: flex; flex-wrap: wrap; gap: 4px; }
-    .svc-tag { font-size: 10px; padding: 2px 7px; border-radius: 2px; background: rgba(255,255,255,0.06); color: #aaa; white-space: nowrap; }
+    .svc-tag { font-size: 10px; padding: 2px 7px; border-radius: 4px; background: rgba(255,255,255,0.06); color: #a0a5b0; white-space: nowrap; }
 
-    .btn-del { background: transparent; border: 1px solid #2a2a2a; color: var(--muted); font-size: 11px; padding: 5px 12px; border-radius: 2px; cursor: pointer; transition: all 0.15s; }
+    .btn-del { background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--muted); font-size: 11px; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 0.15s; }
     .btn-del:hover { border-color: var(--danger); color: var(--danger); }
     .empty { text-align: center; color: var(--muted); padding: 48px 0; font-size: 13px; letter-spacing: 0.06em; }
 
     .pager { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; color: var(--muted); font-size: 12px; }
     .pager-links { display: flex; gap: 6px; }
-    .pager-links a, .pager-links span { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1px solid var(--border); border-radius: 3px; text-decoration: none; color: var(--muted); font-size: 12px; transition: all 0.15s; }
+    .pager-links a, .pager-links span { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1px solid var(--border); border-radius: 6px; text-decoration: none; color: var(--muted); font-size: 12px; transition: all 0.15s; }
     .pager-links a:hover { border-color: var(--gold); color: var(--gold); }
-    .pager-links span.current { background: var(--gold); border-color: var(--gold); color: #080808; }
+    .pager-links span.current { background: linear-gradient(to right, var(--gold-dark), var(--gold2)); border-color: var(--gold); color: #091225; }
 
     @media (max-width: 900px) {
       .stats { grid-template-columns: 1fr 1fr; }

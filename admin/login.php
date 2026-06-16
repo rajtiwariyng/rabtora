@@ -40,19 +40,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Login — Rabtora</title>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #080808;
+      background: #091225;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Jost', system-ui, sans-serif;
+      font-family: 'DM Sans', system-ui, sans-serif;
       background-image:
-        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(201,168,76,0.07) 0%, transparent 70%);
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(208,158,54,0.1) 0%, transparent 70%);
     }
 
     .wrap {
@@ -66,45 +66,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       margin-bottom: 36px;
     }
     .brand-name {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'DM Sans', sans-serif;
       font-size: 22px;
-      font-weight: 500;
+      font-weight: 700;
       letter-spacing: 0.18em;
-      color: #c9a84c;
+      color: #D09E36;
       text-transform: uppercase;
     }
     .brand-sub {
       display: block;
       font-size: 10px;
       letter-spacing: 0.3em;
-      color: #666;
+      color: #a0a5b0;
       text-transform: uppercase;
       margin-top: 6px;
     }
 
     .card {
-      background: #111;
-      border: 1px solid rgba(201,168,76,0.15);
-      border-radius: 4px;
+      background: #0f223b;
+      border: 1px solid rgba(208,158,54,0.18);
+      border-radius: 10px;
       padding: 36px 32px;
+      box-shadow: 0 20px 60px rgba(6,12,24,0.5);
     }
 
     .card-title {
       font-size: 13px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #888;
+      color: #a0a5b0;
       margin-bottom: 28px;
       text-align: center;
     }
 
     .alert {
-      background: rgba(200,70,70,0.12);
-      border: 1px solid rgba(200,70,70,0.3);
-      color: #e07070;
+      background: rgba(248,113,113,0.1);
+      border: 1px solid rgba(248,113,113,0.3);
+      color: #f87171;
       font-size: 13px;
       padding: 10px 14px;
-      border-radius: 3px;
+      border-radius: 6px;
       margin-bottom: 20px;
     }
 
@@ -114,40 +115,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       font-size: 11px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #666;
+      color: #a0a5b0;
       margin-bottom: 8px;
     }
     .field input {
       width: 100%;
-      background: #0d0d0d;
-      border: 1px solid #2a2a2a;
-      color: #e2e2e2;
-      font-family: 'Jost', sans-serif;
+      background: #081220;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #ffffff;
+      font-family: 'DM Sans', sans-serif;
       font-size: 14px;
       padding: 11px 14px;
-      border-radius: 3px;
+      border-radius: 6px;
       outline: none;
       transition: border-color 0.2s;
     }
-    .field input:focus { border-color: rgba(201,168,76,0.5); }
+    .field input:focus { border-color: #D09E36; }
 
     .btn-submit {
       width: 100%;
-      background: #c9a84c;
-      color: #0a0a0a;
+      background: linear-gradient(to right, #b98b32, #dfb45b);
+      color: #091225;
       border: none;
-      font-family: 'Jost', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       padding: 14px;
-      border-radius: 3px;
+      border-radius: 6px;
       cursor: pointer;
       margin-top: 8px;
-      transition: background 0.2s;
+      transition: opacity 0.2s;
     }
-    .btn-submit:hover { background: #e0bc60; }
+    .btn-submit:hover { opacity: 0.88; }
   </style>
 </head>
 <body>
