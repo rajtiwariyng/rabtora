@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Panel Mockup — Image as Background</title>
+<link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --gold: #c99a2a; --gold-light: #e2b94a; --navy: #0d1b3d; --navy-2: #1a2d5a; --ink: #0a1020;
+  }
+  body { font-family: 'Sen', sans-serif; background: #1a1a2e; padding: 2rem; color: #fff; }
+  h1 { text-align: center; color: var(--gold); font-size: 1.1rem; margin-bottom: 0.4rem; letter-spacing: 0.05em; }
+  .note { text-align: center; color: rgba(255,255,255,0.5); font-size: 0.78rem; margin-bottom: 2rem; }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-bottom: 4px; }
+  .panel {
+    position: relative; padding: 4rem 3.5rem;
+    display: flex; flex-direction: column; justify-content: space-between;
+    gap: 2rem; overflow: hidden; min-height: 340px;
+    background-size: cover; background-position: center;
+  }
+  .panel-overlay {
+    position: absolute; inset: 0; z-index: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(201,154,42,0.82) 0%,
+      rgba(166,126,30,0.88) 60%,
+      rgba(13,27,61,0.6) 100%
+    );
+  }
+  .panel-inner, .panel-action { position: relative; z-index: 1; }
+  .panel h2 {
+    font-size: clamp(1.6rem, 2.8vw, 2.4rem); font-weight: 800;
+    color: #fff; line-height: 1.1; margin-bottom: 1rem;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+  .panel p { font-size: 0.92rem; line-height: 1.75; color: rgba(255,255,255,0.88); }
+  .svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem 1rem; position: relative; z-index: 1; }
+  .svc-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.83rem; font-weight: 700; color: #fff; }
+  .svc-dot { width: 7px; height: 7px; border-radius: 50%; background: #fff; flex-shrink: 0; opacity: 0.7; }
+  .btn-panel {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.8rem 1.8rem; background: rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(255,255,255,0.6);
+    color: #fff; font-family: 'Sen', sans-serif; font-size: 0.82rem; font-weight: 700;
+    letter-spacing: 0.04em; border-radius: 50px; white-space: nowrap;
+    backdrop-filter: blur(8px);
+  }
+
+  /* fallback color if images don't load */
+  .panel-outdoor   { background-color: #3a2a0a; background-image: url('http://localhost/rabtora.ae/assets/images/services/out1.jpg'); }
+  .panel-branding  { background-color: #1a0a0a; background-image: url('http://localhost/rabtora.ae/assets/images/branding-2.jpg'); }
+  .panel-electronic{ background-color: #0a1a3a; background-image: url('http://localhost/rabtora.ae/assets/images/electronic-media.png'); }
+  .panel-signage   { background-color: #0a0a1a; background-image: url('http://localhost/rabtora.ae/assets/images/new-signboard.jpeg'); }
+
+  .label-tag {
+    display: inline-block; font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6); margin-bottom: 0.6rem;
+    border: 1px solid rgba(255,255,255,0.25); padding: 3px 9px; border-radius: 20px;
+  }
+
+  .section-label {
+    text-align: center; color: rgba(255,255,255,0.3); font-size: 0.68rem;
+    letter-spacing: 0.18em; text-transform: uppercase; padding: 10px;
+    background: rgba(255,255,255,0.04); margin-bottom: 4px; border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+  <h1>Panel Design — Image as Background with Gold Overlay</h1>
+  <p class="note">Images load from XAMPP (localhost). If panels show a solid color, XAMPP may not be running — the design is still accurate, just without the photos.</p>
+
+  <div class="section-label">ROW 1 — Outdoor &amp; Branding</div>
+  <div class="split">
+
+    <div class="panel panel-outdoor">
+      <div class="panel-overlay"></div>
+      <div class="panel-inner">
+        <span class="label-tag">Outdoor Advertising</span>
+        <h2>Turn Every Road Into Brand Space</h2>
+        <p>Premium outdoor visibility through billboards, hoardings, transit branding, LED screens, and high-traffic media placements across the UAE.</p>
+      </div>
+      <div class="panel-action">
+        <a class="btn-panel">Get Outdoor Quote &nbsp;→</a>
+      </div>
+    </div>
+
+    <div class="panel panel-branding">
+      <div class="panel-overlay"></div>
+      <div class="panel-inner">
+        <span class="label-tag">Branding &amp; Print</span>
+        <h2>Branding That Leaves a Mark</h2>
+        <div class="svc-grid">
+          <div class="svc-item"><div class="svc-dot"></div>Brand Identity</div>
+          <div class="svc-item"><div class="svc-dot"></div>Print Collateral</div>
+          <div class="svc-item"><div class="svc-dot"></div>Packaging Design</div>
+          <div class="svc-item"><div class="svc-dot"></div>Visual Materials</div>
+          <div class="svc-item"><div class="svc-dot"></div>Business Cards</div>
+          <div class="svc-item"><div class="svc-dot"></div>Corporate Gifts</div>
+        </div>
+      </div>
+      <div class="panel-action">
+        <a class="btn-panel">Start Branding &nbsp;→</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-label">ROW 2 — Electronic Media &amp; Signage</div>
+  <div class="split">
+
+    <div class="panel panel-electronic">
+      <div class="panel-overlay"></div>
+      <div class="panel-inner">
+        <span class="label-tag">Electronic Media</span>
+        <h2>Reach Millions on Screen</h2>
+        <p>TV commercials, radio spots, digital display advertising, and broadcast media placements that put your brand in front of the right audience, at scale.</p>
+      </div>
+      <div class="panel-action">
+        <a class="btn-panel">Explore Media Ads &nbsp;→</a>
+      </div>
+    </div>
+
+    <div class="panel panel-signage">
+      <div class="panel-overlay"></div>
+      <div class="panel-inner">
+        <span class="label-tag">Signage</span>
+        <h2>Signage That Commands Attention</h2>
+        <p>Custom sign boards, acrylic letters, illuminated fascia, and premium storefront branding that makes your business unmissable on any street.</p>
+      </div>
+      <div class="panel-action">
+        <a class="btn-panel">Get a Sign Quote &nbsp;→</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="text-align:center;margin-top:2rem;padding:1rem;background:rgba(201,154,42,0.1);border-radius:8px;border:1px solid rgba(201,154,42,0.3);">
+    <p style="color:var(--gold);font-size:0.82rem;font-weight:700;">↑ This is the full 4-panel design with background images + gold overlay + white text</p>
+    <p style="color:rgba(255,255,255,0.5);font-size:0.75rem;margin-top:0.4rem;">Also added a small service label tag (e.g. "OUTDOOR ADVERTISING") at the top of each panel for clarity</p>
+  </div>
+
+  <script>
+    // inject helper for selection (not needed here — this is a full preview, not a choices screen)
+  </script>
+</body>
+</html>

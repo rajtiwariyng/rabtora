@@ -1,0 +1,64 @@
+<h2>How should the image sit inside each gold panel?</h2>
+<p class="subtitle">Each approach keeps the gold background. Pick what looks right to you.</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="top" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <!-- Panel mockup: image thumbnail at top -->
+      <div style="background:linear-gradient(135deg,#c99a2a,#e2b94a);padding:16px;border-radius:8px;font-family:sans-serif;">
+        <div style="background:rgba(0,0,0,0.18);border-radius:6px;height:80px;width:100%;margin-bottom:12px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+          <span style="color:rgba(255,255,255,0.7);font-size:11px;font-weight:600;">📸 Service Photo</span>
+        </div>
+        <div style="font-size:11px;font-weight:800;color:#0a1020;margin-bottom:6px;">Turn Every Road Into Brand Space</div>
+        <div style="font-size:9px;color:rgba(10,16,32,0.6);line-height:1.5;margin-bottom:10px;">Premium outdoor visibility through billboards, hoardings, transit branding...</div>
+        <div style="background:#0d1b3d;color:#fff;font-size:9px;font-weight:700;padding:5px 12px;border-radius:20px;display:inline-block;">Get Outdoor Quote →</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Image at top</h3>
+      <p>Photo sits above the heading. Immediately visual — the image draws the eye before the text. Clean card feel inside the panel.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="bottom" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <!-- Panel mockup: image thumbnail at bottom -->
+      <div style="background:linear-gradient(135deg,#c99a2a,#e2b94a);padding:16px;border-radius:8px;font-family:sans-serif;">
+        <div style="font-size:11px;font-weight:800;color:#0a1020;margin-bottom:6px;">Turn Every Road Into Brand Space</div>
+        <div style="font-size:9px;color:rgba(10,16,32,0.6);line-height:1.5;margin-bottom:10px;">Premium outdoor visibility through billboards, hoardings, transit branding...</div>
+        <div style="background:rgba(0,0,0,0.18);border-radius:6px;height:70px;width:100%;margin-bottom:10px;display:flex;align-items:center;justify-content:center;">
+          <span style="color:rgba(255,255,255,0.7);font-size:11px;font-weight:600;">📸 Service Photo</span>
+        </div>
+        <div style="background:#0d1b3d;color:#fff;font-size:9px;font-weight:700;padding:5px 12px;border-radius:20px;display:inline-block;">Get Outdoor Quote →</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Image at bottom</h3>
+      <p>Text and headline first, then photo, then CTA. The content leads, the image provides visual support. Preserves the existing text layout.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="background" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <!-- Panel mockup: image as dark background -->
+      <div style="border-radius:8px;overflow:hidden;font-family:sans-serif;position:relative;">
+        <div style="background:linear-gradient(135deg,rgba(201,154,42,0.85),rgba(166,126,30,0.9)),repeating-linear-gradient(45deg,rgba(0,0,0,0.05) 0px,rgba(0,0,0,0.05) 2px,transparent 2px,transparent 10px);padding:16px;min-height:140px;display:flex;flex-direction:column;justify-content:space-between;">
+          <div>
+            <div style="font-size:11px;font-weight:800;color:#fff;margin-bottom:5px;text-shadow:0 1px 4px rgba(0,0,0,0.4);">Turn Every Road Into Brand Space</div>
+            <div style="font-size:9px;color:rgba(255,255,255,0.8);line-height:1.5;">Premium outdoor visibility through billboards, hoardings, transit branding...</div>
+          </div>
+          <div>
+            <div style="font-size:8px;color:rgba(255,255,255,0.5);margin-bottom:5px;font-style:italic;">↑ real photo fills background</div>
+            <div style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);color:#fff;font-size:9px;font-weight:700;padding:5px 12px;border-radius:20px;display:inline-block;">Get Outdoor Quote →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Image as background</h3>
+      <p>The photo fills the entire panel. Gold overlay keeps the brand colour. Most dramatic and editorial. Works great if photos are high quality and dark enough.</p>
+    </div>
+  </div>
+
+</div>
