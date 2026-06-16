@@ -13,29 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
     exit;
 }
 
-// ── CSV EXPORT ────────────────────────────────────────────────────────────────
-if (isset($_GET['export'])) {
-    $rows = $pdo->query('SELECT * FROM leads ORDER BY created_at DESC')->fetchAll();
-    header('Content-Type: text/csv; charset=utf-8');
-    header('Content-Disposition: attachment; filename="rabtora_leads_' . date('Y-m-d') . '.csv"');
-    $out = fopen('php://output', 'w');
-    fputcsv($out, ['ID', 'Source', 'Full Name', 'Phone', 'Email', 'Company', 'Budget', 'Services', 'IP', 'Submitted']);
-    foreach ($rows as $r) {
-        fputcsv($out, [
-            $r['id'], $r['form_source'], $r['full_name'], $r['phone'],
-            $r['email'] ?? '', $r['company_name'] ?? '', $r['budget'] ?? '',
-            $r['services'] ?? '', $r['ip_address'] ?? '', $r['created_at'],
-        ]);
-    }
-    fclose($out);
-    exit;
-}
-
-// ── STATS ─────────────────────────────────────────────────────────────────────
-$total = (int) $pdo->query('SELECT COUNT(*) FROM leads')->fetchColumn();
-$today = (int) $pdo->query("SELECT COUNT(*) FROM leads WHERE DATE(created_at) = CURDATE()")->fetchColumn();
-$popup = (int) $pdo->query("SELECT COUNT(*) FROM leads WHERE form_source = 'landing_popup'")->fetchColumn();
-
 // ── SEARCH / FILTER / PAGINATE ────────────────────────────────────────────────
 $search = trim($_GET['q']   ?? '');
 $src    = trim($_GET['src'] ?? '');
@@ -57,6 +34,31 @@ if ($src !== '' && in_array($src, ['landing_popup'], true)) {
 }
 
 $whereSQL  = $where ? 'WHERE ' . implode(' AND ', $where) : '';
+
+// ── CSV EXPORT ────────────────────────────────────────────────────────────────
+if (isset($_GET['export'])) {
+    $stmt = $pdo->prepare("SELECT * FROM leads $whereSQL ORDER BY created_at DESC");
+    $stmt->execute($params);
+    $rows = $stmt->fetchAll();
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename="rabtora_leads_' . date('Y-m-d') . '.csv"');
+    $out = fopen('php://output', 'w');
+    fputcsv($out, ['ID', 'Source', 'Full Name', 'Phone', 'Email', 'Company', 'Budget', 'Services', 'IP', 'Submitted']);
+    foreach ($rows as $r) {
+        fputcsv($out, [
+            $r['id'], $r['form_source'], $r['full_name'], $r['phone'],
+            $r['email'] ?? '', $r['company_name'] ?? '', $r['budget'] ?? '',
+            $r['services'] ?? '', $r['ip_address'] ?? '', $r['created_at'],
+        ]);
+    }
+    fclose($out);
+    exit;
+}
+
+// ── STATS ─────────────────────────────────────────────────────────────────────
+$total = (int) $pdo->query('SELECT COUNT(*) FROM leads')->fetchColumn();
+$today = (int) $pdo->query("SELECT COUNT(*) FROM leads WHERE DATE(created_at) = CURDATE()")->fetchColumn();
+$popup = (int) $pdo->query("SELECT COUNT(*) FROM leads WHERE form_source = 'landing_popup'")->fetchColumn();
 $countStmt = $pdo->prepare("SELECT COUNT(*) FROM leads $whereSQL");
 $countStmt->execute($params);
 $totalRows  = (int) $countStmt->fetchColumn();
