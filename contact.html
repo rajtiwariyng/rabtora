@@ -247,8 +247,13 @@
 				<div class="col-lg-8">
 					<div style="background: #fff; padding: 50px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);">
 						<h2 style="font-size: 28px; font-weight: 700; margin-bottom: 30px; color: #1a1a1a;">Send us a Message</h2>
-						
-						<form id="contactForm" style="display: grid; gap: 20px;">
+
+						<div id="cf-success" style="display:none; background:#d4edda; border:1px solid #c3e6cb; color:#155724; padding:14px 18px; border-radius:8px; margin-bottom:16px; font-size:14px;">
+							Thank you! Your message has been sent. We'll get back to you shortly.
+						</div>
+						<div id="cf-error" style="display:none; background:#f8d7da; border:1px solid #f5c6cb; color:#721c24; padding:14px 18px; border-radius:8px; margin-bottom:16px; font-size:14px;"></div>
+
+						<form id="contactForm" style="display: grid; gap: 20px;" novalidate>
 							<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
 								<div>
 									<label style="display: block; font-weight: 600; margin-bottom: 8px; color: #1a1a1a;">Full Name *</label>
@@ -384,24 +389,70 @@
 	<script src="assets/js/main.js"></script>
 
 	<script>
-		document.getElementById('contactForm').addEventListener('submit', function(e) {
+	(function () {
+		var form    = document.getElementById('contactForm');
+		var success = document.getElementById('cf-success');
+		var errBox  = document.getElementById('cf-error');
+
+		form.addEventListener('submit', function (e) {
 			e.preventDefault();
-			var name    = this.querySelector('[name="name"]').value.trim();
-			var email   = this.querySelector('[name="email"]').value.trim();
-			var phone   = this.querySelector('[name="phone"]').value.trim();
-			var service = this.querySelector('[name="service"]').value;
-			var message = this.querySelector('[name="message"]').value.trim();
+			success.style.display = 'none';
+			errBox.style.display  = 'none';
 
-			var text = 'Hello Rabtora Team!\n\n'
-				+ 'Name: ' + name + '\n'
-				+ 'Email: ' + email + '\n'
-				+ (phone ? 'Phone: ' + phone + '\n' : '')
-				+ 'Service: ' + service + '\n'
-				+ 'Message: ' + message;
+			var name    = form.querySelector('[name="name"]').value.trim();
+			var email   = form.querySelector('[name="email"]').value.trim();
+			var phone   = form.querySelector('[name="phone"]').value.trim();
+			var service = form.querySelector('[name="service"]').value;
+			var message = form.querySelector('[name="message"]').value.trim();
 
-			window.open('https://wa.me/97155471132?text=' + encodeURIComponent(text), '_blank');
-			this.reset();
+			if (!name) { showErr('Please enter your name.'); return; }
+			if (!email) { showErr('Please enter your email address.'); return; }
+			if (!message) { showErr('Please enter your message.'); return; }
+
+			var btn = form.querySelector('button[type="submit"]');
+			btn.disabled = true;
+			btn.textContent = 'Sending…';
+
+			var data = new FormData();
+			data.append('form_source', 'contact_form');
+			data.append('name',    name);
+			data.append('email',   email);
+			data.append('phone',   phone);
+			data.append('service', service);
+			data.append('message', message);
+
+			fetch('submit_lead.php', { method: 'POST', body: data })
+				.then(function (r) { return r.json(); })
+				.then(function (json) {
+					if (json.ok) {
+						success.style.display = 'block';
+						form.reset();
+						// Also open WhatsApp
+						var text = 'Hello Rabtora Team!\n\n'
+							+ 'Name: '    + name    + '\n'
+							+ 'Email: '   + email   + '\n'
+							+ (phone ? 'Phone: ' + phone + '\n' : '')
+							+ (service ? 'Service: ' + service + '\n' : '')
+							+ 'Message: ' + message;
+						window.open('https://wa.me/97155471132?text=' + encodeURIComponent(text), '_blank');
+					} else {
+						showErr(json.msg || 'Something went wrong. Please try again.');
+					}
+				})
+				.catch(function () {
+					showErr('Network error. Please try again.');
+				})
+				.finally(function () {
+					btn.disabled = false;
+					btn.textContent = 'Send Message';
+				});
 		});
+
+		function showErr(msg) {
+			errBox.textContent = msg;
+			errBox.style.display = 'block';
+		}
+	})();
 	</script>
 </body>
 

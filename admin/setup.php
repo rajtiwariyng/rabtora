@@ -21,19 +21,30 @@ try {
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS leads (
             id           INT UNSIGNED  AUTO_INCREMENT PRIMARY KEY,
-            form_source  VARCHAR(20)   NOT NULL DEFAULT '',
+            form_source  VARCHAR(50)   NOT NULL DEFAULT '',
             full_name    VARCHAR(255)  NOT NULL,
-            phone        VARCHAR(50)   NOT NULL,
+            phone        VARCHAR(50)   DEFAULT NULL,
             email        VARCHAR(255)  DEFAULT NULL,
             company_name VARCHAR(255)  DEFAULT NULL,
             budget       VARCHAR(100)  DEFAULT NULL,
             services     VARCHAR(500)  DEFAULT NULL,
+            message      TEXT          DEFAULT NULL,
             ip_address   VARCHAR(45)   DEFAULT NULL,
             created_at   DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
             INDEX idx_created (created_at),
             INDEX idx_source  (form_source)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     ");
+
+    // Migrate existing table if message column is missing
+    $pdo->exec("ALTER TABLE leads
+        MODIFY COLUMN form_source VARCHAR(50) NOT NULL DEFAULT '',
+        MODIFY COLUMN phone       VARCHAR(50) DEFAULT NULL");
+    try {
+        $pdo->exec("ALTER TABLE leads ADD COLUMN message TEXT DEFAULT NULL AFTER services");
+    } catch (PDOException $e) {
+        // Column already exists — ignore
+    }
 
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS admin_users (

@@ -28,7 +28,7 @@ if ($search !== '') {
     $where[] = '(full_name LIKE ? OR phone LIKE ? OR email LIKE ?)';
     array_push($params, $like, $like, $like);
 }
-if ($src !== '' && in_array($src, ['landing_popup'], true)) {
+if ($src !== '' && in_array($src, ['landing_popup', 'contact_form'], true)) {
     $where[]  = 'form_source = ?';
     $params[] = $src;
 }
@@ -43,12 +43,12 @@ if (isset($_GET['export'])) {
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename="rabtora_leads_' . date('Y-m-d') . '.csv"');
     $out = fopen('php://output', 'w');
-    fputcsv($out, ['ID', 'Source', 'Full Name', 'Phone', 'Email', 'Company', 'Budget', 'Services', 'IP', 'Submitted']);
+    fputcsv($out, ['ID', 'Source', 'Full Name', 'Phone', 'Email', 'Company', 'Budget', 'Services', 'Message', 'IP', 'Submitted']);
     foreach ($rows as $r) {
         fputcsv($out, [
-            $r['id'], $r['form_source'], $r['full_name'], $r['phone'],
+            $r['id'], $r['form_source'], $r['full_name'], $r['phone'] ?? '',
             $r['email'] ?? '', $r['company_name'] ?? '', $r['budget'] ?? '',
-            $r['services'] ?? '', $r['ip_address'] ?? '', $r['created_at'],
+            $r['services'] ?? '', $r['message'] ?? '', $r['ip_address'] ?? '', $r['created_at'],
         ]);
     }
     fclose($out);
@@ -56,9 +56,10 @@ if (isset($_GET['export'])) {
 }
 
 // ── STATS ─────────────────────────────────────────────────────────────────────
-$total = (int) $pdo->query('SELECT COUNT(*) FROM leads')->fetchColumn();
-$today = (int) $pdo->query("SELECT COUNT(*) FROM leads WHERE DATE(created_at) = CURDATE()")->fetchColumn();
-$popup = (int) $pdo->query("SELECT COUNT(*) FROM leads WHERE form_source = 'landing_popup'")->fetchColumn();
+$total   = (int) $pdo->query('SELECT COUNT(*) FROM leads')->fetchColumn();
+$today   = (int) $pdo->query("SELECT COUNT(*) FROM leads WHERE DATE(created_at) = CURDATE()")->fetchColumn();
+$popup   = (int) $pdo->query("SELECT COUNT(*) FROM leads WHERE form_source = 'landing_popup'")->fetchColumn();
+$contact = (int) $pdo->query("SELECT COUNT(*) FROM leads WHERE form_source = 'contact_form'")->fetchColumn();
 $countStmt = $pdo->prepare("SELECT COUNT(*) FROM leads $whereSQL");
 $countStmt->execute($params);
 $totalRows  = (int) $countStmt->fetchColumn();
@@ -102,7 +103,7 @@ function qstr(array $merge = [], array $remove = []): string {
 
     .main { max-width: 1400px; margin: 0 auto; padding: 28px 24px 60px; }
 
-    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 28px; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
     .stat { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 18px 20px; }
     .stat-val { font-size: 28px; font-weight: 300; color: var(--gold); line-height: 1; }
     .stat-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 8px; }
@@ -129,6 +130,7 @@ function qstr(array $merge = [], array $remove = []): string {
 
     .badge { display: inline-block; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; font-weight: 500; }
     .badge-landing-popup { background: rgba(201,168,76,0.15); color: #c9a84c; }
+    .badge-contact-form  { background: rgba(76,168,201,0.15); color: #4ca8c9; }
 
     .services-list { display: flex; flex-wrap: wrap; gap: 4px; }
     .svc-tag { font-size: 10px; padding: 2px 7px; border-radius: 2px; background: rgba(255,255,255,0.06); color: #aaa; white-space: nowrap; }
@@ -143,6 +145,9 @@ function qstr(array $merge = [], array $remove = []): string {
     .pager-links a:hover { border-color: var(--gold); color: var(--gold); }
     .pager-links span.current { background: var(--gold); border-color: var(--gold); color: #080808; }
 
+    @media (max-width: 900px) {
+      .stats { grid-template-columns: 1fr 1fr; }
+    }
     @media (max-width: 600px) {
       .stats { grid-template-columns: 1fr 1fr; }
       .toolbar { flex-direction: column; align-items: stretch; }
@@ -176,6 +181,10 @@ function qstr(array $merge = [], array $remove = []): string {
       <div class="stat-val"><?= $popup ?></div>
       <div class="stat-label">Landing Popup</div>
     </div>
+    <div class="stat">
+      <div class="stat-val"><?= $contact ?></div>
+      <div class="stat-label">Contact Form</div>
+    </div>
   </div>
 
   <form method="GET" class="toolbar">
@@ -183,6 +192,7 @@ function qstr(array $merge = [], array $remove = []): string {
     <select name="src" onchange="this.form.submit()">
       <option value="" <?= $src === '' ? 'selected' : '' ?>>All Sources</option>
       <option value="landing_popup" <?= $src === 'landing_popup' ? 'selected' : '' ?>>Landing Popup</option>
+      <option value="contact_form"  <?= $src === 'contact_form'  ? 'selected' : '' ?>>Contact Form</option>
     </select>
     <button type="submit" class="btn btn-outline">Search</button>
     <?php if ($search || $src): ?>
@@ -203,6 +213,7 @@ function qstr(array $merge = [], array $remove = []): string {
           <th>Company</th>
           <th>Budget</th>
           <th>Services</th>
+          <th>Message</th>
           <th>Submitted</th>
           <th></th>
         </tr>
@@ -234,6 +245,11 @@ function qstr(array $merge = [], array $remove = []): string {
                 <span class="muted">—</span>
               <?php endif; ?>
             </td>
+            <td class="muted" style="max-width:200px;">
+              <?php if ($lead['message']): ?>
+                <span title="<?= e($lead['message']) ?>"><?= e(mb_substr($lead['message'], 0, 80)) ?><?= mb_strlen($lead['message']) > 80 ? '…' : '' ?></span>
+              <?php else: ?>—<?php endif; ?>
+            </td>
             <td class="muted"><?= $dt ?></td>
             <td>
               <form method="POST" onsubmit="return confirm('Delete this lead?')">
@@ -244,7 +260,7 @@ function qstr(array $merge = [], array $remove = []): string {
           </tr>
         <?php endforeach; ?>
       <?php else: ?>
-        <tr><td colspan="10" class="empty">No leads found.</td></tr>
+        <tr><td colspan="11" class="empty">No leads found.</td></tr>
       <?php endif; ?>
       </tbody>
     </table>
