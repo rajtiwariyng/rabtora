@@ -427,14 +427,6 @@
 					if (json.ok) {
 						success.style.display = 'block';
 						form.reset();
-						// Also open WhatsApp
-						var text = 'Hello Rabtora Team!\n\n'
-							+ 'Name: '    + name    + '\n'
-							+ 'Email: '   + email   + '\n'
-							+ (phone ? 'Phone: ' + phone + '\n' : '')
-							+ (service ? 'Service: ' + service + '\n' : '')
-							+ 'Message: ' + message;
-						window.open('https://wa.me/97155471132?text=' + encodeURIComponent(text), '_blank');
 					} else {
 						showErr(json.msg || 'Something went wrong. Please try again.');
 					}
