@@ -31,6 +31,12 @@ if (!$name || !$phone) {
     exit;
 }
 
+if (mb_strlen($name) > 255 || mb_strlen($phone) > 50 || mb_strlen($company_name) > 255) {
+    http_response_code(400);
+    echo json_encode(['ok' => false, 'msg' => 'Input too long']);
+    exit;
+}
+
 if ($email && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(400);
     echo json_encode(['ok' => false, 'msg' => 'Invalid email address']);
@@ -49,7 +55,8 @@ $services_clean = array_filter(
 );
 $services_str = $services_clean ? implode(',', $services_clean) : null;
 
-$ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? '';
+$ip_raw = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? '';
+$ip     = filter_var(trim(explode(',', $ip_raw)[0]), FILTER_VALIDATE_IP) ?: null;
 
 try {
     get_db()->prepare(
@@ -68,6 +75,7 @@ try {
     ]);
     echo json_encode(['ok' => true]);
 } catch (PDOException $e) {
+    error_log('submit_lead insert failed: ' . $e->getMessage());
     http_response_code(500);
     echo json_encode(['ok' => false, 'msg' => 'Database error. Please try again.']);
 }
