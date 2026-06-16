@@ -484,8 +484,8 @@
     </footer>
 
     <!-- LEAD CAPTURE MODAL -->
-    <div class="lp-modal-backdrop" id="lpModalBackdrop" aria-hidden="true">
-      <div class="lp-modal-card" role="dialog" aria-modal="true" aria-labelledby="lpModalTitle">
+    <div class="lp-modal-backdrop" id="lpModalBackdrop">
+      <div class="lp-modal-card" role="dialog" aria-modal="true" aria-labelledby="lpModalTitle" aria-hidden="true">
         <button class="lp-modal-close" id="lpModalClose" aria-label="Close">&times;</button>
         <h2 class="lp-modal-title" id="lpModalTitle">Request A Quote</h2>
         <p class="lp-modal-sub">Tell us about your campaign and we'll get back to you within 24 hours.</p>
@@ -559,23 +559,35 @@
     <script src="js/main.js"></script>
     <script>
 (function () {
-  var backdrop  = document.getElementById('lpModalBackdrop');
-  var closeBtn  = document.getElementById('lpModalClose');
-  var form      = document.getElementById('lpLeadForm');
-  var errorEl   = document.getElementById('lpFormError');
-  var submitBtn = document.getElementById('lpSubmitBtn');
-  var successEl = document.getElementById('lpSuccess');
+  var backdrop     = document.getElementById('lpModalBackdrop');
+  var card         = backdrop.querySelector('.lp-modal-card');
+  var closeBtn     = document.getElementById('lpModalClose');
+  var form         = document.getElementById('lpLeadForm');
+  var errorEl      = document.getElementById('lpFormError');
+  var submitBtn    = document.getElementById('lpSubmitBtn');
+  var successEl    = document.getElementById('lpSuccess');
+  var lastFocused  = null;
 
   function openModal() {
     backdrop.classList.add('active');
-    backdrop.setAttribute('aria-hidden', 'false');
+    card.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    lastFocused = document.activeElement;
+    var firstInput = backdrop.querySelector('input, select, button');
+    if (firstInput) firstInput.focus();
   }
 
   function closeModal() {
     backdrop.classList.remove('active');
-    backdrop.setAttribute('aria-hidden', 'true');
+    card.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    form.style.display = '';
+    successEl.style.display = 'none';
+    form.reset();
+    errorEl.textContent = '';
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send Request';
+    if (lastFocused) lastFocused.focus();
   }
 
   document.querySelectorAll('.btn-quote, .btn-book, .btn-cta-quote').forEach(function (btn) {
@@ -592,12 +604,17 @@
   });
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeModal();
+    if (e.key === 'Escape' && backdrop.classList.contains('active')) closeModal();
   });
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     errorEl.textContent = '';
+
+    var name = form.full_name.value.trim();
+    var phone = form.phone.value.trim();
+    if (!name) { errorEl.textContent = 'Please enter your full name.'; return; }
+    if (!phone) { errorEl.textContent = 'Please enter your mobile number.'; return; }
 
     var checked = form.querySelectorAll('input[name="services[]"]:checked');
     if (checked.length === 0) {
