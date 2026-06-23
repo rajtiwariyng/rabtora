@@ -8,6 +8,13 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N9P3HHX4');</script>
+<!-- End Google Tag Manager -->
     <style>
         body { background: #091225; }
 
@@ -317,12 +324,19 @@
         </section>
     </div>
 
+    <a href="https://wa.me/971585792934" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
     <footer class="main-footer">
         <div class="footer-container">
             <p class="copyright-text">&copy; 2026 <strong>RABTORA</strong> MADHYAM MANAGEMENT. ALL RIGHTS RESERVED</p>
             <div class="footer-socials">
-                <a href="#instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#youtube" aria-label="Youtube"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=61589694790986" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/rabtoramadhyam/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/company/rabtora/?viewAsMember=true" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://www.tiktok.com/@marketingrabtora" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://www.youtube.com/@RabtoraMadhyamManagement" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
             </div>
         </div>
     </footer>
@@ -334,6 +348,21 @@
         var errEl   = document.getElementById('cfError');
         var btn     = document.getElementById('cfSubmit');
         var success = document.getElementById('cfSuccess');
+
+        function isFormValid() {
+            var name    = form.querySelector('[name="name"]').value.trim();
+            var email   = form.querySelector('[name="email"]').value.trim();
+            var message = form.querySelector('[name="message"]').value.trim();
+            return !!name && !!email && !!message;
+        }
+
+        function updateButtonState() {
+            btn.disabled = !isFormValid();
+        }
+
+        form.addEventListener('input', updateButtonState);
+        form.addEventListener('change', updateButtonState);
+        updateButtonState();
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -360,8 +389,8 @@
                     } else {
                         errEl.textContent = j.msg || 'Something went wrong. Please try again.';
                     }
-                    btn.disabled = false;
                     btn.textContent = 'Send Message →';
+                    updateButtonState();
                 })
                 .catch(function () {
                     errEl.textContent = 'Network error. Please try again.';
@@ -371,5 +400,9 @@
         });
     })();
     </script>
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N9P3HHX4"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 </body>
 </html>

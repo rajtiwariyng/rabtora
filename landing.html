@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Landing Page</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:#f7f7f5;
+      color:#08142f;
+      overflow-x:hidden;
+    }
+
+    :root{
+      --gold:#c89b2c;
+      --navy:#08142f;
+      --light:#f7f7f5;
+      --muted:#6d7280;
+    }
+
+    .container{
+      width:min(1400px,90%);
+      margin:auto;
+    }
+
+    /* ================= NAVBAR ================= */
+
+    .navbar{
+      position:fixed;
+      top:20px;
+      left:50%;
+      transform:translateX(-50%);
+      width:min(1400px,92%);
+      z-index:1000;
+
+      backdrop-filter:blur(18px);
+      background:rgba(255,255,255,0.6);
+
+      border:1px solid rgba(255,255,255,0.4);
+
+      border-radius:22px;
+
+      padding:18px 28px;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      box-shadow:
+      0 10px 40px rgba(0,0,0,0.06);
+    }
+
+    .logo{
+      font-size:24px;
+      font-weight:800;
+      letter-spacing:-1px;
+    }
+    .logo img {
+      max-width: 70px;
+    }
+
+    .logo span{
+      color:var(--gold);
+    }
+
+    .nav-links{
+      display:flex;
+      gap:40px;
+    }
+
+    .nav-links a{
+      text-decoration:none;
+      color:var(--navy);
+      font-size:14px;
+      font-weight:500;
+      opacity:0.8;
+      transition:0.3s;
+    }
+
+    .nav-links a:hover{
+      opacity:1;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+
+      padding:16px 30px;
+
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:600;
+      transition:0.4s ease;
+    }
+
+    .btn-gold{
+      background:linear-gradient(
+      135deg,
+      #c89b2c,
+      #f3d67a
+      );
+
+      color:#08142f;
+
+      box-shadow:
+      0 10px 30px rgba(200,155,44,0.25);
+    }
+
+    .btn-gold:hover{
+      transform:translateY(-3px);
+    }
+
+    .btn-outline{
+      border:1px solid rgba(8,20,47,0.15);
+      color:var(--navy);
+      background:rgba(255,255,255,0.5);
+      backdrop-filter:blur(10px);
+    }
+
+    /* ================= HERO ================= */
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      width:800px;
+      height:800px;
+      border-radius:50%;
+      background:rgba(200,155,44,0.13);
+      filter:blur(120px);
+      top:-200px;
+      right:-200px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      align-items:center;
+      gap:80px;
+    }
+
+    .hero-sub{
+      color:var(--gold);
+      text-transform:uppercase;
+      letter-spacing:4px;
+      font-size:13px;
+      font-weight:700;
+      margin-bottom:30px;
+    }
+
+    .hero h1{
+      font-size:clamp(70px,10vw,150px);
+      line-height:0.9;
+      letter-spacing:-6px;
+      font-weight:900;
+      margin-bottom:35px;
+    }
+
+    .hero h1 span{
+      color:var(--gold);
+    }
+
+    .hero p{
+      font-size:18px;
+      line-height:1.8;
+      color:var(--muted);
+      max-width:620px;
+      margin-bottom:40px;
+    }
+
+    .hero-buttons{
+      display:flex;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    /* HERO VISUAL */
+
+    .hero-visual{
+      position:relative;
+      height:650px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .glass-card{
+      width:420px;
+      height:520px;
+
+      border-radius:40px;
+
+      background:
+      rgba(255,255,255,0.45);
+
+      backdrop-filter:blur(20px);
+
+      border:1px solid rgba(255,255,255,0.5);
+
+      box-shadow:
+      0 30px 60px rgba(0,0,0,0.08);
+
+      position:relative;
+
+      overflow:hidden;
+    }
+
+    .glass-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+
+      background:
+      linear-gradient(
+      145deg,
+      rgba(255,255,255,0.35),
+      rgba(255,255,255,0.05)
+      );
+    }
+
+    .orb{
+      position:absolute;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+
+      background:
+      radial-gradient(circle at top,
+      #f8dc88,
+      #c89b2c);
+
+      filter:blur(5px);
+
+      top:60px;
+      right:-40px;
+    }
+
+    .floating-text{
+      position:absolute;
+      left:50px;
+      bottom:60px;
+      z-index:2;
+    }
+
+    .floating-text h3{
+      font-size:44px;
+      line-height:1;
+      margin-bottom:18px;
+    }
+
+    .floating-text p{
+      color:#5d6470;
+      line-height:1.7;
+    }
+
+    /* ================= SECTION ================= */
+
+    section{
+      padding:140px 0;
+      position:relative;
+    }
+
+    .section-title{
+      font-size:clamp(50px,6vw,90px);
+      line-height:1;
+      letter-spacing:-4px;
+      margin-bottom:30px;
+      font-weight:900;
+    }
+
+    .section-title span{
+      color:var(--gold);
+    }
+
+    .section-desc{
+      color:var(--muted);
+      line-height:1.9;
+      max-width:700px;
+      font-size:18px;
+    }
+
+    /* ================= SERVICES ================= */
+
+    .services-grid{
+      margin-top:80px;
+
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:30px;
+    }
+
+    .service-card{
+      padding:40px;
+      border-radius:30px;
+
+      background:
+      rgba(255,255,255,0.5);
+
+      backdrop-filter:blur(16px);
+
+      border:1px solid rgba(255,255,255,0.5);
+
+      transition:0.4s ease;
+
+      box-shadow:
+      0 20px 40px rgba(0,0,0,0.05);
+    }
+
+    .service-card:hover{
+      transform:translateY(-10px);
+    }
+
+    .service-number{
+      font-size:14px;
+      color:var(--gold);
+      margin-bottom:20px;
+      font-weight:700;
+    }
+
+    .service-card h3{
+      font-size:32px;
+      line-height:1.1;
+      margin-bottom:20px;
+    }
+
+    .service-card p{
+      color:var(--muted);
+      line-height:1.8;
+    }
+
+    /* ================= SHOWCASE ================= */
+
+    .showcase{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+
+      background:
+      linear-gradient(
+      rgba(8,20,47,0.65),
+      rgba(8,20,47,0.65)
+      ),
+      url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=2000&auto=format&fit=crop');
+
+      background-size:cover;
+      background-position:center;
+      background-attachment:fixed;
+
+      color:white;
+      text-align:center;
+    }
+
+    .showcase h2{
+      font-size:clamp(60px,8vw,120px);
+      line-height:0.95;
+      letter-spacing:-5px;
+      margin-bottom:30px;
+    }
+
+    .showcase p{
+      max-width:800px;
+      margin:auto;
+      font-size:20px;
+      line-height:1.8;
+      opacity:0.8;
+    }
+
+    /* ================= STATS ================= */
+
+    .stats-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:40px;
+      margin-top:80px;
+    }
+
+    .stat{
+      text-align:center;
+    }
+
+    .stat h3{
+      font-size:90px;
+      color:var(--gold);
+      line-height:1;
+      margin-bottom:10px;
+    }
+
+    .stat p{
+      font-size:18px;
+      color:var(--muted);
+    }
+
+    /* ================= FORM ================= */
+
+    .consultation-box{
+      max-width:900px;
+      margin:auto;
+
+      padding:60px;
+
+      border-radius:40px;
+
+      background:
+      rgba(255,255,255,0.55);
+
+      backdrop-filter:blur(20px);
+
+      border:1px solid rgba(255,255,255,0.5);
+
+      box-shadow:
+      0 30px 60px rgba(0,0,0,0.08);
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+    }
+
+    .input-group{
+      margin-bottom:24px;
+    }
+
+    .input-group label{
+      display:block;
+      margin-bottom:12px;
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .input-group input,
+    .input-group textarea,
+    .input-group select{
+      width:100%;
+      padding:18px 20px;
+
+      border-radius:18px;
+      border:1px solid rgba(0,0,0,0.08);
+
+      background:rgba(255,255,255,0.7);
+
+      font-size:16px;
+      outline:none;
+    }
+
+    textarea{
+      resize:none;
+      height:150px;
+    }
+
+    /* ================= FOOTER ================= */
+
+    footer{
+      padding:40px 0;
+      border-top:1px solid rgba(0,0,0,0.08);
+    }
+
+    .footer-flex{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:20px;
+    }
+
+    .footer-links{
+      display:flex;
+      gap:30px;
+    }
+
+    .footer-links a{
+      text-decoration:none;
+      color:var(--muted);
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    @media(max-width:1100px){
+
+      .hero-grid,
+      .services-grid,
+      .stats-grid,
+      .form-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero{
+        padding-top:180px;
+      }
+
+      .hero-visual{
+        height:auto;
+      }
+
+      .glass-card{
+        width:100%;
+      }
+
+      .nav-links{
+        display:none;
+      }
+
+      .section-title{
+        letter-spacing:-2px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+
+  <nav class="navbar">
+    <div class="logo">
+      <img src="logo-3d.webp">
+    </div>
+
+    <div class="nav-links">
+      <a href="#">Services</a>
+      <a href="#">Campaigns</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </div>
+
+    <a href="#" class="btn btn-gold">
+      Book Consultation
+    </a>
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="hero">
+    <div class="container hero-grid">
+
+      <div>
+
+        <div class="hero-sub">
+          UAE’S PREMIER BRAND VISIBILITY PARTNER
+        </div>
+
+        <h1>
+          Own <br>
+          <span>Attention.</span>
+        </h1>
+
+        <p>
+          Premium outdoor branding, signage, media placements,
+          and luxury visibility campaigns engineered for brands
+          that refuse to blend in.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#" class="btn btn-gold">
+            Book Free Consultation
+          </a>
+
+          <a href="#" class="btn btn-outline">
+            View Campaigns
+          </a>
+        </div>
+
+      </div>
+
+      <div class="hero-visual">
+
+        <div class="glass-card">
+
+          <div class="orb"></div>
+
+          <div class="floating-text">
+            <h3>
+              Visibility<br>
+              Reimagined.
+            </h3>
+
+            <p>
+              Outdoor media experiences crafted
+              for luxury brands across Dubai & UAE.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+
+  <section>
+
+    <div class="container">
+
+      <h2 class="section-title">
+        Built for Brands <br>
+        That Want <span>More.</span>
+      </h2>
+
+      <p class="section-desc">
+        Rabtora combines cinematic outdoor branding,
+        intelligent media placements, premium signage,
+        and strategic visual storytelling to dominate
+        attention across the UAE.
+      </p>
+
+      <div class="services-grid">
+
+        <div class="service-card">
+          <div class="service-number">01</div>
+          <h3>Outdoor Media</h3>
+          <p>
+            Premium billboard and roadside visibility campaigns.
+          </p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-number">02</div>
+          <h3>LED Screens</h3>
+          <p>
+            High-impact digital advertising experiences at scale.
+          </p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-number">03</div>
+          <h3>Luxury Signage</h3>
+          <p>
+            Elegant storefronts and architectural brand presence.
+          </p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-number">04</div>
+          <h3>Transit Branding</h3>
+          <p>
+            Reach millions across the city with motion visibility.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SHOWCASE -->
+
+  <section class="showcase">
+
+    <div class="container">
+
+      <h2>
+        Built for brands <br>
+        that refuse <br>
+        to be ignored.
+      </h2>
+
+      <p>
+        From iconic roadside billboards to immersive LED media,
+        Rabtora transforms visibility into authority.
+      </p>
+
+    </div>
+
+  </section>
+
+  <!-- STATS -->
+
+  <section>
+
+    <div class="container">
+
+      <h2 class="section-title">
+        Attention <span>At Scale.</span>
+      </h2>
+
+      <div class="stats-grid">
+
+        <div class="stat">
+          <h3>200+</h3>
+          <p>Brands Served</p>
+        </div>
+
+        <div class="stat">
+          <h3>500+</h3>
+          <p>Projects Delivered</p>
+        </div>
+
+        <div class="stat">
+          <h3>10+</h3>
+          <p>Years Experience</p>
+        </div>
+
+        <div class="stat">
+          <h3>UAE</h3>
+          <p>Wide Coverage</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CONSULTATION -->
+
+  <section>
+
+    <div class="container">
+
+      <h2 class="section-title" style="text-align:center;">
+        Start Your <span>Luxury Campaign.</span>
+      </h2>
+
+      <div class="consultation-box">
+
+        <form>
+
+          <div class="form-grid">
+
+            <div class="input-group">
+              <label>Full Name</label>
+              <input type="text">
+            </div>
+
+            <div class="input-group">
+              <label>Phone Number</label>
+              <input type="text">
+            </div>
+
+          </div>
+
+          <div class="form-grid">
+
+            <div class="input-group">
+              <label>Email Address</label>
+              <input type="email">
+            </div>
+
+            <div class="input-group">
+              <label>Company Name</label>
+              <input type="text">
+            </div>
+
+          </div>
+
+          <div class="input-group">
+            <label>Service Interested In</label>
+
+            <select>
+              <option>Select Service</option>
+              <option>Outdoor Media</option>
+              <option>LED Advertising</option>
+              <option>Luxury Signage</option>
+              <option>Transit Branding</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label>Project Details</label>
+            <textarea></textarea>
+          </div>
+
+          <button class="btn btn-gold" style="border:none; cursor:pointer; width:100%;">
+            Get Free Consultation
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="container footer-flex">
+
+      <div class="logo">
+        Rab<span>tora</span>
+      </div>
+
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
+
+    </div>
+
+  </footer>
+
+</body>
+</html>

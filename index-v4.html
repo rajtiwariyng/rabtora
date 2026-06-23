@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rabtora Madhyam Management — Media & Advertising Agency in Dubai</title>
+<meta name="description" content="Rabtora Madhyam Management — Dubai's full-service media &amp; advertising agency. End-to-end branding, digital marketing, outdoor &amp; transit media, events, web and signage." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --navy:#08142f;
+    --navy-2:#0c1d44;
+    --navy-3:#102453;
+    --gold:#c89b2c;
+    --gold-l:#f3d67a;
+    --gold-ll:#f8dc88;
+    --light:#f7f7f5;
+    --paper:#fbfaf7;
+    --muted:#8b93a6;
+    --muted-d:#5d6470;
+    --line:rgba(255,255,255,0.10);
+    --display:'Fraunces',Georgia,serif;
+    --body:'Manrope',-apple-system,sans-serif;
+    --ease:cubic-bezier(.16,1,.3,1);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;overflow-x:hidden}
+  body{
+    font-family:var(--body);
+    background:var(--navy);
+    color:var(--light);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    cursor:none;
+  }
+  @media (hover:none){ body{cursor:auto} }
+
+  ::selection{background:var(--gold);color:var(--navy)}
+
+  /* ---------- grain + atmosphere ---------- */
+  .grain{
+    position:fixed;inset:0;z-index:9990;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:overlay;
+  }
+
+  /* ---------- custom cursor ---------- */
+  .cursor,.cursor-dot{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%);will-change:transform}
+  .cursor{width:38px;height:38px;border:1px solid var(--gold);transition:width .3s var(--ease),height .3s var(--ease),background .3s,border-color .3s}
+  .cursor-dot{width:5px;height:5px;background:var(--gold-l)}
+  .cursor.hover{width:64px;height:64px;background:rgba(200,155,44,.12);border-color:var(--gold-l)}
+  @media (hover:none){.cursor,.cursor-dot{display:none}}
+
+  /* ---------- layout ---------- */
+  .wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+  section,header,footer{position:relative}
+  .eyebrow{
+    font-size:.72rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--gold);display:inline-flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"";width:34px;height:1px;background:var(--gold)}
+
+  h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.02;letter-spacing:-.02em}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 40px;transition:all .5s var(--ease);
+  }
+  nav.scrolled{
+    padding:14px 40px;background:rgba(8,20,47,.72);
+    backdrop-filter:blur(18px);border-bottom:1px solid var(--line);
+  }
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:1.45rem;font-weight:600;letter-spacing:.02em}
+  .logo b{color:var(--light);font-weight:600}
+  .logo img{height:50px;width:auto;display:block}
+  nav.scrolled .logo img{height:44px;transition:height .45s var(--ease)}
+  .foot-brand .logo img{height:78px}
+  .logo .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 16px var(--gold-l);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.6}}
+  .nav-links{display:flex;gap:34px;align-items:center}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:.82rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;transition:color .3s;position:relative}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--gold);transition:width .3s var(--ease)}
+  .nav-links a:hover{color:var(--light)}
+  .nav-links a:hover::after{width:100%}
+  .btn{
+    font-family:var(--body);font-weight:700;font-size:.82rem;letter-spacing:.04em;
+    padding:13px 26px;border-radius:100px;border:none;cursor:none;text-decoration:none;
+    display:inline-flex;align-items:center;gap:9px;transition:all .4s var(--ease);
+  }
+  .btn-gold{background:linear-gradient(135deg,var(--gold-ll),var(--gold));color:var(--navy)}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(200,155,44,.4)}
+  .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--light)}
+  .btn-ghost:hover{border-color:var(--gold);background:rgba(200,155,44,.08)}
+  .nav-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;background:rgba(8,20,47,.4);border:1px solid var(--line);border-radius:10px;cursor:pointer;padding:0 11px;z-index:1002}
+  .nav-toggle span{display:block;height:2px;width:100%;background:var(--light);border-radius:2px;transition:transform .35s var(--ease),opacity .25s}
+  .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-toggle.open span:nth-child(2){opacity:0}
+  .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  /* ---------- hero ---------- */
+  .hero{min-height:100vh;display:flex;align-items:center;padding:140px 0 80px;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:0}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.34;filter:saturate(1.1)}
+  .hero-bg::after{content:"";position:absolute;inset:0;background:
+    radial-gradient(120% 90% at 75% 20%,transparent,var(--navy) 72%),
+    linear-gradient(180deg,rgba(8,20,47,.55),var(--navy) 92%)}
+  .orb{position:absolute;border-radius:50%;filter:blur(90px);z-index:0;opacity:.5}
+  .orb-1{width:520px;height:520px;background:radial-gradient(circle,rgba(200,155,44,.5),transparent 70%);top:-120px;right:-80px;animation:float 14s ease-in-out infinite}
+  .orb-2{width:420px;height:420px;background:radial-gradient(circle,rgba(16,36,83,.9),transparent 70%);bottom:-120px;left:-60px;animation:float 18s ease-in-out infinite reverse}
+  @keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-40px)}}
+
+  .hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center;width:100%}
+  .hero-inner>*{min-width:0}
+  .hero h1{font-size:clamp(3.4rem,7.4vw,6.6rem);margin:26px 0 0}
+  .hero h1 .it{font-style:italic;color:var(--gold-l)}
+  .hero h1 .out{color:transparent;-webkit-text-stroke:1.4px var(--gold)}
+  .hero p.lead{font-size:1.12rem;line-height:1.65;color:#c7cdda;max-width:520px;margin:28px 0 36px;font-weight:400}
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .scroll-cue{margin-top:54px;display:flex;align-items:center;gap:14px;color:var(--muted);font-size:.74rem;letter-spacing:.28em;text-transform:uppercase}
+  .scroll-cue .ln{width:46px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);position:relative;overflow:hidden}
+  .scroll-cue .ln::after{content:"";position:absolute;inset:0;width:50%;background:var(--gold-l);animation:slide 2s var(--ease) infinite}
+  @keyframes slide{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
+
+  /* hero side card */
+  .hero-card{
+    position:relative;border:1px solid var(--line);border-radius:22px;overflow:hidden;
+    background:linear-gradient(180deg,rgba(16,36,83,.6),rgba(8,20,47,.4));
+    box-shadow:0 40px 90px rgba(0,0,0,.5);
+  }
+  .hero-card img{width:100%;height:340px;object-fit:cover;display:block}
+  .hero-card .tag{position:absolute;top:16px;left:16px;background:var(--gold);color:var(--navy);font-size:.7rem;font-weight:800;letter-spacing:.08em;padding:7px 14px;border-radius:100px;text-transform:uppercase}
+  .hero-card .meta{padding:22px 24px}
+  .hero-card .meta h3{font-size:1.4rem}
+  .hero-card .meta .row{display:flex;justify-content:space-between;align-items:flex-end;margin-top:14px}
+  .hero-card .impr{font-size:.78rem;color:var(--muted)}
+  .hero-card .impr b{display:block;font-family:var(--display);font-size:1.6rem;color:var(--gold-l);font-weight:500}
+  .live{display:inline-flex;align-items:center;gap:7px;font-size:.72rem;color:#7ee0a8;font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+  .live i{width:7px;height:7px;border-radius:50%;background:#7ee0a8;box-shadow:0 0 10px #7ee0a8;animation:pulse 1.6s infinite}
+
+  /* ---------- generic section ---------- */
+  .pad{padding:120px 0}
+  .sec-head{max-width:760px;margin-bottom:64px}
+  .sec-head h2{font-size:clamp(2.4rem,4.6vw,4rem);margin-top:20px}
+  .sec-head p{color:#aab1c2;font-size:1.05rem;line-height:1.6;margin-top:20px;max-width:560px}
+
+  /* ---------- deals ---------- */
+  .deals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .deal{
+    position:relative;border-radius:20px;overflow:hidden;min-height:440px;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    border:1px solid var(--line);isolation:isolate;
+  }
+  .deal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.1s var(--ease)}
+  .deal::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(8,20,47,.1) 0%,rgba(8,20,47,.55) 55%,rgba(8,20,47,.96) 100%)}
+  .deal:hover img{transform:scale(1.08)}
+  .deal-body{padding:28px;position:relative}
+  .deal .loc{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-l);font-weight:700}
+  .deal h3{font-size:1.85rem;margin:10px 0 16px}
+  .deal .stats{display:flex;gap:24px;border-top:1px solid var(--line);padding-top:16px;margin-top:6px}
+  .deal .stats div span{display:block;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+  .deal .stats div b{font-family:var(--display);font-size:1.3rem;font-weight:500;color:var(--light)}
+  .deal .price{position:absolute;top:24px;right:24px;background:rgba(8,20,47,.7);backdrop-filter:blur(10px);border:1px solid var(--gold);border-radius:14px;padding:10px 16px;text-align:right}
+  .deal .price span{display:block;font-size:.62rem;color:var(--gold-l);text-transform:uppercase;letter-spacing:.12em}
+  .deal .price b{font-family:var(--display);font-size:1.35rem;color:#fff;font-weight:500}
+  .deal .badge{position:absolute;top:24px;left:24px;font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:6px 12px;border-radius:100px;background:var(--gold);color:var(--navy)}
+  .deal .badge.hot{background:#e0563f;color:#fff}
+
+  /* ---------- formats ---------- */
+  .fmt-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+  .fmt{position:relative;border-radius:18px;overflow:hidden;min-height:260px;display:flex;align-items:flex-end;border:1px solid var(--line)}
+  .fmt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1s var(--ease),filter .6s}
+  .fmt::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 30%,rgba(8,20,47,.92))}
+  .fmt:hover img{transform:scale(1.07)}
+  .fmt-body{padding:24px;z-index:1}
+  .fmt h3{font-size:1.5rem}
+  .fmt p{color:#b7bdca;font-size:.88rem;margin-top:6px;max-width:300px}
+  .fmt .num{position:absolute;top:20px;right:24px;font-family:var(--display);font-size:1rem;color:var(--gold)}
+  .span-7{grid-column:span 7}.span-5{grid-column:span 5}.span-4{grid-column:span 4}.span-8{grid-column:span 8}.span-6{grid-column:span 6}
+
+  /* ---------- why / process ---------- */
+  .why{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
+  .why-img{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line)}
+  .why-img img{width:100%;height:520px;object-fit:cover;display:block}
+  .why-img .float-stat{position:absolute;bottom:24px;left:24px;right:24px;background:rgba(8,20,47,.78);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:16px;padding:22px 24px}
+  .why-img .float-stat b{font-family:var(--display);font-size:2.2rem;color:var(--gold-l);font-weight:500}
+  .why-img .float-stat span{color:var(--muted);font-size:.85rem}
+  .steps{margin-top:14px}
+  .step{display:flex;gap:24px;padding:26px 0;border-top:1px solid var(--line)}
+  .step .n{font-family:var(--display);font-size:1.6rem;color:var(--gold);min-width:54px}
+  .step h3{font-size:1.4rem;margin-bottom:8px}
+  .step p{color:#aab1c2;line-height:1.6;font-size:.95rem}
+
+  /* ---------- logos ---------- */
+  .logos{padding:60px 0;text-align:center}
+  .logos .lbl{color:var(--muted);font-size:.74rem;letter-spacing:.28em;text-transform:uppercase;margin-bottom:36px}
+  .logo-row{display:flex;flex-wrap:wrap;justify-content:center;gap:18px 56px;align-items:center}
+  .logo-row span{font-family:var(--display);font-size:1.5rem;color:rgba(247,247,245,.42);font-style:italic;transition:color .3s,transform .3s}
+  .logo-row span:hover{color:var(--gold-l);transform:translateY(-3px)}
+
+  /* ---------- CTA / form ---------- */
+  .cta{position:relative;overflow:hidden}
+  .cta-box{
+    border-radius:30px;border:1px solid var(--line);overflow:hidden;
+    background:linear-gradient(135deg,var(--navy-2),var(--navy));
+    display:grid;grid-template-columns:1fr 1fr;position:relative;
+  }
+  .cta-box::before{content:"";position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(200,155,44,.35),transparent 70%);top:-150px;left:-100px;filter:blur(40px)}
+  .cta-left{padding:64px 56px;position:relative;z-index:1}
+  .cta-left h2{font-size:clamp(2.2rem,3.6vw,3.2rem)}
+  .cta-left p{color:#aab1c2;margin:22px 0 32px;line-height:1.6}
+  .cta-points{list-style:none;display:flex;flex-direction:column;gap:14px}
+  .cta-points li{display:flex;gap:12px;align-items:center;color:#d2d7e0;font-size:.95rem}
+  .cta-points li::before{content:"✦";color:var(--gold)}
+  .cta-form{padding:64px 56px;background:rgba(255,255,255,.02);border-left:1px solid var(--line);position:relative;z-index:1}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:8px;font-weight:700}
+  .field input,.field select,.field textarea{
+    width:100%;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:12px;
+    padding:14px 16px;color:var(--light);font-family:var(--body);font-size:.95rem;transition:border-color .3s,background .3s;cursor:none;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--gold);background:rgba(200,155,44,.06)}
+  .field select option{background:var(--navy)}
+  .cta-form .btn-gold{width:100%;justify-content:center;margin-top:8px;padding:16px}
+  .form-note{font-size:.74rem;color:var(--muted);text-align:center;margin-top:16px}
+  .form-success{display:none;text-align:center;padding:40px 0}
+  .form-success.show{display:block;animation:fade .6s var(--ease)}
+  .form-success .check{width:64px;height:64px;border-radius:50%;background:rgba(126,224,168,.12);border:1px solid #7ee0a8;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:1.6rem;color:#7ee0a8}
+  @keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line);padding:70px 0 40px;margin-top:40px}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px}
+  .foot-grid h4{font-family:var(--body);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;font-weight:700}
+  .foot-grid a,.foot-grid p{display:block;color:var(--muted);text-decoration:none;font-size:.92rem;margin-bottom:12px;transition:color .3s}
+  .foot-grid a:hover{color:var(--light)}
+  .foot-brand p{max-width:280px;line-height:1.6}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:54px;padding-top:30px;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem;flex-wrap:wrap;gap:12px}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .stagger>*{opacity:0;transform:translateY(36px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .stagger.in>*{opacity:1;transform:none}
+  .stagger.in>*:nth-child(2){transition-delay:.1s}
+  .stagger.in>*:nth-child(3){transition-delay:.2s}
+  .stagger.in>*:nth-child(4){transition-delay:.3s}
+  .stagger.in>*:nth-child(5){transition-delay:.4s}
+  .stagger.in>*:nth-child(6){transition-delay:.5s}
+
+  /* hero load anim */
+  .h-load{opacity:0;transform:translateY(30px);animation:hin 1s var(--ease) forwards}
+  .h-load.d1{animation-delay:.15s}.h-load.d2{animation-delay:.3s}.h-load.d3{animation-delay:.45s}.h-load.d4{animation-delay:.6s}.h-load.d5{animation-delay:.75s}
+  @keyframes hin{to{opacity:1;transform:none}}
+
+  /* ---------- responsive ---------- */
+  @media(max-width:980px){
+    .hero-inner,.why,.cta-box,.foot-grid{grid-template-columns:1fr}
+    .deals-grid{grid-template-columns:1fr 1fr}
+    .fmt-grid>div{grid-column:span 12 !important}
+    .cta-form{border-left:none;border-top:1px solid var(--line)}
+    .hero-card{max-width:480px;width:100%;justify-self:start}
+  }
+  /* ---- mobile / tablet menu ---- */
+  @media(max-width:860px){
+    .nav-toggle{display:flex}
+    .nav-links{
+      position:fixed;inset:0;flex-direction:column;justify-content:center;align-items:center;gap:30px;
+      background:rgba(8,20,47,.97);backdrop-filter:blur(20px);
+      transform:translateX(100%);transition:transform .5s var(--ease);
+    }
+    .nav-links.open{transform:none}
+    .nav-links a{font-size:1.15rem;color:var(--light)}
+    .nav-links a.btn{font-size:.95rem;margin-top:8px}
+    body.menu-open{overflow:hidden}
+  }
+  @media(max-width:680px){
+    .wrap{padding:0 22px}
+    nav{padding:18px 22px}
+    .hero{padding:120px 0 60px}
+    .hero h1{font-size:clamp(2.7rem,11vw,4rem)}
+    .hero .lead{font-size:1rem}
+    .hero-card{max-width:100%}
+    .deals-grid{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .cta-left,.cta-form{padding:40px 28px}
+    body{cursor:auto}.cursor,.cursor-dot{display:none}
+  }
+
+  /* ---------- accessibility ---------- */
+  .field input,.field textarea{cursor:text}
+  .field select{cursor:pointer}
+
+  /* ---- services ---- */
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .svc{position:relative;border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));transition:transform .5s var(--ease),border-color .5s,box-shadow .5s}
+  .svc:hover{transform:translateY(-6px);border-color:rgba(200,155,44,.45);box-shadow:0 24px 50px rgba(0,0,0,.4)}
+  .svc-img{position:relative;height:178px;overflow:hidden}
+  .svc-img img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+  .svc-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,20,47,.12),rgba(8,20,47,.78))}
+  .svc:hover .svc-img img{transform:scale(1.08)}
+  .svc .sn{position:absolute;top:14px;left:16px;z-index:2;font-family:var(--display);font-size:.82rem;font-weight:600;color:var(--navy);background:linear-gradient(135deg,var(--gold-ll),var(--gold));padding:5px 12px;border-radius:100px}
+  .svc-txt{padding:24px 26px 28px;display:flex;flex-direction:column;flex:1}
+  .svc h3{font-size:1.32rem;margin:0 0 10px}
+  .svc p{color:#aab1c2;font-size:.9rem;line-height:1.55;flex:1}
+  .svc .arrow{margin-top:18px;display:inline-flex;align-items:center;gap:8px;color:var(--gold-l);font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.55;transform:translateX(0);transition:opacity .4s,gap .4s}
+  .svc:hover .arrow{opacity:1;gap:13px}
+  @media(max-width:980px){.svc-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:680px){.svc-grid{grid-template-columns:1fr}}
+
+  /* ---- what we do — heading-led capability grids ---- */
+  .wwd-cat{margin-top:72px}
+  .wwd-cat:first-of-type{margin-top:0}
+  .wwd-cat-head{margin-bottom:30px}
+  .wwd-cat-head h3{font-size:clamp(1.8rem,3.4vw,2.7rem);line-height:1.05}
+  .wwd-cat-head p{color:#aab1c2;font-size:1rem;line-height:1.6;margin-top:14px;max-width:640px}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
+    .reveal,.stagger>*,.h-load{opacity:1 !important;transform:none !important}
+  }
+</style>
+<noscript><style>.reveal,.stagger>*,.h-load{opacity:1 !important;transform:none !important}</style></noscript>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="cursor"></div>
+<div class="cursor-dot"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="logo"><img src="assets/logo.png" alt="Rabtora Madhyam Management" /></a>
+  <div class="nav-links" id="navLinks">
+    <a href="#services">Services</a>
+    <a href="#capabilities">Capabilities</a>
+    <a href="#why">Why Us</a>
+    <a href="#clients">Clients</a>
+    <a href="#contact" class="btn btn-gold">Connect with us →</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=2000&auto=format&fit=crop" alt="Dubai skyline at dusk" onerror="this.style.display='none'" />
+  </div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="wrap hero-inner">
+    <div>
+      <span class="eyebrow h-load">Dubai · Media &amp; Advertising Agency</span>
+      <h1>
+        <span class="h-load d1">Own the</span><br />
+        <span class="it h-load d2">Attention.</span>
+      </h1>
+      <p class="lead h-load d3">
+        Rabtora Madhyam Management is Dubai's full-service media &amp; advertising
+        agency — end-to-end branding, digital, outdoor &amp; transit media, events,
+        web and signage. One team that makes brands impossible to ignore.
+      </p>
+      <div class="hero-cta h-load d4">
+        <a href="#contact" class="btn btn-gold">Connect with us →</a>
+        <a href="#services" class="btn btn-ghost">Explore our services</a>
+      </div>
+      <div class="scroll-cue h-load d5"><span class="ln"></span> Scroll to explore</div>
+    </div>
+
+    <div class="hero-card h-load d4">
+      <span class="tag">Full-Service Agency</span>
+      <img src="https://images.unsplash.com/photo-1698307191710-57e006bdc5f5?q=80&w=1400&auto=format&fit=crop" alt="Outdoor billboard running a brand advertising campaign" onerror="this.style.opacity=.2" />
+      <div class="meta">
+        <span class="live"><i></i> Now onboarding brands</span>
+        <h3>From brand strategy to citywide launch</h3>
+        <div class="row">
+          <div class="impr">Disciplines under one roof<b>9+</b></div>
+          <a href="#contact" class="btn btn-gold">Connect with us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- SERVICES -->
+<section class="pad" id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">What We Do</span>
+      <h2>Everything your brand<br />needs, under one roof.</h2>
+      <p>End-to-end branding, digital, media, events and signage — delivered by one accountable team in Dubai.</p>
+    </div>
+
+    <!-- Outdoor -->
+    <div class="wwd-cat">
+      <div class="wwd-cat-head reveal">
+        <h3>Turn Every Road Into Brand Space</h3>
+        <p>Premium outdoor visibility through billboards, hoardings, transit branding, LED screens, and high-traffic media placements across the UAE.</p>
+      </div>
+      <div class="fmt-grid stagger">
+        <div class="fmt span-7"><img src="https://images.unsplash.com/photo-1616022017056-fdddb002876a?q=80&w=1200&auto=format&fit=crop" alt="Billboards" onerror="this.style.opacity=.25" /><span class="num">01</span><div class="fmt-body"><h3>Billboards</h3><p>Prime roadside billboards on Dubai's busiest routes.</p></div></div>
+        <div class="fmt span-5"><img src="https://images.unsplash.com/photo-1592512786232-e6b88efa68ff?q=80&w=1200&auto=format&fit=crop" alt="Hoardings" onerror="this.style.opacity=.25" /><span class="num">02</span><div class="fmt-body"><h3>Hoardings</h3><p>Large-format hoardings across high-footfall districts.</p></div></div>
+        <div class="fmt span-4"><img src="https://images.unsplash.com/photo-1590790604206-1f055cc8a8d7?q=80&w=900&auto=format&fit=crop" alt="Transit branding" onerror="this.style.opacity=.25" /><span class="num">03</span><div class="fmt-body"><h3>Transit Branding</h3><p>Vehicle &amp; transit wraps that move with the city.</p></div></div>
+        <div class="fmt span-4"><img src="https://images.unsplash.com/photo-1599723352663-d84307d89a8e?q=80&w=900&auto=format&fit=crop" alt="LED screens" onerror="this.style.opacity=.25" /><span class="num">04</span><div class="fmt-body"><h3>LED Screens</h3><p>Dynamic DOOH &amp; LED screen placements.</p></div></div>
+        <div class="fmt span-4"><img src="https://images.unsplash.com/photo-1485848225137-7a97afbde637?q=80&w=900&auto=format&fit=crop" alt="High-traffic media placements" onerror="this.style.opacity=.25" /><span class="num">05</span><div class="fmt-body"><h3>High-Traffic Media</h3><p>Premium sites where the whole city looks.</p></div></div>
+      </div>
+    </div>
+
+    <!-- Branding -->
+    <div class="wwd-cat">
+      <div class="wwd-cat-head reveal">
+        <h3>Branding That Leaves a Mark</h3>
+        <p>Brand identity, packaging, business cards, print collateral, visual materials and corporate gifts — crafted to make you unforgettable.</p>
+      </div>
+      <div class="fmt-grid stagger">
+        <div class="fmt span-4"><img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=900&auto=format&fit=crop" alt="Brand identity" onerror="this.style.opacity=.25" /><span class="num">01</span><div class="fmt-body"><h3>Brand Identity</h3><p>Logos, identity systems &amp; guidelines.</p></div></div>
+        <div class="fmt span-4"><img src="https://images.unsplash.com/photo-1627384113710-424c9181ebbb?q=80&w=900&auto=format&fit=crop" alt="Packaging design" onerror="this.style.opacity=.25" /><span class="num">02</span><div class="fmt-body"><h3>Packaging Design</h3><p>Standout packaging that sells on the shelf.</p></div></div>
+        <div class="fmt span-4"><img src="https://images.unsplash.com/photo-1495846111602-a16f6a1ede09?q=80&w=900&auto=format&fit=crop" alt="Business cards" onerror="this.style.opacity=.25" /><span class="num">03</span><div class="fmt-body"><h3>Business Cards</h3><p>Premium cards that make the right impression.</p></div></div>
+        <div class="fmt span-4"><img src="https://images.unsplash.com/photo-1591266871922-7ec7b50de8b2?q=80&w=900&auto=format&fit=crop" alt="Print collateral" onerror="this.style.opacity=.25" /><span class="num">04</span><div class="fmt-body"><h3>Print Collateral</h3><p>Brochures, profiles &amp; marketing print.</p></div></div>
+        <div class="fmt span-4"><img src="https://images.unsplash.com/photo-1454587399083-b11b22f48fb6?q=80&w=900&auto=format&fit=crop" alt="Visual materials" onerror="this.style.opacity=.25" /><span class="num">05</span><div class="fmt-body"><h3>Visual Materials</h3><p>Cohesive visual assets across every touchpoint.</p></div></div>
+        <div class="fmt span-4"><img src="https://images.unsplash.com/photo-1759563874672-e7dfb1ca3f73?q=80&w=900&auto=format&fit=crop" alt="Corporate gifts" onerror="this.style.opacity=.25" /><span class="num">06</span><div class="fmt-body"><h3>Corporate Gifts</h3><p>Branded gifts &amp; merchandise people keep.</p></div></div>
+      </div>
+    </div>
+
+    <!-- Electronic / Broadcast -->
+    <div class="wwd-cat">
+      <div class="wwd-cat-head reveal">
+        <h3>Reach Millions on Screen</h3>
+        <p>TV commercials, radio spots, digital display advertising and broadcast media placements that put your brand in front of the right audience, at scale.</p>
+      </div>
+      <div class="fmt-grid stagger">
+        <div class="fmt span-7"><img src="https://images.unsplash.com/photo-1470338229081-eb5980be28c9?q=80&w=1200&auto=format&fit=crop" alt="TV commercials" onerror="this.style.opacity=.25" /><span class="num">01</span><div class="fmt-body"><h3>TV Commercials</h3><p>Concept-to-screen commercial production.</p></div></div>
+        <div class="fmt span-5"><img src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?q=80&w=1200&auto=format&fit=crop" alt="Radio spots" onerror="this.style.opacity=.25" /><span class="num">02</span><div class="fmt-body"><h3>Radio Spots</h3><p>Scripted, produced &amp; placed radio ads.</p></div></div>
+        <div class="fmt span-5"><img src="https://images.unsplash.com/photo-1610376096719-9819725cfb00?q=80&w=1200&auto=format&fit=crop" alt="Digital display advertising" onerror="this.style.opacity=.25" /><span class="num">03</span><div class="fmt-body"><h3>Digital Display</h3><p>Targeted digital display advertising.</p></div></div>
+        <div class="fmt span-7"><img src="https://images.unsplash.com/photo-1550615511-c317ce7f1d03?q=80&w=1200&auto=format&fit=crop" alt="Broadcast media" onerror="this.style.opacity=.25" /><span class="num">04</span><div class="fmt-body"><h3>Broadcast Media</h3><p>Planning &amp; buying across broadcast media.</p></div></div>
+      </div>
+    </div>
+
+    <!-- Signage -->
+    <div class="wwd-cat">
+      <div class="wwd-cat-head reveal">
+        <h3>Signage That Commands Attention</h3>
+        <p>Custom sign boards, acrylic letters, illuminated fascia and premium storefront branding that makes your business unmissable on any street.</p>
+      </div>
+      <div class="fmt-grid stagger">
+        <div class="fmt span-5"><img src="https://images.unsplash.com/photo-1605513524006-063ed6ed31e7?q=80&w=1200&auto=format&fit=crop" alt="Custom sign boards" onerror="this.style.opacity=.25" /><span class="num">01</span><div class="fmt-body"><h3>Custom Sign Boards</h3><p>Bespoke sign boards built to spec.</p></div></div>
+        <div class="fmt span-7"><img src="https://images.unsplash.com/photo-1502739423516-a7da6332f56f?q=80&w=1200&auto=format&fit=crop" alt="Acrylic letters" onerror="this.style.opacity=.25" /><span class="num">02</span><div class="fmt-body"><h3>Acrylic Letters</h3><p>3D acrylic &amp; channel-letter signage.</p></div></div>
+        <div class="fmt span-7"><img src="https://images.unsplash.com/photo-1636054349802-d56bdba58c34?q=80&w=1200&auto=format&fit=crop" alt="Illuminated fascia" onerror="this.style.opacity=.25" /><span class="num">03</span><div class="fmt-body"><h3>Illuminated Fascia</h3><p>Backlit fascia that glows day and night.</p></div></div>
+        <div class="fmt span-5"><img src="https://images.unsplash.com/photo-1490122560550-d5ce9f8211e8?q=80&w=1200&auto=format&fit=crop" alt="Storefront branding" onerror="this.style.opacity=.25" /><span class="num">04</span><div class="fmt-body"><h3>Storefront Branding</h3><p>End-to-end storefront branding &amp; install.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="pad" id="capabilities" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Our Capabilities</span>
+      <h2>Work that owns the city.</h2>
+    </div>
+
+    <div class="fmt-grid stagger">
+      <div class="fmt span-7">
+        <img src="https://images.unsplash.com/photo-1732360487817-f29cc82d8eab?q=80&w=1400&auto=format&fit=crop" alt="Illuminated billboards and hoardings at The Dubai Mall" onerror="this.style.opacity=.25" />
+        <span class="num">01</span>
+        <div class="fmt-body"><h3>Outdoor Advertising</h3><p>Billboards, unipoles & hoardings on Dubai's busiest arterial roads.</p></div>
+      </div>
+      <div class="fmt span-5">
+        <img src="https://images.unsplash.com/photo-1496568816309-51d7c20e3b21?q=80&w=1200&auto=format&fit=crop" alt="Dubai skyline illuminated at night" onerror="this.style.opacity=.25" />
+        <span class="num">02</span>
+        <div class="fmt-body"><h3>Digital &amp; Transit Media</h3><p>Dynamic LED screens & vehicle branding across the UAE.</p></div>
+      </div>
+      <div class="fmt span-4">
+        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1200&auto=format&fit=crop" alt="Live event with stage lighting" onerror="this.style.opacity=.25" />
+        <span class="num">03</span>
+        <div class="fmt-body"><h3>Corporate &amp; Sports Events</h3><p>Concept to on-ground delivery.</p></div>
+      </div>
+      <div class="fmt span-4">
+        <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=1200&auto=format&fit=crop" alt="Web and app development on screen" onerror="this.style.opacity=.25" />
+        <span class="num">04</span>
+        <div class="fmt-body"><h3>Design &amp; Web</h3><p>Websites, apps & brand systems.</p></div>
+      </div>
+      <div class="fmt span-4">
+        <img src="https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?q=80&w=1200&auto=format&fit=crop" alt="Illuminated storefront signage" onerror="this.style.opacity=.25" />
+        <span class="num">05</span>
+        <div class="fmt-body"><h3>Signage &amp; Print</h3><p>Signboards, 3D letters & premium print.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY / PROCESS -->
+<section class="pad" id="why">
+  <div class="wrap why">
+    <div class="why-img reveal">
+      <img src="https://images.unsplash.com/photo-1576864333214-b2cee50f8283?q=80&w=1200&auto=format&fit=crop" alt="Marketing campaign running on an outdoor billboard" onerror="this.style.opacity=.25" />
+      <div class="float-stat"><b>94%</b><span>of clients return for their next campaign</span></div>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">Why Rabtora</span>
+      <h2 style="font-size:clamp(2.2rem,4vw,3.4rem);margin-top:18px">From brief to launch,<br />one accountable team.</h2>
+      <div class="steps">
+        <div class="step"><div class="n">01</div><div><h3>Strategy &amp; creative</h3><p>We define the brand, the message and the mix of channels that move your audience.</p></div></div>
+        <div class="step"><div class="n">02</div><div><h3>Production &amp; media</h3><p>Design, build, print, film and book — handled in-house, end to end.</p></div></div>
+        <div class="step"><div class="n">03</div><div><h3>Launch, manage &amp; report</h3><p>We run the campaign and report on what's working, in real time.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGOS -->
+<section class="logos" id="clients">
+  <div class="wrap reveal">
+    <p class="lbl">Trusted by ambitious brands across the Emirates</p>
+    <div class="logo-row">
+      <span>Maison&nbsp;Royale</span><span>Atlas&nbsp;Group</span><span>Noor&nbsp;Bank</span><span>Velocity</span><span>Aurum</span><span>Mirage&nbsp;Auto</span><span>Lumière</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / FORM -->
+<section class="pad cta" id="contact">
+  <div class="wrap">
+    <div class="cta-box reveal">
+      <div class="cta-left">
+        <span class="eyebrow">Connect With Us</span>
+        <h2 style="margin-top:18px">Let's build something<br />the city can't ignore.</h2>
+        <p>Tell us about your brand and goals. We'll come back with a tailored proposal across the right mix of channels within 24 hours.</p>
+        <ul class="cta-points">
+          <li>Branding, digital, media &amp; events — one team</li>
+          <li>Senior strategists on every project</li>
+          <li>Transparent scope, timeline &amp; pricing</li>
+        </ul>
+      </div>
+      <div class="cta-form">
+        <form id="leadForm" action="submit.php" method="post" novalidate>
+          <div class="field"><label for="f-name">Full name</label><input id="f-name" type="text" name="name" placeholder="Your name" required /></div>
+          <div class="field"><label for="f-email">Work email</label><input id="f-email" type="email" name="email" placeholder="you@brand.com" required /></div>
+          <div class="field"><label for="f-mobile">Mobile number</label><input id="f-mobile" type="tel" name="mobile" placeholder="+971 50 000 0000" pattern="[0-9+()\s-]{7,20}" required /></div>
+          <div class="field"><label for="f-format">Service you need</label>
+            <select id="f-format" name="service" required>
+              <option value="">Select a service</option>
+              <option value="branding">Branding</option>
+              <option value="digital">Digital Marketing</option>
+              <option value="outdoor">Outdoor Advertising</option>
+              <option value="dooh-transit">Digital Outdoor &amp; Transit Media</option>
+              <option value="events">Corporate &amp; Sports Events</option>
+              <option value="web">Design &amp; Web Development</option>
+              <option value="electronic">Electronic Media Ad</option>
+              <option value="signage">Sign Board / Letters</option>
+              <option value="printing">Branding &amp; Printing</option>
+              <option value="not-sure">Full-service — not sure yet</option>
+            </select>
+          </div>
+          <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
+          <button type="submit" class="btn btn-gold">Connect with us →</button>
+          <p class="form-note" id="formNote">No spam. A strategist replies within 24 hours.</p>
+        </form>
+        <div class="form-success" id="success">
+          <div class="check">✓</div>
+          <h3 style="font-size:1.6rem">Request received.</h3>
+          <p style="color:#aab1c2;margin-top:10px">A Rabtora strategist will reach out shortly to discuss your project.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#" class="logo" style="margin-bottom:18px"><img src="assets/logo.png" alt="Rabtora Madhyam Management" /></a>
+        <p>Rabtora Madhyam Management — Dubai's full-service media &amp; advertising agency. End-to-end branding, digital &amp; event solutions.</p>
+      </div>
+      <div><h4>Services</h4><a href="#services">Branding</a><a href="#services">Digital Marketing</a><a href="#services">Outdoor Advertising</a><a href="#services">Events</a><a href="#services">Web Development</a></div>
+      <div><h4>Company</h4><a href="#why">Why Rabtora</a><a href="#capabilities">Capabilities</a><a href="#clients">Clients</a><a href="#contact">Contact</a></div>
+      <div><h4>Get in touch</h4><p>Premises No. 4.07-COW5-12, Floor 04<br />Sheikh Rashid Tower<br />Dubai World Trade Centre<br />Dubai, UAE</p><a href="mailto:info@rabtora.ae">info@rabtora.ae</a><a href="tel:+971554711132">+971 55 471 1132</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Rabtora Madhyam Management. All rights reserved.</span>
+      <span>Privacy · Terms · Cookies</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const reduceMotion=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* ---- custom cursor ---- */
+  const cur=document.querySelector('.cursor'),dot=document.querySelector('.cursor-dot');
+  let mx=0,my=0,cx=0,cy=0;
+  if(window.matchMedia('(hover:hover)').matches && !reduceMotion){
+    addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`});
+    (function loop(){cx+=(mx-cx)*.18;cy+=(my-cy)*.18;cur.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;requestAnimationFrame(loop)})();
+    document.querySelectorAll('a,button,input,select,.fmt').forEach(el=>{
+      el.addEventListener('mouseenter',()=>cur.classList.add('hover'));
+      el.addEventListener('mouseleave',()=>cur.classList.remove('hover'));
+    });
+  }
+
+  /* ---- nav scroll state ---- */
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40));
+
+  /* ---- mobile menu ---- */
+  const navToggle=document.getElementById('navToggle'),navLinks=document.getElementById('navLinks');
+  function setMenu(open){
+    navLinks.classList.toggle('open',open);
+    navToggle.classList.toggle('open',open);
+    document.body.classList.toggle('menu-open',open);
+    navToggle.setAttribute('aria-expanded',open);
+    navToggle.setAttribute('aria-label',open?'Close menu':'Open menu');
+  }
+  navToggle.addEventListener('click',()=>setMenu(!navLinks.classList.contains('open')));
+  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+  addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false);});
+
+  /* ---- reveal on scroll ---- */
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.18});
+  document.querySelectorAll('.reveal,.stagger').forEach(el=>io.observe(el));
+
+  /* ---- hero parallax ---- */
+  const hb=document.querySelector('.hero-bg img');
+  if(!reduceMotion)addEventListener('scroll',()=>{if(scrollY<800&&hb)hb.style.transform=`translateY(${scrollY*.25}px) scale(1.05)`});
+
+  /* ---- form (AJAX submit to submit.php) ---- */
+  const form=document.getElementById('leadForm');
+  const note=document.getElementById('formNote');
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    if(!form.checkValidity()){form.reportValidity();return;}
+    const btn=form.querySelector('button[type=submit]');
+    const original=btn.textContent;
+    btn.disabled=true;btn.textContent='Sending…';
+    note.style.color='';note.textContent='No spam. A strategist replies within 24 hours.';
+    try{
+      const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
+      const data=await res.json().catch(()=>({}));
+      if(res.ok && data.ok){
+        form.style.display='none';
+        document.getElementById('success').classList.add('show');
+      }else{
+        throw new Error((data&&data.error)||'Something went wrong. Please try again.');
+      }
+    }catch(err){
+      btn.disabled=false;btn.textContent=original;
+      note.style.color='#e0865f';
+      note.textContent=err.message||'Could not send right now — please email hello@rabtora.ae.';
+    }
+  });
+</script>
+</body>
+</html>

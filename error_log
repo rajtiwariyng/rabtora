@@ -1,0 +1,4 @@
+[16-Jun-2026 10:16:01 UTC] submit_lead insert failed: SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: NO)
+[16-Jun-2026 10:23:13 UTC] submit_lead insert failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'thejanmi_rabtora.leads' doesn't exist
+[16-Jun-2026 10:23:34 UTC] submit_lead insert failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'thejanmi_rabtora.leads' doesn't exist
+[16-Jun-2026 10:24:23 UTC] submit_lead insert failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'thejanmi_rabtora.leads' doesn't exist

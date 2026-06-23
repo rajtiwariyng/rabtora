@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rabtora - Own Attention.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --gold: #cfa240; /* Golden accent */
+      --navy: #0a1936; /* Deep navy blue background */
+      --text-light: #ffffff;
+      --text-muted: #abb8c3;
+      --card-bg: #0d2042;
+      --border: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy);
+      color: var(--text-light);
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: min(1400px, 90%);
+      margin: auto;
+    }
+
+    /* ================= NAVBAR ================= */
+    .navbar {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1400px, 92%);
+      z-index: 1000;
+      background: rgba(10, 25, 54, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 18px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .logo img {
+      max-width: 70px;
+    }
+
+    .logo span {
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 30px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.4s ease;
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #cfa240, #f3d67a);
+      color: #08142f;
+      box-shadow: 0 10px 30px rgba(207, 162, 64, 0.25);
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-outline:hover {
+        background: rgba(207, 162, 64, 0.1);
+    }
+
+    /* ================= HERO ================= */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 120px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      background: rgba(207, 162, 64, 0.07);
+      filter: blur(120px);
+      top: -200px;
+      right: -200px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 80px;
+    }
+
+    .hero-sub {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    .hero h1 {
+      font-size: clamp(70px, 10vw, 150px);
+      line-height: 0.9;
+      letter-spacing: -6px;
+      font-weight: 900;
+      margin-bottom: 35px;
+      color: var(--text-light);
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+    }
+
+    .hero p {
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--text-muted);
+      max-width: 620px;
+      margin-bottom: 40px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* HERO VISUAL */
+    .hero-visual {
+      position: relative;
+      height: 650px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .glass-card {
+      width: 420px;
+      height: 520px;
+      border-radius: 40px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glass-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+    }
+
+    .orb {
+      position: absolute;
+    width: 260px;
+    height: 260px;
+    top: 40px;
+    right: -30px;
+    background: linear-gradient(135deg, #f7dc82, #edbf4b);
+    border-radius: 58% 42% 63% 37% / 41% 58% 42% 59%;
+    filter: blur(8px);
+    animation: blobMorph 8s ease-in-out infinite, blobFloat 12s ease-in-out infinite;
+    opacity: 0.95;
+    }
+    .orb::before{
+      content:"";
+      position:absolute;
+      inset:-20px;
+
+      background:inherit;
+
+      border-radius:inherit;
+
+      filter:blur(40px);
+
+      opacity:0.5;
+
+      z-index:-1;
+}
+
+/* FLOATING MOVEMENT */
+
+@keyframes blobFloat{
+
+  0%{
+    transform:translate(0px,0px) rotate(0deg);
+  }
+
+  25%{
+    transform:translate(-20px,20px) rotate(8deg);
+  }
+
+  50%{
+    transform:translate(10px,40px) rotate(-6deg);
+  }
+
+  75%{
+    transform:translate(-15px,10px) rotate(5deg);
+  }
+
+  100%{
+    transform:translate(0px,0px) rotate(0deg);
+  }
+
+}
+
+/* BLOB MORPHING */
+
+@keyframes blobMorph{
+
+  0%{
+    border-radius:58% 42% 63% 37% / 41% 58% 42% 59%;
+  }
+
+  25%{
+    border-radius:42% 58% 31% 69% / 56% 32% 68% 44%;
+  }
+
+  50%{
+    border-radius:67% 33% 52% 48% / 37% 61% 39% 63%;
+  }
+
+  75%{
+    border-radius:36% 64% 60% 40% / 52% 42% 58% 48%;
+  }
+
+  100%{
+    border-radius:58% 42% 63% 37% / 41% 58% 42% 59%;
+  }
+
+}
+
+    .floating-text {
+      position: absolute;
+      left: 50px;
+      bottom: 60px;
+      z-index: 2;
+    }
+
+    .floating-text h3 {
+      font-size: 44px;
+      line-height: 1;
+      margin-bottom: 18px;
+      color: var(--gold);
+    }
+
+    .floating-text p {
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ================= SECTION ================= */
+    section {
+      padding: 140px 0;
+      position: relative;
+    }
+
+    .section-title {
+      font-size: clamp(50px, 6vw, 90px);
+      line-height: 1;
+      letter-spacing: -4px;
+      margin-bottom: 30px;
+      font-weight: 900;
+      color: var(--text-light);
+    }
+
+    .section-title span {
+      color: var(--gold);
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      line-height: 1.9;
+      max-width: 700px;
+      font-size: 18px;
+    }
+
+    /* ================= SERVICES (4 BOX SECTION WITH IMAGES) ================= */
+    .services-grid {
+      margin-top: 80px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+
+    .service-card {
+      position: relative;
+      padding: 40px;
+      border-radius: 30px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      transition: 0.4s ease;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    /* Background image layer for 4 boxes */
+    .service-card-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.05; /* Normal display me halki si image dikhegi */
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: -1;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--gold);
+    }
+
+    /* Hover karne par image high-impact and dynamic scale hogi */
+    .service-card:hover .service-card-bg {
+      opacity: 0.25; 
+      transform: scale(1.1);
+    }
+
+    .service-number {
+      font-size: 14px;
+      color: var(--gold);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .service-card h3 {
+      font-size: 32px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: var(--gold);
+    }
+
+    .service-card p {
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    /* ================= VISUAL SERVICES SECTION ================= */
+    .visual-services-grid {
+      margin-top: 60px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+
+    .visual-card {
+      background: var(--card-bg);
+      border-radius: 35px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      transition: transform 0.4s ease, border-color 0.4s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .visual-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--gold);
+    }
+
+    .visual-img-wrapper {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+    }
+
+    .visual-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .visual-card:hover .visual-img-wrapper img {
+      transform: scale(1.05);
+    }
+
+    .visual-content {
+      padding: 40px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .visual-content h3 {
+      font-size: 36px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 15px;
+      letter-spacing: -1px;
+    }
+
+    .visual-content p {
+      color: var(--text-muted);
+      line-height: 1.8;
+      font-size: 16px;
+      margin-bottom: 25px;
+    }
+
+    .visual-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .visual-list li {
+      color: #ffffff;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .visual-list li::before {
+      content: "•";
+      color: var(--gold);
+      font-size: 20px;
+    }
+
+    .visual-btn {
+      align-self: flex-start;
+      padding: 12px 28px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .visual-btn:hover {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    /* ================= SHOWCASE (FIXED BACKGROUND IMAGE) ================= */
+    .showcase {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      /* Navy overlay hata diya h, ab sirf light overlay h taaki image dikhe aur text readable ho */
+      background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), 
+                  url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=2000&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      text-align: center;
+    }
+
+    .showcase h2 {
+      font-size: clamp(60px, 8vw, 120px);
+      line-height: 0.95;
+      letter-spacing: -5px;
+      margin-bottom: 30px;
+      color: var(--gold);
+    }
+
+    .showcase p {
+      max-width: 800px;
+      margin: auto;
+      font-size: 20px;
+      line-height: 1.8;
+      opacity: 0.8;
+      color: #ffffff;
+    }
+
+    /* ================= STATS ================= */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      margin-top: 80px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat h3 {
+      font-size: 90px;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 10px;
+      font-weight: 900;
+    }
+
+    .stat p {
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+
+    /* ================= FORM ================= */
+    .consultation-box {
+      max-width: 900px;
+      margin: auto;
+      padding: 60px;
+      border-radius: 40px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .input-group {
+      margin-bottom: 24px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    .input-group input,
+    .input-group textarea,
+    .input-group select {
+      width: 100%;
+      padding: 18px 20px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.05);
+      font-size: 16px;
+      outline: none;
+      color: var(--text-light);
+    }
+
+    .input-group input:focus,
+    .input-group textarea:focus,
+    .input-group select:focus {
+        border-color: var(--gold);
+    }
+
+    textarea {
+      resize: none;
+      height: 150px;
+    }
+
+    /* ================= FOOTER ================= */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+        color: var(--gold);
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 1100px) {
+      .hero-grid,
+      .services-grid,
+      .visual-services-grid,
+      .stats-grid,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .visual-list {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 180px;
+      }
+
+      .hero-visual {
+        height: auto;
+      }
+
+      .glass-card {
+        width: 100%;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .section-title {
+        letter-spacing: -2px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">
+      <img src="logo-3d.webp" alt="Rabtora Logo">
+    </div>
+
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#campaigns">Campaigns</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <a href="#contact" class="btn btn-gold">
+      Book Consultation
+    </a>
+  </nav>
+
+  <section class="hero" id="about">
+    <div class="container hero-grid">
+
+      <div>
+        <div class="hero-sub">
+          UAE’S PREMIER BRAND VISIBILITY PARTNER
+        </div>
+
+        <h1>
+          Own <br>
+          <span>Attention.</span>
+        </h1>
+
+        <p>
+          Premium outdoor branding, signage, media placements,
+          and luxury visibility campaigns engineered for brands
+          that refuse to blend in.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#contact" class="btn btn-gold">
+            Book Free Consultation
+          </a>
+
+          <a href="#campaigns" class="btn btn-outline">
+            View Campaigns
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="glass-card">
+          <div class="orb"></div>
+          <div class="floating-text">
+            <h3>
+              Visibility<br>
+              Reimagined.
+            </h3>
+            <p>
+              Outdoor media experiences crafted
+              for luxury brands across Dubai & UAE.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <h2 class="section-title">
+        Built for Brands <br>
+        That Want <span>More.</span>
+      </h2>
+
+      <p class="section-desc">
+        Rabtora combines cinematic outdoor branding,
+        intelligent media placements, premium signage,
+        and strategic visual storytelling to dominate
+        attention across the UAE.
+      </p>
+
+      <div class="services-grid">
+        
+        <div class="service-card">
+          <div class="service-card-bg" style="background-image: url('https://images.unsplash.com/photo-1617396900799-f4ec2b43c7ae?q=80&w=600&auto=format&fit=crop');"></div>
+          <div class="service-number">01</div>
+          <h3>Outdoor Media</h3>
+          <p>
+            Premium billboard and roadside visibility campaigns.
+          </p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card-bg" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop');"></div>
+          <div class="service-number">02</div>
+          <h3>LED Screens</h3>
+          <p>
+            High-impact digital advertising experiences at scale.
+          </p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card-bg" style="background-image: url('https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=600&auto=format&fit=crop');"></div>
+          <div class="service-number">03</div>
+          <h3>Luxury Signage</h3>
+          <p>
+            Elegant storefronts and architectural brand presence.
+          </p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card-bg" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600&auto=format&fit=crop');"></div>
+          <div class="service-number">04</div>
+          <h3>Transit Branding</h3>
+          <p>
+            Reach millions across the city with motion visibility.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top: 0;">
+    <div class="container">
+      <h2 class="section-title">
+        Campaigns That <span>Deliver Impact.</span>
+      </h2>
+      <p class="section-desc">
+        Explore how we design visual landmarks and transform spaces across premium high-traffic areas.
+      </p>
+
+      <div class="visual-services-grid">
+        
+        <div class="visual-card">
+          <div class="visual-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1617396900799-f4ec2b43c7ae?q=80&w=1200&auto=format&fit=crop" alt="Outdoor Space">
+          </div>
+          <div class="visual-content">
+            <div>
+              <h3>Turn Every Road Into Brand Space</h3>
+              <p>Premium outdoor visibility through billboards, hoardings, transit branding, LED screens, and high-traffic media placements across the UAE.</p>
+            </div>
+            <a href="#contact" class="visual-btn">Get Outdoor Quote →</a>
+          </div>
+        </div>
+
+        <div class="visual-card">
+          <div class="visual-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200&auto=format&fit=crop" alt="Branding & Design">
+          </div>
+          <div class="visual-content">
+            <div>
+              <h3>Branding That Leaves a Mark</h3>
+              <p>We craft solid corporate identities and tactile designs that differentiate your company in highly competitive modern markets.</p>
+              <ul class="visual-list">
+                <li>Brand Identity</li>
+                <li>Print Collateral</li>
+                <li>Packaging Design</li>
+                <li>Visual Materials</li>
+                <li>Business Cards</li>
+                <li>Corporate Gifts</li>
+              </ul>
+            </div>
+            <a href="#contact" class="visual-btn">Start Branding →</a>
+          </div>
+        </div>
+
+        <div class="visual-card">
+          <div class="visual-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop" alt="Digital Screens">
+          </div>
+          <div class="visual-content">
+            <div>
+              <h3>Reach Millions on Screen</h3>
+              <p>TV commercials, radio spots, digital display advertising, and broadcast media placements that put your brand in front of the right audience, at scale.</p>
+            </div>
+            <a href="#contact" class="visual-btn">Explore Media Ads →</a>
+          </div>
+        </div>
+
+        <div class="visual-card">
+          <div class="visual-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop" alt="Signage">
+          </div>
+          <div class="visual-content">
+            <div>
+              <h3>Signage That Commands Attention</h3>
+              <p>Custom sign boards, acrylic letters, illuminated fascia, and premium storefront branding that makes your business unmissable on any street.</p>
+            </div>
+            <a href="#contact" class="visual-btn">Get a Sign Quote →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="showcase" id="campaigns">
+    <div class="container">
+      <h2>
+        Built for brands <br>
+        that refuse <br>
+        to be ignored.
+      </h2>
+
+      <p>
+        From iconic roadside billboards to immersive LED media,
+        Rabtora transforms visibility into authority.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2 class="section-title">
+        Attention <span>At Scale.</span>
+      </h2>
+
+      <div class="stats-grid">
+        <div class="stat">
+          <h3>200+</h3>
+          <p>Brands Served</p>
+        </div>
+
+        <div class="stat">
+          <h3>500+</h3>
+          <p>Projects Delivered</p>
+        </div>
+
+        <div class="stat">
+          <h3>10+</h3>
+          <p>Years Experience</p>
+        </div>
+
+        <div class="stat">
+          <h3>UAE</h3>
+          <p>Wide Coverage</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title" style="text-align:center;">
+        Start Your <span>Luxury Campaign.</span>
+      </h2>
+
+      <div class="consultation-box">
+        <form>
+          <div class="form-grid">
+            <div class="input-group">
+              <label>Full Name</label>
+              <input type="text">
+            </div>
+
+            <div class="input-group">
+              <label>Phone Number</label>
+              <input type="text">
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="input-group">
+              <label>Email Address</label>
+              <input type="email">
+            </div>
+
+            <div class="input-group">
+              <label>Company Name</label>
+              <input type="text">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Service Interested In</label>
+            <select>
+              <option>Select Service</option>
+              <option>Outdoor Media</option>
+              <option>LED Advertising</option>
+              <option>Luxury Signage</option>
+              <option>Transit Branding</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label>Project Details</label>
+            <textarea></textarea>
+          </div>
+
+          <button class="btn btn-gold" style="border:none; cursor:pointer; width:100%;">
+            Get Free Consultation
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-flex">
+      <div class="logo">
+        Rab<span>tora</span>
+      </div>
+
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

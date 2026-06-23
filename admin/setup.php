@@ -5,9 +5,9 @@
  */
 
 $host   = 'localhost';
-$dbname = 'rabtora';
-$user   = 'root';
-$pass   = '';
+$dbname = 'thejanmi_rabtora';
+$user   = 'thejanmi_rabtora';
+$pass   = '%p_yEAq%rJU]{]DU';
 
 try {
     $pdo = new PDO("mysql:host={$host};charset=utf8mb4", $user, $pass, [
